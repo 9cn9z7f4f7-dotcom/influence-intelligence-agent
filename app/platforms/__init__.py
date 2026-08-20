@@ -1,6 +1,7 @@
 """Unified platform adapters (Source Router). См. app/platforms/base.py."""
 from __future__ import annotations
 
+from app.platforms.articles import ArticlesPlatformAdapter
 from app.platforms.base import PlatformAdapter, PlatformDiscoveryResult
 from app.platforms.instagram import InstagramPlatformAdapter
 from app.platforms.tiktok import TikTokPlatformAdapter
@@ -10,6 +11,7 @@ REGISTRY: dict[str, type[PlatformAdapter]] = {
     "youtube": YouTubePlatformAdapter,
     "instagram": InstagramPlatformAdapter,
     "tiktok": TikTokPlatformAdapter,
+    "articles": ArticlesPlatformAdapter,
 }
 
 
@@ -26,6 +28,7 @@ __all__ = [
     "YouTubePlatformAdapter",
     "InstagramPlatformAdapter",
     "TikTokPlatformAdapter",
+    "ArticlesPlatformAdapter",
     "REGISTRY",
     "get_platform_adapter",
 ]

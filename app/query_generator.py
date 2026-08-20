@@ -14,6 +14,8 @@ fallback (если вообще ничего не известно - напри�
 """
 from __future__ import annotations
 
+import re
+
 from app.topic_classifier import TAXONOMY
 
 # Topic -> нейтральные (НЕ brand-specific) query-шаблоны для discovery.
@@ -45,6 +47,58 @@ TOPIC_QUERY_TEMPLATES: dict[str, list[str]] = {
 GENERIC_FALLBACK_TOPICS = ["lifestyle", "entertainment"]
 
 MAX_QUERIES_DEFAULT = 12
+
+
+# ---------------------------------------------------------------------------
+# Articles/Web discovery queries (раздел 5 требований).
+#
+# Не привязано к одной вертикали/языку - если имя бренда содержит кириллицу,
+# используем русские шаблоны (плюс "sponsored" - явно указан в разделе 5 как
+# обязательный кросс-языковой запрос); иначе - английские.
+# ---------------------------------------------------------------------------
+_CYRILLIC_RE = re.compile(r"[а-яА-ЯёЁ]")
+
+ARTICLE_QUERY_TEMPLATES_RU = [
+    "{name}", "{name} обзор", "{name} промокод", "{name} партнер", "{name} реклама", "{name} скидка",
+]
+ARTICLE_QUERY_TEMPLATES_EN = [
+    "{name}", "{name} review", "{name} promo code", "{name} partner", "{name} discount",
+]
+# Всегда добавляем "sponsored" отдельно (раздел 5 - явный пример запроса) -
+# независимо от определённого языка бренда, т.к. рекламные disclosure на
+# английском встречаются и на русскоязычных сайтах.
+ARTICLE_QUERY_SPONSORED_SUFFIX = "sponsored"
+
+MAX_ARTICLE_QUERIES_DEFAULT = 12
+
+
+def generate_article_queries(
+    brand_name: str, aliases: list[str] | None = None, max_queries: int = MAX_ARTICLE_QUERIES_DEFAULT,
+) -> list[str]:
+    """Динамические (НЕ захардкоженные под одну вертикаль/язык) discovery-запросы
+    для Articles/Web платформы (раздел 5 требований)."""
+    brand_name = (brand_name or "").strip()
+    if not brand_name:
+        return []
+    names = [brand_name] + [a.strip() for a in (aliases or []) if a.strip() and a.strip().lower() != brand_name.lower()]
+
+    is_cyrillic = bool(_CYRILLIC_RE.search(brand_name))
+    templates = ARTICLE_QUERY_TEMPLATES_RU if is_cyrillic else ARTICLE_QUERY_TEMPLATES_EN
+
+    queries: list[str] = []
+    for name in names:
+        for template in templates:
+            queries.append(template.format(name=name))
+        queries.append(f"{name} {ARTICLE_QUERY_SPONSORED_SUFFIX}")
+
+    seen: set[str] = set()
+    unique: list[str] = []
+    for q in queries:
+        key = q.lower().strip()
+        if key and key not in seen:
+            seen.add(key)
+            unique.append(q)
+    return unique[:max_queries]
 
 
 def generate_discovery_queries(

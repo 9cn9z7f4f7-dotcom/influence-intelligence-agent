@@ -40,6 +40,11 @@ class PlatformDiscoveryResult:
     # Если live недоступен - конкретная подсказка пользователю, как импортировать
     # заранее собранные публичные данные (никогда не "симулируем" live за него).
     import_hint: Optional[str] = None
+    # Точечная доработка (Tavily/SerpAPI): какой web-search провайдер реально
+    # использовался для этого discovery ("tavily"/"serpapi"/None). Заполняется
+    # только ArticlesPlatformAdapter - для остальных платформ остаётся None и
+    # ни на что не влияет.
+    search_provider: Optional[str] = None
 
 
 class PlatformAdapter(ABC):

@@ -34,6 +34,7 @@ Orchestration pipeline: Brand -> Platforms -> AnalysisConfig -> Analyze.
 """
 from __future__ import annotations
 
+from dataclasses import replace
 from datetime import datetime, timedelta, timezone
 
 from app.analysis.brand_resolver import resolve_brand
@@ -52,13 +53,17 @@ from app.analytics.next_move import NextMoveBuilder
 from app.analytics.our_move import OurMoveBuilder
 from app.analytics.white_space import WhiteSpaceBuilder
 from app.creator_universe import build_creator_universe, next_move_candidate_pool
-from app.evidence import EvidenceStore
+from app.detection import combine_dom_and_visual, should_escalate_to_visual_evidence
+from app.enrichment.screenshot import ScreenshotCache
+from app.enrichment.visual_evidence import VisualEvidenceEnricher
+from app.evidence import EvidenceStore, make_evidence_id
 from app.ingestion.demo_loader import DemoLoader
 from app.ingestion.identifiers import stable_id
 from app.ingestion.live_youtube import build_integration
 from app.ingestion.youtube_adapter import YouTubeAdapter
-from app.models import Competitor, Creator, Integration, OurProfile, SourceMode
+from app.models import Competitor, Creator, Evidence, EvidenceType, Integration, OurProfile, Publisher, SourceMode
 from app.platforms import get_platform_adapter
+from app.platforms.social_connector_base import build_social_integration
 from config.settings import settings as default_settings
 
 # Next Move / White Space нужен буфер кандидатов ДО применения min_strategy_match /
@@ -131,11 +136,75 @@ def _load_our_profile() -> OurProfile:
 # ---------------------------------------------------------------------------
 
 
+def _visual_evidence_inputs(platform: str, raw_item: dict) -> tuple[str | None, str]:
+    """Достаёт (content_url, extracted_text) из raw_item конкретной платформы -
+    используется ТОЛЬКО для screenshot+vision escalation ambiguous-кейсов
+    (раздел 2-3), не для основной detect_integration-логики."""
+    if platform == "youtube":
+        snippet = raw_item.get("snippet", {}) or {}
+        video_id = (raw_item.get("id") or {}).get("videoId")
+        url = f"https://www.youtube.com/watch?v={video_id}" if video_id else None
+        return url, f"{snippet.get('title', '')} {snippet.get('description', '')}"
+    if platform == "articles":
+        parsed = raw_item.get("parsed")
+        if parsed is None:
+            return None, ""
+        return (parsed.canonical_url or parsed.source_url), (parsed.main_text or "")
+    # instagram/tiktok
+    return raw_item.get("post_url") or raw_item.get("profile_url"), raw_item.get("caption") or ""
+
+
+def _maybe_escalate_with_visual_evidence(
+    platform: str, raw_item: dict, detector_result, brand: ResolvedBrand,
+    visual_enricher: VisualEvidenceEnricher | None, screenshot_cache: ScreenshotCache | None,
+    evidence_store: EvidenceStore,
+):
+    """Раздел 2-3 требований: screenshot+vision ТОЛЬКО для manual_review (см.
+    app.detection.should_escalate_to_visual_evidence) - "не делать screenshot
+    каждой страницы". Vision result = AI_INFERENCE (EvidenceType.VISUAL_AI),
+    никогда FACT, и никогда не создаёт Integration сама по себе - может только
+    поднять manual_review -> confirmed через app.detection.combine_dom_and_visual,
+    если DOM/API evidence уже была найдена."""
+    if visual_enricher is None or screenshot_cache is None:
+        return detector_result
+    if not should_escalate_to_visual_evidence(detector_result.category):
+        return detector_result
+    if not visual_enricher.is_available():
+        return detector_result
+
+    content_url, extracted_text = _visual_evidence_inputs(platform, raw_item)
+    if not content_url:
+        return detector_result
+
+    screenshot = screenshot_cache.get_or_capture(content_url)
+    visual_result = visual_enricher.enrich(content_url, screenshot, extracted_text, brand.canonical_name, brand.aliases)
+    if not visual_result.is_usable():
+        return detector_result
+
+    new_category, new_confidence, used = combine_dom_and_visual(
+        detector_result.category, detector_result.confidence, visual_result.commercial_signal_visible,
+        visual_result.confidence, default_settings.live_integration_confidence_threshold,
+    )
+    if not used:
+        return detector_result
+
+    evidence_store.add(Evidence(
+        evidence_id=make_evidence_id("visual_ai", content_url, str(visual_result.signals)),
+        source_url=content_url, observed_at=None, type=EvidenceType.VISUAL_AI,
+        field="visual_commercial_signal", value=visual_result.signals,
+        confidence=visual_result.confidence, raw_fragment=("; ".join(visual_result.evidence)[:500] or None),
+    ))
+    return replace(detector_result, category=new_category, confidence=new_confidence)
+
+
 def stage_discover_and_extract(
     platform: str, brand: ResolvedBrand, competitor_id: str, config: AnalysisConfig,
-    evidence_store: EvidenceStore,
-) -> tuple[PlatformCoverage, list[Creator], list[Integration], list[Integration], list[dict]]:
-    """Возвращает (coverage, creators, confirmed_integrations, organic_mentions, manual_review_candidates)."""
+    evidence_store: EvidenceStore, visual_enricher: VisualEvidenceEnricher | None = None,
+    screenshot_cache: ScreenshotCache | None = None,
+) -> tuple[PlatformCoverage, list[Creator], list[Integration], list[Integration], list[dict], list[Publisher]]:
+    """Возвращает (coverage, creators, confirmed_integrations, organic_mentions,
+    manual_review_candidates, publishers). publishers - непусто только для
+    platform=="articles" (раздел 8: Publisher != Creator)."""
     adapter = get_platform_adapter(platform)
     discovery = adapter.discover_brand_content(brand, config)
 
@@ -145,22 +214,30 @@ def stage_discover_and_extract(
         status=discovery.status,
         reason=discovery.reason,
         items_collected=len(discovery.raw_items),
+        search_provider=discovery.search_provider,
     )
 
     if not discovery.raw_items:
-        return coverage, [], [], [], []
+        return coverage, [], [], [], [], []
 
     brand_terms = [brand.canonical_name] + brand.aliases
     creators_by_id: dict[str, Creator] = {}
     confirmed: list[Integration] = []
     organic: list[Integration] = []
     manual_review: list[dict] = []
+    publishers: list[Publisher] = []
+    seen_publisher_ids: set[str] = set()
 
     for raw_item in discovery.raw_items:
         detector_result = adapter.detect_integration(raw_item, brand_terms)
 
         if detector_result.category == "rejected":
             continue
+
+        if detector_result.category == "manual_review":
+            detector_result = _maybe_escalate_with_visual_evidence(
+                platform, raw_item, detector_result, brand, visual_enricher, screenshot_cache, evidence_store,
+            )
 
         if detector_result.category == "manual_review":
             manual_review.append({
@@ -171,10 +248,24 @@ def stage_discover_and_extract(
             })
             continue
 
+        # --- Articles: отдельный путь, БЕЗ Creator (раздел 8) -----------------
+        if platform == "articles":
+            integration, publisher = adapter.build_article_integration(raw_item, competitor_id, evidence_store)
+            integration = adapter.normalize_integration(integration)
+            if publisher.publisher_id not in seen_publisher_ids:
+                seen_publisher_ids.add(publisher.publisher_id)
+                publishers.append(publisher)
+            if detector_result.category == "confirmed":
+                confirmed.append(integration)
+            else:
+                organic.append(integration)
+            continue
+
+        # --- YouTube/Instagram/TikTok: обычный creator-based путь -------------
         # confirmed | organic_mention - у обоих brand evidence точно есть.
-        snippet = raw_item.get("snippet", {}) or {}
-        channel_id = snippet.get("channelId")
-        cache_key = channel_id or id(raw_item)
+        snippet = raw_item.get("snippet", {}) or {} if platform == "youtube" else {}
+        channel_id = snippet.get("channelId") if platform == "youtube" else None
+        cache_key = channel_id or raw_item.get("username") or id(raw_item)
 
         if cache_key not in creators_by_id:
             # extract_creator сам определяет topic_tags по нескольким последним
@@ -189,7 +280,10 @@ def stage_discover_and_extract(
         if not creator:
             continue
 
-        integration = build_integration(competitor_id, creator, raw_item, None, detector_result, evidence_store)
+        if platform == "youtube":
+            integration = build_integration(competitor_id, creator, raw_item, None, detector_result, evidence_store)
+        else:
+            integration = build_social_integration(competitor_id, creator, raw_item, detector_result, evidence_store, platform)
         integration = adapter.normalize_integration(integration)
 
         if detector_result.category == "confirmed":
@@ -197,7 +291,7 @@ def stage_discover_and_extract(
         else:
             organic.append(integration)
 
-    return coverage, list(creators_by_id.values()), confirmed, organic, manual_review
+    return coverage, list(creators_by_id.values()), confirmed, organic, manual_review, publishers
 
 
 # ---------------------------------------------------------------------------
@@ -310,11 +404,13 @@ def stage_run_analytical_layers(
     creators_for_next_move: list[Creator], creators_for_white_space: list[Creator],
     creators_for_market_map: list[Creator], competitors: list[Competitor],
     integrations: list[Integration], config: AnalysisConfig, evidence_store: EvidenceStore,
+    publishers: list[Publisher] | None = None,
 ) -> tuple[dict, list[dict], list[dict], dict, dict]:
     our_profile = _load_our_profile()
 
     market_map = MarketMapBuilder(
         creators_for_market_map, competitors, integrations, default_settings, evidence_store,
+        publishers=publishers,
     ).build()
     competitor_dna = [
         CompetitorDnaBuilder(creators_for_market_map, integrations, default_settings, evidence_store).build(c)
@@ -355,10 +451,11 @@ def stage_run_analytical_layers(
 
 def _process_brand(
     brand_input: str, platforms: list[str], config: AnalysisConfig, evidence_store: EvidenceStore,
-) -> tuple[ResolvedBrand, Competitor, list[PlatformCoverage], list[Creator], list[Integration], list[dict]]:
+    visual_enricher: VisualEvidenceEnricher | None = None, screenshot_cache: ScreenshotCache | None = None,
+) -> tuple[ResolvedBrand, Competitor, list[PlatformCoverage], list[Creator], list[Integration], list[dict], list[Publisher]]:
     """Resolve + discover + extract для ОДНОГО бренда (основного или optional
     конкурента, hotfix #6). Возвращает (brand, competitor, coverages, creators,
-    integrations_all_categories, manual_review_candidates)."""
+    integrations_all_categories, manual_review_candidates, publishers)."""
     brand = stage_resolve_brand(brand_input)
     brand = stage_resolve_youtube_channel(brand, platforms)
     competitor = stage_build_competitor(brand)
@@ -367,54 +464,72 @@ def _process_brand(
     creators: list[Creator] = []
     integrations: list[Integration] = []
     manual_review: list[dict] = []
+    publishers: list[Publisher] = []
 
     for platform in platforms:
-        coverage, plat_creators, confirmed, organic, plat_manual_review = stage_discover_and_extract(
-            platform, brand, competitor.competitor_id, config, evidence_store,
+        coverage, plat_creators, confirmed, organic, plat_manual_review, plat_publishers = stage_discover_and_extract(
+            platform, brand, competitor.competitor_id, config, evidence_store, visual_enricher, screenshot_cache,
         )
         coverages.append(coverage)
         creators.extend(plat_creators)
         integrations.extend(confirmed)
         integrations.extend(organic)
         manual_review.extend(plat_manual_review)
+        publishers.extend(plat_publishers)
 
-    return brand, competitor, coverages, creators, integrations, manual_review
+    return brand, competitor, coverages, creators, integrations, manual_review, publishers
 
 
 def _run_analysis_internal(request: AnalyzeRequest, analysis_id: str) -> tuple[AnalysisResult, list[str]]:
     config = request.settings
     evidence_store = EvidenceStore()
+    # Один shared VisualEvidenceEnricher/ScreenshotCache на весь analysis run
+    # (раздел 3 требований: одинаковый screenshot/URL не должен обрабатываться
+    # повторно). Оба failsafe при отсутствии OPENROUTER_API_KEY/Playwright -
+    # см. app/enrichment/*.
+    visual_enricher = VisualEvidenceEnricher()
+    screenshot_cache = ScreenshotCache()
 
     platform_coverages: list[PlatformCoverage] = []
     all_creators: list[Creator] = []
     all_integrations: list[Integration] = []
     manual_review_total: list[dict] = []
+    all_publishers: list[Publisher] = []
+    seen_publisher_ids: set[str] = set()
     live_sources: list[str] = []
     imported_sources: list[str] = []
     degraded_sources: list[str] = []
     competitors: list[Competitor] = []
 
+    def _merge_publishers(pubs: list[Publisher]) -> None:
+        for p in pubs:
+            if p.publisher_id not in seen_publisher_ids:
+                seen_publisher_ids.add(p.publisher_id)
+                all_publishers.append(p)
+
     # Stage 1-5: основной бренд
-    brand, primary_competitor, primary_coverages, primary_creators, primary_integrations, primary_manual_review = (
-        _process_brand(request.brand, request.platforms, config, evidence_store)
+    brand, primary_competitor, primary_coverages, primary_creators, primary_integrations, primary_manual_review, primary_publishers = (
+        _process_brand(request.brand, request.platforms, config, evidence_store, visual_enricher, screenshot_cache)
     )
     competitors.append(primary_competitor)
     platform_coverages.extend(primary_coverages)
     all_creators.extend(primary_creators)
     all_integrations.extend(primary_integrations)
     manual_review_total.extend(primary_manual_review)
+    _merge_publishers(primary_publishers)
 
     # Hotfix #6: optional competitor_brands[] - single-brand mode работает честно,
     # если пусто (см. limitations ниже).
     for competitor_brand_input in request.competitor_brands:
-        _, extra_competitor, extra_coverages, extra_creators, extra_integrations, extra_manual_review = (
-            _process_brand(competitor_brand_input, request.platforms, config, evidence_store)
+        _, extra_competitor, extra_coverages, extra_creators, extra_integrations, extra_manual_review, extra_publishers = (
+            _process_brand(competitor_brand_input, request.platforms, config, evidence_store, visual_enricher, screenshot_cache)
         )
         competitors.append(extra_competitor)
         platform_coverages.extend(extra_coverages)
         all_creators.extend(extra_creators)
         all_integrations.extend(extra_integrations)
         manual_review_total.extend(extra_manual_review)
+        _merge_publishers(extra_publishers)
 
     for coverage in platform_coverages:
         if coverage.source_mode == "live" and coverage.platform not in live_sources:
@@ -445,19 +560,32 @@ def _run_analysis_internal(request: AnalyzeRequest, analysis_id: str) -> tuple[A
     seen_ids = {c.creator_id for c in filtered_creators}
     creators_for_white_space = list(filtered_creators) + [c for c in universe_creators if c.creator_id not in seen_ids]
 
-    # Stage 10 - существующие 5 слоёв, без изменений
+    # Stage 10 - существующие 5 слоёв, без изменений (+ publishers - новая,
+    # опциональная секция Market Map, раздел 9).
     market_map, competitor_dna, next_move, white_space, our_move = stage_run_analytical_layers(
         creators_for_next_move, creators_for_white_space, filtered_creators, competitors,
-        filtered_integrations, config, evidence_store,
+        filtered_integrations, config, evidence_store, publishers=all_publishers,
     )
 
-    # Stage 11 - честная coverage/summary/limitations
+    # Stage 11 - честная coverage/summary/limitations (раздел 19: "не скрывать
+    # ошибки источников" - каждый нестандартный статус явно объясняется).
     limitations: list[str] = []
     for coverage in platform_coverages:
         if coverage.status == "unavailable":
             limitations.append(
                 f"{coverage.platform}: live-данные недоступны ({coverage.reason}). "
                 f"Доступен импорт вручную собранных данных (CSV/JSON)."
+            )
+        elif coverage.status == "connector_offline":
+            limitations.append(
+                f"{coverage.platform}: local connector offline ({coverage.reason}). "
+                f"Запустите local_connector/run.py на своём Mac (см. LOCAL_CONNECTOR.md) "
+                f"или используйте импорт вручную собранных данных (CSV/JSON)."
+            )
+        elif coverage.status == "manual_intervention_required":
+            limitations.append(
+                f"{coverage.platform}: требуется ручной вход/подтверждение CAPTCHA на Mac "
+                f"({coverage.reason}). Проект осознанно не обходит anti-bot защиту."
             )
         elif coverage.status == "degraded":
             limitations.append(f"{coverage.platform}: данные собраны частично ({coverage.reason})")

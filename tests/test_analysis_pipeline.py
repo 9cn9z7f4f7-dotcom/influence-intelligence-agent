@@ -109,12 +109,14 @@ def test_organic_mention_included_when_include_organic_true(monkeypatch, mocked_
 
 
 def test_instagram_and_tiktok_report_unavailable_with_limitations():
+    """Real-data update: без зарегистрированного local connector Instagram/TikTok
+    честно "connector_offline" (раздел 19) - НЕ "unavailable" и НЕ imitated live data."""
     request = AnalyzeRequest(brand="Автор24", platforms=["instagram", "tiktok"])
     result = run_analysis(request, analysis_id="an_5")
 
     assert result.coverage.live_sources == []
     for coverage in result.coverage.platforms:
-        assert coverage.status == "unavailable"
+        assert coverage.status == "connector_offline"
         assert coverage.source_mode == "none"
     assert len(result.limitations) >= 2
     joined = " ".join(result.limitations).lower()

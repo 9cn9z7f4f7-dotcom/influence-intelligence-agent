@@ -21,3 +21,27 @@ services:
       # Без ключа - deterministic fallback, ничего не падает.
       - key: ANTHROPIC_API_KEY
         sync: false
+      # --- Real-data update: все переменные ниже опциональны, backward-compatible ---
+      # OpenRouter (текст/vision enrichment, раздел 1). Без ключа -
+      # visual_ai_status=unavailable, deterministic fallback, pipeline не падает.
+      - key: OPENROUTER_API_KEY
+        sync: false
+      - key: OPENROUTER_MODEL
+        sync: false
+      - key: OPENROUTER_VISION_MODEL
+        sync: false
+      # Опционально - реальный (не fake) search backend для Articles/Web платформы
+      # (раздел 5). Tavily - PRIMARY provider (точечная доработка); SerpAPI -
+      # FALLBACK, если Tavily не задан/недоступен. Если ни один ключ не задан -
+      # articles honestly unavailable + import fallback (без demo/synthetic).
+      - key: TAVILY_API_KEY
+        sync: false
+      - key: SERPAPI_KEY
+        sync: false
+      # Опционально - shared secret, которым local_connector/run.py авторизуется
+      # при регистрации (раздел 11). Без него - любой connector может
+      # зарегистрироваться (ок для локальной demo/hackathon-эксплуатации).
+      - key: CONNECTOR_SHARED_SECRET
+        sync: false
+      - key: CONNECTOR_OFFLINE_AFTER_SECONDS
+        sync: false

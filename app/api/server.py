@@ -20,6 +20,16 @@ from fastapi.staticfiles import StaticFiles
 from app.analysis.models import AnalyzeRequest
 from app.analysis.pipeline import run_analysis
 from app.analysis.store import get_analysis, save_analysis
+from app.connectors.models import (
+    ConnectorHeartbeatRequest,
+    ConnectorHeartbeatResponse,
+    ConnectorJobsResponse,
+    ConnectorRegisterRequest,
+    ConnectorRegisterResponse,
+    ConnectorResultsAck,
+    ConnectorResultsSubmission,
+)
+from app.connectors.registry import registry as connector_registry
 from app.pipeline import run_pipeline
 from config.settings import BASE_DIR
 
@@ -136,6 +146,60 @@ def api_get_analysis(analysis_id: str) -> Any:
     if result is None:
         raise HTTPException(status_code=404, detail="analysis_id не найден")
     return result.model_dump()
+
+
+# ---------------------------------------------------------------------------
+# Local connector registration/jobs/results (раздел 11 требований) - НЕ
+# arbitrary shell execution: фиксированная схема (см. app/connectors/models.py),
+# используется только Instagram/TikTok local_connector/run.py (см.
+# LOCAL_CONNECTOR.md), никогда браузером пользователя напрямую.
+# ---------------------------------------------------------------------------
+
+
+@app.post("/api/connectors/register")
+def api_connectors_register(request: ConnectorRegisterRequest) -> ConnectorRegisterResponse:
+    if not request.has_at_least_one_platform():
+        raise HTTPException(status_code=400, detail="supported_platforms не может быть пустым")
+    record = connector_registry.register(request.supported_platforms, request.shared_secret)
+    if record is None:
+        raise HTTPException(status_code=401, detail="неверный shared_secret")
+    return ConnectorRegisterResponse(
+        connector_id=record.connector_id, connector_token=record.connector_token,
+        supported_platforms=record.supported_platforms,
+    )
+
+
+@app.post("/api/connectors/heartbeat")
+def api_connectors_heartbeat(request: ConnectorHeartbeatRequest) -> ConnectorHeartbeatResponse:
+    from datetime import datetime, timezone
+
+    ok = connector_registry.heartbeat(request.connector_id, request.connector_token, request.status, request.detail)
+    if not ok:
+        raise HTTPException(status_code=401, detail="неизвестный connector_id/connector_token")
+    return ConnectorHeartbeatResponse(ok=True, server_time=datetime.now(timezone.utc).isoformat())
+
+
+@app.get("/api/connectors/jobs")
+def api_connectors_jobs(connector_id: str, connector_token: str, max_jobs: int = 5) -> ConnectorJobsResponse:
+    jobs = connector_registry.pop_jobs_for_connector(connector_id, connector_token, max_jobs)
+    return ConnectorJobsResponse(jobs=jobs)
+
+
+@app.post("/api/connectors/results")
+def api_connectors_results(submission: ConnectorResultsSubmission) -> ConnectorResultsAck:
+    ok = connector_registry.submit_results(submission)
+    if not ok:
+        raise HTTPException(status_code=401, detail="неизвестный connector_id/connector_token")
+    return ConnectorResultsAck(ok=True)
+
+
+@app.get("/api/connectors/status")
+def api_connectors_status() -> Any:
+    """Для UI (раздел 20): Instagram/TikTok - Connected / Offline."""
+    return {
+        platform: dict(zip(("status", "detail"), connector_registry.platform_status(platform)))
+        for platform in ("instagram", "tiktok")
+    }
 
 
 static_dir = Path(BASE_DIR) / "static"

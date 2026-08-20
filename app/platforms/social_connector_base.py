@@ -1,0 +1,196 @@
+"""
+Общая база для Instagram/TikTok platform adapters через local connector
+(раздел 10-19 требований). Раньше обе платформы были ЖЁСТКО hardcoded
+unavailable (never obtaining real data); теперь они реально маршрутизируют
+через local_connector/run.py, если он зарегистрирован и жив, и честно
+остаются connector_offline/manual_intervention_required иначе - НИКОГДА не
+имитируют live-данные без реального connector (раздел 3, 19).
+
+/api/analyze остаётся синхронным MVP-эндпоинтом (раздел 33 запрещает
+добавлять отдельный scheduler/queue) - поэтому discover_brand_content()
+делает короткий bounded poll результата (см. ConnectorRegistry.wait_for_result).
+Если connector не успел ответить за это окно - честно возвращается status=
+"degraded" с job_id (данные появятся в следующем прогоне), а НЕ подмешиваются
+synthetic результаты.
+"""
+from __future__ import annotations
+
+from datetime import datetime
+from typing import Optional
+
+from app.analysis.models import AnalysisConfig, ResolvedBrand
+from app.connectors.registry import ConnectorRegistry, registry as default_connector_registry
+from app.evidence import EvidenceStore, computed, fact
+from app.ingestion.identifiers import stable_id
+from app.ingestion.live_youtube import DetectorResult
+from app.models import Creator, Integration, SourceMode
+from app.platforms.base import PlatformAdapter, PlatformDiscoveryResult
+from config.settings import settings as default_settings
+
+
+def _parse_dt(raw: Optional[str]) -> Optional[datetime]:
+    if not raw:
+        return None
+    try:
+        text = raw.strip()
+        if text.endswith("Z"):
+            text = text[:-1] + "+00:00"
+        return datetime.fromisoformat(text)
+    except (ValueError, AttributeError):
+        return None
+
+
+def build_social_integration(
+    competitor_id: str, creator: Creator, raw_item: dict, detector_result: DetectorResult,
+    evidence_store: EvidenceStore, platform: str,
+) -> Integration:
+    """Раздел 15-16 требований: normalize social result -> Integration.
+
+    Только реально присланные local connector-ом поля (raw_item) - недоступные
+    поля уже null на уровне ConnectorResultItem, здесь ничего не додумывается."""
+    post_url = raw_item.get("post_url") or raw_item.get("profile_url")
+    published_at = _parse_dt(raw_item.get("published_at"))
+
+    evidence_ids: list[str] = []
+    for name, sig in detector_result.signals.items():
+        if not sig.get("matched"):
+            continue
+        ev = fact(field=f"social_signal:{name}", value=True, source_url=post_url, observed_at=published_at,
+                   raw_fragment=sig.get("raw_fragment"))
+        evidence_ids.append(evidence_store.add(ev))
+    conf_ev = evidence_store.add(computed(
+        field=f"{platform}_integration_confidence", value=detector_result.confidence,
+        supporting_note=f"reasons={detector_result.reasons}",
+    ))
+    evidence_ids.append(conf_ev)
+
+    detected_mechanic = (
+        "paid_partnership" if raw_item.get("paid_partnership_label")
+        else ("collaboration" if raw_item.get("collaboration_label") else "mention")
+    )
+    integration_id = stable_id(f"{platform}_live", post_url or creator.creator_id)
+
+    return Integration(
+        integration_id=integration_id, competitor_id=competitor_id, creator_id=creator.creator_id,
+        platform=platform, content_url=post_url, published_at=published_at, content_type="post",
+        detected_offer=None, detected_cta=None, detected_mechanic=detected_mechanic,
+        campaign_tags=list(raw_item.get("hashtags") or [])[:10],
+        raw_text=(raw_item.get("caption") or "")[:2000],
+        evidence=[evidence_store.resolve(eid) for eid in evidence_ids if evidence_store.resolve(eid)],
+        is_synthetic=False, source_mode=SourceMode.LIVE, confidence=detector_result.confidence,
+        ingestion_source=f"{platform}_local_connector", category=detector_result.category,
+    )
+
+DEFAULT_CONNECTOR_WAIT_SECONDS = 6.0
+IMPORT_HINT_TEMPLATE = "manage.py import-integrations --file <csv|json> (platform={platform})"
+
+
+class SocialConnectorPlatformAdapter(PlatformAdapter):
+    platform_name: str = ""
+
+    def __init__(self, connector_registry: ConnectorRegistry | None = None,
+                 wait_seconds: float = DEFAULT_CONNECTOR_WAIT_SECONDS, settings=None) -> None:
+        self.registry = connector_registry or default_connector_registry
+        self.wait_seconds = wait_seconds
+        self.settings = settings or default_settings
+
+    def discover_brand_content(self, brand: ResolvedBrand, config: AnalysisConfig) -> PlatformDiscoveryResult:
+        status, detail = self.registry.platform_status(self.platform_name)
+        import_hint = IMPORT_HINT_TEMPLATE.format(platform=self.platform_name)
+
+        if status == "connector_offline":
+            return PlatformDiscoveryResult(
+                platform=self.platform_name, status="connector_offline", source_mode="none",
+                reason=detail or f"{self.platform_name} local connector offline", import_hint=import_hint,
+            )
+        if status == "manual_intervention_required":
+            return PlatformDiscoveryResult(
+                platform=self.platform_name, status="manual_intervention_required", source_mode="none",
+                reason=detail or "CAPTCHA/challenge - требуется ручной вход пользователя на Mac",
+                import_hint=import_hint,
+            )
+
+        # status == "online" - реальный connector зарегистрирован и жив -> enqueue job
+        # (job_id уникален; analysis_id здесь - контекстный id, а не обязательно тот же
+        # AnalysisResult.analysis_id верхнего уровня - интерфейс PlatformAdapter не
+        # прокидывает его, а менять сигнатуру абстрактного метода ради этого не стоит).
+        job_context_id = stable_id("job_ctx", brand.canonical_name, self.platform_name)
+        job = self.registry.enqueue_job(
+            analysis_id=job_context_id, platform=self.platform_name, brand=brand.canonical_name,
+            aliases=brand.aliases, settings={"date_range": config.date_range, "min_followers": config.min_followers},
+        )
+        submission = self.registry.wait_for_result(job.job_id, timeout_seconds=self.wait_seconds)
+
+        if submission is None:
+            return PlatformDiscoveryResult(
+                platform=self.platform_name, status="degraded", source_mode="live",
+                reason=(f"Local connector online, job {job.job_id} создан, но не вернул результат "
+                        f"в течение {self.wait_seconds:.0f}s этого запроса - повторите анализ, "
+                        f"когда connector завершит job."),
+                import_hint=import_hint,
+            )
+        if submission.status == "manual_intervention_required":
+            return PlatformDiscoveryResult(
+                platform=self.platform_name, status="manual_intervention_required", source_mode="none",
+                reason=submission.detail or "CAPTCHA/challenge во время job - требуется ручной вход",
+                import_hint=import_hint,
+            )
+        if submission.status == "error":
+            return PlatformDiscoveryResult(
+                platform=self.platform_name, status="degraded", source_mode="live",
+                reason=submission.detail or "local connector вернул ошибку", import_hint=import_hint,
+            )
+
+        raw_items = [item.model_dump() for item in submission.items]
+        return PlatformDiscoveryResult(platform=self.platform_name, status="ok", source_mode="live", raw_items=raw_items)
+
+    def detect_integration(self, raw_item: dict, brand_terms: list[str]) -> DetectorResult:
+        """DOM evidence (раздел 17): brand_mention/paid_partnership_label/
+        collaboration_label - именно то, что local connector реально увидел в
+        DOM (не придумано). Категории общие с остальным pipeline (confirmed/
+        manual_review/organic_mention/rejected)."""
+        caption = raw_item.get("caption") or ""
+        brand_hit = next((t for t in brand_terms if t and t.lower() in caption.lower()), None)
+        explicit_brand_mention = bool(raw_item.get("brand_mention"))
+        signals = {
+            "brand_mention": {"matched": bool(brand_hit) or explicit_brand_mention, "raw_fragment": brand_hit},
+            "paid_partnership_label": {"matched": bool(raw_item.get("paid_partnership_label")), "raw_fragment": None},
+            "collaboration_label": {"matched": bool(raw_item.get("collaboration_label")), "raw_fragment": None},
+        }
+        has_brand_evidence = signals["brand_mention"]["matched"]
+        has_commercial_evidence = (
+            signals["paid_partnership_label"]["matched"] or signals["collaboration_label"]["matched"]
+        )
+
+        if not has_brand_evidence:
+            category = "rejected"
+        elif has_commercial_evidence:
+            category = "confirmed"
+        else:
+            category = "organic_mention"
+
+        confidence = 0.9 if has_commercial_evidence else (0.4 if has_brand_evidence else 0.0)
+        reasons = [k for k, v in signals.items() if v["matched"]]
+        return DetectorResult(
+            is_integration=category == "confirmed", confidence=confidence, reasons=reasons, signals=signals,
+            category=category, has_brand_evidence=has_brand_evidence, has_commercial_evidence=has_commercial_evidence,
+        )
+
+    def extract_creator(self, raw_item: dict) -> Optional[Creator]:
+        username = raw_item.get("username")
+        if not username:
+            return None
+        creator_id = stable_id(self.platform_name, username)
+        return Creator(
+            creator_id=creator_id, name=username, canonical_url=raw_item.get("profile_url"),
+            platform=self.platform_name, followers=raw_item.get("followers"), source_mode=SourceMode.LIVE,
+            source_refs=[u for u in [raw_item.get("profile_url")] if u],
+        )
+
+    def normalize_creator(self, creator: Creator) -> Creator:
+        creator.platform = self.platform_name
+        return creator
+
+    def normalize_integration(self, integration: Integration) -> Integration:
+        integration.platform = self.platform_name
+        return integration

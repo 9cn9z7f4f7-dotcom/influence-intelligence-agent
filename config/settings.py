@@ -141,6 +141,33 @@ class Settings:
         self.anthropic_api_key = os.environ.get("ANTHROPIC_API_KEY", "").strip()
         self.app_mode = os.environ.get("APP_MODE", "demo").strip().lower()  # demo | live
 
+        # OpenRouter (раздел 1 требований real-data update) - ключ ТОЛЬКО из env,
+        # никогда не хардкодится и не сохраняется в config.local.json.
+        self.openrouter_api_key = os.environ.get("OPENROUTER_API_KEY", "").strip()
+        self.openrouter_model = os.environ.get("OPENROUTER_MODEL", "").strip()
+        self.openrouter_vision_model = os.environ.get("OPENROUTER_VISION_MODEL", "").strip()
+
+        # Articles/Web search backend (раздел 5 требований) - "не fake search":
+        # без реального ключа discover_brand_content() для articles честно
+        # unavailable (симметрично YouTube без YOUTUBE_API_KEY), а не имитирует
+        # результаты поиска / не скрейпит HTML поисковых систем.
+        #
+        # Точечная доработка: Tavily - PRIMARY search provider, SerpAPI -
+        # FALLBACK (см. app/search_client.py::get_default_search_client).
+        # Ключи ТОЛЬКО из env, никогда не хардкодятся.
+        self.tavily_api_key = os.environ.get("TAVILY_API_KEY", "").strip()
+        self.serpapi_key = os.environ.get("SERPAPI_KEY", "").strip()
+
+        # Local connector (Instagram/TikTok, раздел 10-14) - shared secret, которым
+        # local_connector/run.py авторизуется при регистрации на Render backend.
+        # Если не задан - любой connector может зарегистрироваться (ок для локальной
+        # demo/hackathon-эксплуатации), но UI всё равно честно покажет token/connector_id.
+        self.connector_shared_secret = os.environ.get("CONNECTOR_SHARED_SECRET", "").strip()
+        # Через сколько секунд без heartbeat коннектор считается offline.
+        self.connector_offline_after_seconds = int(
+            os.environ.get("CONNECTOR_OFFLINE_AFTER_SECONDS", "90")
+        )
+
     def bucket_for_value(self, value: float | None, buckets: list[dict]) -> str | None:
         if value is None:
             return None

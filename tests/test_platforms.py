@@ -5,13 +5,14 @@ import pytest
 from app.analysis.brand_resolver import resolve_brand
 from app.analysis.models import AnalysisConfig
 from app.platforms import REGISTRY, get_platform_adapter
+from app.platforms.articles import ArticlesPlatformAdapter
 from app.platforms.instagram import InstagramPlatformAdapter
 from app.platforms.tiktok import TikTokPlatformAdapter
 from app.platforms.youtube import YouTubePlatformAdapter
 
 
-def test_registry_has_all_three_platforms():
-    assert set(REGISTRY.keys()) == {"youtube", "instagram", "tiktok"}
+def test_registry_has_all_four_platforms():
+    assert set(REGISTRY.keys()) == {"youtube", "instagram", "tiktok", "articles"}
 
 
 def test_get_platform_adapter_unknown_raises():
@@ -23,6 +24,7 @@ def test_get_platform_adapter_unknown_raises():
     ("youtube", YouTubePlatformAdapter),
     ("instagram", InstagramPlatformAdapter),
     ("tiktok", TikTokPlatformAdapter),
+    ("articles", ArticlesPlatformAdapter),
 ])
 def test_all_adapters_implement_full_interface(platform, adapter_cls):
     adapter = adapter_cls()
@@ -45,23 +47,28 @@ def test_youtube_adapter_reports_unavailable_without_api_key(monkeypatch):
 
 
 @pytest.mark.parametrize("adapter_cls", [InstagramPlatformAdapter, TikTokPlatformAdapter])
-def test_instagram_and_tiktok_never_claim_live_data(adapter_cls):
-    """Требование раздела 3: никогда не подделывать live для Instagram/TikTok."""
+def test_instagram_and_tiktok_never_claim_live_data_without_connector(adapter_cls):
+    """Real-data update (раздел 3, 19): без зарегистрированного local connector -
+    честный connector_offline + import fallback, НИКОГДА имитированные live-данные.
+
+    Раньше (до real-data update) detect_integration/extract_creator у этих
+    платформ всегда бросали NotImplementedError - сейчас они реально работают
+    (см. app/platforms/social_connector_base.py), т.к. связаны с local connector,
+    но discover_brand_content() без online connector всё равно возвращает []."""
     adapter = adapter_cls()
     brand = resolve_brand("Автор24")
     result = adapter.discover_brand_content(brand, AnalysisConfig())
-    assert result.status == "unavailable"
+    assert result.status == "connector_offline"
     assert result.source_mode == "none"
     assert result.raw_items == []
     assert result.import_hint is not None
     assert "csv" in result.import_hint.lower() or "json" in result.import_hint.lower()
 
-    # detect_integration/extract_creator для этих платформ явно не реализованы -
-    # они не должны молча возвращать выдуманные данные.
-    with pytest.raises(NotImplementedError):
-        adapter.detect_integration({}, ["Автор24"])
-    with pytest.raises(NotImplementedError):
-        adapter.extract_creator({})
+    # Без brand upоминания в caption - detect_integration честно "rejected", не выдумывает.
+    rejected = adapter.detect_integration({"caption": "случайный текст без бренда"}, ["Автор24"])
+    assert rejected.category == "rejected"
+    # Без username - extract_creator честно None, не выдумывает Creator.
+    assert adapter.extract_creator({}) is None
 
 
 def test_youtube_extract_creator_uses_multi_video_average_not_single_video(monkeypatch):
@@ -107,7 +114,8 @@ def test_normalize_methods_set_platform_field():
 
     for platform, adapter_cls in [("youtube", YouTubePlatformAdapter),
                                    ("instagram", InstagramPlatformAdapter),
-                                   ("tiktok", TikTokPlatformAdapter)]:
+                                   ("tiktok", TikTokPlatformAdapter),
+                                   ("articles", ArticlesPlatformAdapter)]:
         adapter = adapter_cls()
         creator = Creator(creator_id="c1", name="X", platform="other", source_mode=SourceMode.IMPORTED)
         integration = Integration(integration_id="i1", competitor_id="comp1", creator_id="c1",

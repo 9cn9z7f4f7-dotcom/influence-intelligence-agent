@@ -12,7 +12,7 @@ from typing import Literal, Optional
 
 from pydantic import BaseModel, Field, field_validator, model_validator
 
-Platform = Literal["youtube", "instagram", "tiktok"]
+Platform = Literal["youtube", "instagram", "tiktok", "articles"]
 CreatorSizeBucket = Literal["nano", "micro", "mid", "macro"]
 DateRangePreset = Literal["7d", "30d", "90d", "custom"]
 IntegrationCategory = Literal["confirmed", "manual_review", "organic_mention", "rejected"]
@@ -179,7 +179,15 @@ class AnalyzeRequest(BaseModel):
         return seen
 
 
-PlatformSourceStatus = Literal["ok", "degraded", "unavailable"]
+# connector_offline / manual_intervention_required - специфичны для локальных
+# authenticated-коннекторов (Instagram/TikTok, раздел 10-19 real-data требований):
+#   connector_offline           - local_connector/run.py не зарегистрирован или
+#                                  не присылал heartbeat дольше порога;
+#   manual_intervention_required - коннектор online, но словил CAPTCHA/challenge
+#                                  и не может продолжить без ручного шага пользователя.
+PlatformSourceStatus = Literal[
+    "ok", "degraded", "unavailable", "connector_offline", "manual_intervention_required",
+]
 
 
 class PlatformCoverage(BaseModel):
@@ -190,6 +198,10 @@ class PlatformCoverage(BaseModel):
     status: PlatformSourceStatus = "unavailable"
     reason: Optional[str] = None
     items_collected: int = 0
+    # Точечная доработка (Tavily primary / SerpAPI fallback): для platform=
+    # "articles" честно показывает, какой search provider реально использовался
+    # ("tavily"/"serpapi"). None для остальных платформ (не относится к ним).
+    search_provider: Optional[str] = None
 
 
 class AnalysisCoverage(BaseModel):

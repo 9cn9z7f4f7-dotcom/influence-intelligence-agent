@@ -207,6 +207,13 @@ tr:hover td { background: var(--surface-page); }
 .evidence-type.fact { background: rgba(27,175,122,0.15); color: #0d6b48; }
 .evidence-type.computed { background: rgba(42,120,214,0.15); color: #1c5cab; }
 .evidence-type.ai_inference { background: rgba(74,58,167,0.15); color: #362a80; }
+.evidence-type.visual_ai { background: rgba(0,150,166,0.15); color: #00707d; }
+.evidence-section { margin-bottom: 14px; }
+.evidence-section:last-child { margin-bottom: 0; }
+.evidence-section-title {
+  font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+  color: var(--text-muted); margin-bottom: 4px;
+}
 .modal-close { float: right; cursor: pointer; color: var(--text-secondary); border: none; background: none; font-size: 14px; }
 
 .limitation-banner {

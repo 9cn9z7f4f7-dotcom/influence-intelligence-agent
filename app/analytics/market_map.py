@@ -11,8 +11,31 @@ from collections import Counter, defaultdict
 from datetime import datetime
 
 from app.evidence import EvidenceStore, computed
-from app.models import Competitor, Creator, CreatorSegment, Integration
+from app.models import Competitor, Creator, CreatorSegment, Integration, Publisher
 from config.settings import Settings
+
+# Раздел 9 требований - Publisher Map НЕ отдельный продукт, но Market Map должен
+# уметь дополнительно показывать publishers used/placement frequency/topics/mix,
+# не трогая существующую creator-аналитику ниже (repeated_creator_rate/
+# platform_distribution/segment_saturation и т.п. остаются без изменений).
+_ARTICLE_REVIEW_SIGNAL_NAMES = {"review_wording"}
+
+
+def _article_content_format(integration: Integration) -> str:
+    """Лёгкая производная метка формата контента статьи (раздел 9: "content
+    format") - НЕ то же самое, что sponsored/affiliate/editorial category mix
+    (раздел 7/9 явно перечисляют их как два разных срез)."""
+    signals = {}
+    for ev in integration.evidence or []:
+        if ev.field and ev.field.startswith("article_signal:"):
+            signals[ev.field.split(":", 1)[1]] = ev.value
+    if signals.get("sponsor_wording"):
+        return "sponsored_post"
+    if signals.get("review_wording"):
+        return "review"
+    if signals.get("affiliate_pattern"):
+        return "affiliate_post"
+    return "mention"
 
 
 def _iso_week(dt: datetime) -> str:
@@ -29,18 +52,23 @@ def _segment_for_creator(creator: Creator, settings: Settings) -> CreatorSegment
 class MarketMapBuilder:
     def __init__(self, creators: list[Creator], competitors: list[Competitor],
                  integrations: list[Integration], settings: Settings,
-                 evidence_store: EvidenceStore | None = None) -> None:
+                 evidence_store: EvidenceStore | None = None,
+                 publishers: list[Publisher] | None = None) -> None:
         self.creators = creators
         self.competitors = competitors
         self.integrations = integrations
         self.settings = settings
         self.evidence = evidence_store or EvidenceStore()
         self.creators_by_id = {c.creator_id: c for c in creators}
+        # Раздел 8-9: publishers - НЕ creators, отдельный список, влияющий
+        # только на дополнительную publishers-секцию ниже.
+        self.publishers = publishers or []
+        self.publishers_by_id = {p.publisher_id: p for p in self.publishers}
 
     def build(self) -> dict:
         per_competitor = [self._competitor_stats(c) for c in self.competitors]
         market = self._market_stats()
-        return {
+        result = {
             "generated_from": {
                 "creators": len(self.creators),
                 "competitors": len(self.competitors),
@@ -49,6 +77,44 @@ class MarketMapBuilder:
             "competitors": per_competitor,
             "market": market,
             "evidence": self.evidence.as_dict(),
+        }
+        publishers_section = self._publisher_stats()
+        if publishers_section is not None:
+            result["publishers"] = publishers_section
+        return result
+
+    # ------------------------------------------------------------------
+    # Раздел 9: publishers used / placement frequency / topics / mix - НЕ
+    # отдельный продукт, дополнительная секция существующего Market Map.
+    # Existing creator-аналитика (_competitor_stats/_market_stats) не изменена.
+    # ------------------------------------------------------------------
+    def _publisher_stats(self) -> dict | None:
+        article_integrations = [i for i in self.integrations if i.platform == "articles" and i.publisher_id]
+        if not article_integrations and not self.publishers:
+            return None
+
+        placement_freq = Counter(i.publisher_id for i in article_integrations if i.publisher_id)
+        category_mix = Counter(i.article_category or "unknown" for i in article_integrations)
+        content_format_dist = Counter(_article_content_format(i) for i in article_integrations)
+
+        publishers_used = []
+        for pub_id, count in placement_freq.most_common():
+            pub = self.publishers_by_id.get(pub_id)
+            publishers_used.append({
+                "publisher_id": pub_id,
+                "name": pub.name if pub else pub_id,
+                "domain": pub.domain if pub else None,
+                "placements": count,
+            })
+        repeated_publishers = [p for p in publishers_used if p["placements"] > 1]
+
+        return {
+            "publishers_used_count": len(placement_freq),
+            "publishers": publishers_used,
+            "repeated_publishers": repeated_publishers,
+            "category_mix": dict(category_mix),  # sponsored/affiliate/editorial/organic
+            "content_format_distribution": dict(content_format_dist),
+            "total_article_integrations": len(article_integrations),
         }
 
     # ------------------------------------------------------------------

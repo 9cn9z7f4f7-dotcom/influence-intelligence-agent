@@ -118,8 +118,8 @@ def test_next_move_and_white_space_use_independent_universe(monkeypatch):
 
     universe_creators = used_creators + [_creator(c, "beauty") for c in ["D", "E", "F", "G", "H"]]
 
-    def fake_process_brand(brand_input, platforms, config, evidence_store):
-        return brand, competitor, [], used_creators, used_integrations, []
+    def fake_process_brand(brand_input, platforms, config, evidence_store, *args, **kwargs):
+        return brand, competitor, [], used_creators, used_integrations, [], []
 
     def fake_build_universe_pool(platforms, config, observed_topics):
         return universe_creators, "ok", [], ["beauty blog"]
@@ -162,7 +162,7 @@ def test_date_range_filter_excludes_out_of_window_integrations(monkeypatch):
     ]
 
     monkeypatch.setattr(pipeline_module, "_process_brand",
-                         lambda *a, **kw: (brand, competitor, [], creators, integrations, []))
+                         lambda *a, **kw: (brand, competitor, [], creators, integrations, [], []))
     monkeypatch.setattr(pipeline_module, "stage_build_universe_pool",
                          lambda *a, **kw: ([], "unavailable", [], []))
 
@@ -186,7 +186,7 @@ def test_min_strategy_match_filters_next_move_candidates(monkeypatch):
     universe_creators = used_creators + [_creator("D", "fitness")]
 
     monkeypatch.setattr(pipeline_module, "_process_brand",
-                         lambda *a, **kw: (brand, competitor, [], used_creators, used_integrations, []))
+                         lambda *a, **kw: (brand, competitor, [], used_creators, used_integrations, [], []))
     monkeypatch.setattr(pipeline_module, "stage_build_universe_pool",
                          lambda *a, **kw: (universe_creators, "ok", [], []))
 
@@ -216,7 +216,7 @@ def test_min_white_space_opportunity_filters_segments(monkeypatch):
     universe_creators = used_creators + [_creator(c, "beauty") for c in ["D", "E", "F", "G", "H"]]
 
     monkeypatch.setattr(pipeline_module, "_process_brand",
-                         lambda *a, **kw: (brand, competitor, [], used_creators, used_integrations, []))
+                         lambda *a, **kw: (brand, competitor, [], used_creators, used_integrations, [], []))
     monkeypatch.setattr(pipeline_module, "stage_build_universe_pool",
                          lambda *a, **kw: (universe_creators, "ok", [], []))
 

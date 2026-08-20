@@ -7,3 +7,9 @@ click==8.1.7
 pytest==8.3.3
 beautifulsoup4==4.12.3
 anthropic==0.34.2
+# Screenshot capture для ambiguous-детекций (VisualEvidenceEnricher) и JS-fallback
+# для Articles/Web парсера. Код gracefully деградирует (visual_ai_status=unavailable),
+# если браузерные бинарники не установлены - для этого дополнительно нужно один раз
+# запустить `playwright install chromium` (НЕ включено в buildCommand render.yaml по
+# умолчанию, чтобы не менять/не рисковать существующим Render-деплоем - раздел 31).
+playwright==1.62.0

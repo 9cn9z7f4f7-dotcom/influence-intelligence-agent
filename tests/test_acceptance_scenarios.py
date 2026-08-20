@@ -73,11 +73,12 @@ def test_scenario_3_instagram_tiktok_honest_unavailable_with_import_option():
 
     body = client.get(f"/api/analysis/{analysis_id}").json()
 
-    # Никогда не выдаём imported/demo данные под видом live.
+    # Никогда не выдаём imported/demo данные под видом live. Real-data update:
+    # без local connector - честно "connector_offline" (раздел 19), не "unavailable".
     assert body["coverage"]["live_sources"] == []
     for cov in body["coverage"]["platforms"]:
         assert cov["platform"] in ("instagram", "tiktok")
-        assert cov["status"] == "unavailable"
+        assert cov["status"] == "connector_offline"
         assert cov["source_mode"] == "none"
 
     # limitations должны честно объяснять причину и упоминать import fallback.

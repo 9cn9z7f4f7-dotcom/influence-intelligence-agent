@@ -54,5 +54,7 @@ def test_analyze_accepts_brand_url_and_multiple_platforms():
     assert body["brand"]["input_type"] == "url"
     assert body["brand"]["detected_platform"] == "instagram"
     assert set(body["platforms"]) == {"instagram", "tiktok"}
+    # Real-data update: без зарегистрированного local connector Instagram/TikTok
+    # честно "connector_offline" (не "unavailable") - раздел 19 требований.
     for platform_cov in body["coverage"]["platforms"]:
-        assert platform_cov["status"] == "unavailable"
+        assert platform_cov["status"] == "connector_offline"

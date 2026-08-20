@@ -21,6 +21,11 @@ class EvidenceType(str, Enum):
     FACT = "fact"
     COMPUTED = "computed"
     AI_INFERENCE = "ai_inference"
+    # Отдельный тип для vision-сигналов (раздел 2, 17, 21 real-data требований) -
+    # визуально распознанные сигналы (logo/CTA/sponsor disclosure на screenshot) -
+    # это AI_INFERENCE, но UI должен показывать их отдельным блоком ("VISUAL AI"),
+    # а не мешать с текстовыми AI_INFERENCE (напр. LLM-паттернами Competitor DNA).
+    VISUAL_AI = "visual_ai"
 
 
 class SourceStatus(str, Enum):
@@ -106,6 +111,17 @@ class Integration(BaseModel):
     # По умолчанию "confirmed" - для обратной совместимости с demo/import данными,
     # которые всегда были детерминированно подтверждены (раздел 10 требований).
     category: str = "confirmed"
+    # --- Articles/Web платформа (real-data update, раздел 5-9) -----------------
+    # Только для platform="articles": детальная категория статьи (confirmed_sponsored |
+    # affiliate | partner_content | editorial_review | organic_mention | manual_review |
+    # rejected) - НЕ путать с общим `category` выше, который используется существующим
+    # pipeline-фильтром (AnalysisConfig.allowed_integration_categories) и хранит только
+    # 4 "грубых" значения для обратной совместимости со всеми платформами.
+    article_category: Optional[str] = None
+    # Только для platform="articles": ссылка на Publisher (см. класс Publisher ниже).
+    # Publisher НЕ является Creator - раздел 8 требований запрещает искусственно
+    # превращать publisher в creator, поэтому это отдельное поле, а не creator_id.
+    publisher_id: Optional[str] = None
 
     @field_validator("confidence")
     @classmethod
@@ -156,3 +172,19 @@ class SourceHealth(BaseModel):
     status: SourceStatus
     detail: Optional[str] = None
     last_checked_at: Optional[datetime] = None
+
+
+class Publisher(BaseModel):
+    """Издание/сайт, опубликовавший статью про бренд (раздел 8 требований).
+
+    ВАЖНО: Publisher - это отдельная сущность, НЕ Creator. Article Integration
+    может связывать brand -> publisher (+ опционально author, см.
+    Integration.raw_text/evidence), но публикация никогда не превращается в
+    Creator искусственно - у издания нет followers/engagement_rate/topic_tags
+    в том смысле, в каком они есть у influencer-а."""
+
+    publisher_id: str
+    name: str
+    domain: str
+    platform: str = "web_article"
+    source_url: Optional[str] = None

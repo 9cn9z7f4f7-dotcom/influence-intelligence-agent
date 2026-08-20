@@ -45,3 +45,59 @@ def categorize_signals(signals: dict[str, dict], confidence: float, threshold: f
         category = "organic_mention"
 
     return category, has_brand_evidence, has_commercial_evidence
+
+
+# ---------------------------------------------------------------------------
+# Комбинирование DOM/API-детектора с VisualEvidenceEnricher (раздел 2, 3, 17
+# real-data требований).
+# ---------------------------------------------------------------------------
+
+# Только эти категории имеют смысл эскалировать к screenshot+vision (раздел 3):
+# "не делать screenshot каждой страницы" - только когда DOM/API уже нашёл brand
+# evidence, но не уверен насчёт commercial evidence.
+VISUAL_ESCALATION_CATEGORIES = {"manual_review"}
+
+DEFAULT_VISUAL_CONFIDENCE_WEIGHT = 0.25
+
+
+def should_escalate_to_visual_evidence(category: str) -> bool:
+    """True, если стоит вызвать screenshot+vision для этого детектора-результата.
+
+    confirmed - уже уверенно подтверждено DOM/API, vision не нужен.
+    rejected - нет даже brand evidence, vision не поможет (см. combine_dom_and_visual).
+    organic_mention - можно оставить как есть (не commercial), vision не обязателен для MVP.
+    manual_review - ЕДИНСТВЕННЫЙ случай, где vision может реально изменить решение.
+    """
+    return category in VISUAL_ESCALATION_CATEGORIES
+
+
+def combine_dom_and_visual(
+    category: str, confidence: float, visual_commercial_signal_visible: bool,
+    visual_confidence: float, threshold: float,
+    visual_weight: float = DEFAULT_VISUAL_CONFIDENCE_WEIGHT,
+) -> tuple[str, float, bool]:
+    """Комбинирует детерминированный DOM/API результат с visual evidence.
+
+    ЖЁСТКОЕ ПРАВИЛО (раздел 2, 17): visual evidence НИКОГДА не создаёт brand
+    evidence с нуля. Если DOM/API вообще не нашёл brand evidence (category ==
+    "rejected") - результат остаётся "rejected", что бы ни "увидела" vision-модель
+    на скриншоте (иначе один логотип на фоне мог бы "создать" интеграцию без
+    единого текстового/структурного упоминания бренда - недопустимо).
+
+    Если DOM/API нашёл brand evidence, но НЕ commercial evidence
+    (category == "manual_review") - visual commercial signal может добавить вес
+    и поднять итоговую категорию до "confirmed", если суммарный confidence
+    дойдёт до threshold. Иначе остаётся manual_review (менее уверенно, чем
+    "точно интеграция", но и не отбрасывается).
+
+    Возвращает (new_category, new_confidence, used_visual_evidence).
+    """
+    if category != "manual_review":
+        return category, confidence, False
+    if not visual_commercial_signal_visible:
+        return category, confidence, False
+
+    bonus = round(min(visual_weight, visual_weight * max(0.0, min(1.0, visual_confidence))), 3)
+    new_confidence = round(min(1.0, confidence + bonus), 3)
+    new_category = "confirmed" if new_confidence >= threshold else "manual_review"
+    return new_category, new_confidence, True
