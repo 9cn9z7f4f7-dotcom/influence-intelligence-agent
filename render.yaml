@@ -1,0 +1,23 @@
+# Render Blueprint - деплой одним кликом (Render -> New -> Blueprint).
+# Не обязателен: то же самое можно настроить руками в Render dashboard,
+# указав те же Build/Start Command (см. ниже) - этот файл просто избавляет
+# от ручного клика по полям в UI.
+services:
+  - type: web
+    name: influence-intelligence-agent
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python manage.py serve
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      # Опционально - для live YouTube discovery. Если не задать, приложение
+      # честно работает в degraded-режиме (unavailable + import fallback),
+      # как и в остальной среде без ключа.
+      - key: YOUTUBE_API_KEY
+        sync: false
+      # Опционально - для LLM-формулировок (guardrails/topic ambiguous cases).
+      # Без ключа - deterministic fallback, ничего не падает.
+      - key: ANTHROPIC_API_KEY
+        sync: false

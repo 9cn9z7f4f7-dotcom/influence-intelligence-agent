@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Influence Intelligence Agent</title>
+<link rel="stylesheet" href="/styles.css" />
+<link rel="stylesheet" href="/analyze.css" />
+</head>
+<body>
+
+<!-- ============ ЭКРАН 1: BRAND INPUT (landing) ============ -->
+<div class="az-shell" id="view-landing">
+  <div class="az-landing">
+    <div class="az-title">Influence Intelligence Agent</div>
+    <p class="az-subtitle">Введите любой бренд или ссылку на его аккаунт, выберите платформы и получите
+      структурированную intelligence-картину по публичным данным.</p>
+
+    <label class="az-label">Бренд (имя или ссылка на аккаунт)</label>
+    <input type="text" id="brand-input" class="az-input" placeholder="напр. Автор24 или https://www.youtube.com/@Avtor24" />
+
+    <label class="az-label">Платформы</label>
+    <div class="az-platform-row">
+      <label class="az-checkbox"><input type="checkbox" value="youtube" checked /> YouTube</label>
+      <label class="az-checkbox"><input type="checkbox" value="instagram" /> Instagram</label>
+      <label class="az-checkbox"><input type="checkbox" value="tiktok" /> TikTok</label>
+    </div>
+
+    <button class="az-advanced-toggle" id="advanced-toggle">⚙ Advanced settings ▾</button>
+
+    <div class="az-advanced" id="advanced-panel">
+      <div class="az-adv-section">
+        <div class="az-adv-title">Search</div>
+        <label class="az-label">Date range</label>
+        <select id="cfg-date-range" class="az-select">
+          <option value="7d">7 дней</option>
+          <option value="30d">30 дней</option>
+          <option value="90d" selected>90 дней</option>
+        </select>
+        <label class="az-label">Geo (через запятую)</label>
+        <input type="text" id="cfg-geo" class="az-input" placeholder="напр. RU, KZ" />
+      </div>
+
+      <div class="az-adv-section">
+        <div class="az-adv-title">Creators</div>
+        <label class="az-label">Размер креатора</label>
+        <div class="az-platform-row">
+          <label class="az-checkbox"><input type="checkbox" class="cfg-size" value="nano" /> nano</label>
+          <label class="az-checkbox"><input type="checkbox" class="cfg-size" value="micro" /> micro</label>
+          <label class="az-checkbox"><input type="checkbox" class="cfg-size" value="mid" /> mid</label>
+          <label class="az-checkbox"><input type="checkbox" class="cfg-size" value="macro" /> macro</label>
+        </div>
+        <label class="az-label">Мин. подписчиков</label>
+        <input type="number" id="cfg-min-followers" class="az-input" placeholder="без ограничения" />
+      </div>
+
+      <div class="az-adv-section">
+        <div class="az-adv-title">Topics</div>
+        <label class="az-label">Включить темы (через запятую, из фиксированной таксономии)</label>
+        <input type="text" id="cfg-include-topics" class="az-input"
+               placeholder="student_lifestyle, medical_students, exam_prep..." />
+        <label class="az-label">Исключить темы</label>
+        <input type="text" id="cfg-exclude-topics" class="az-input" placeholder="entertainment, lifestyle..." />
+      </div>
+
+      <div class="az-adv-section">
+        <div class="az-adv-title">Integrations</div>
+        <label class="az-checkbox"><input type="checkbox" id="cfg-confirmed-only" /> Только confirmed (не показывать organic mentions / manual review)</label>
+        <label class="az-checkbox"><input type="checkbox" id="cfg-include-manual-review" /> Включить manual_review кандидатов</label>
+      </div>
+
+      <div class="az-adv-section">
+        <div class="az-adv-title">Confidence</div>
+        <label class="az-label">Мин. confidence интеграции (0..1)</label>
+        <input type="number" id="cfg-min-confidence" class="az-input" step="0.05" min="0" max="1" value="0.5" />
+      </div>
+    </div>
+
+    <button class="az-analyze-btn" id="analyze-btn">Analyze →</button>
+    <div class="az-error" id="landing-error"></div>
+    <a href="/demo.html" class="az-demo-link">Посмотреть demo dashboard на synthetic-данных →</a>
+  </div>
+</div>
+
+<!-- ============ ЭКРАН 2: PROGRESS ============ -->
+<div class="az-shell" id="view-progress" style="display:none;">
+  <div class="az-progress-card">
+    <div class="az-title" style="font-size:20px;">Анализируем <span id="progress-brand"></span>…</div>
+    <ul class="az-steps" id="progress-steps">
+      <li data-step="resolve">Определяем бренд</li>
+      <li data-step="discover">Ищем публичные упоминания по выбранным платформам</li>
+      <li data-step="detect">Классифицируем интеграции (confirmed / manual review / organic)</li>
+      <li data-step="universe">Строим независимый creator universe</li>
+      <li data-step="layers">Считаем Market Map → DNA → Next Move → White Space → Our Move</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ============ ЭКРАН 3: RESULTS ============ -->
+<div class="az-shell az-results-shell" id="view-results" style="display:none;">
+  <div class="sidebar">
+    <div class="brand">Influence Intelligence Agent<span id="results-brand-name"></span></div>
+    <div class="nav-item active" data-section="overview">Overview</div>
+    <div class="nav-item" data-section="market-map">Market Map</div>
+    <div class="nav-item" data-section="competitor-dna">Competitor DNA</div>
+    <div class="nav-item" data-section="next-move">Next Move</div>
+    <div class="nav-item" data-section="white-space">White Space</div>
+    <div class="nav-item" data-section="our-move">Our Move</div>
+    <div class="sidebar-footer">
+      <button class="demo-flow-btn" id="new-analysis-btn">← Новый анализ</button>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="topbar">
+      <div>
+        <h1 id="page-title">Overview</h1>
+        <p class="subtitle" id="page-subtitle">Результат по наблюдаемым публичным данным - см. coverage и limitations.</p>
+      </div>
+      <div class="coverage-pills" id="coverage-pills"></div>
+    </div>
+
+    <div id="limitations-slot"></div>
+
+    <section class="section active" id="section-overview">
+      <div class="stat-grid" id="overview-stats"></div>
+      <h2>Источники данных (coverage)</h2>
+      <div class="card" id="overview-coverage"></div>
+    </section>
+
+    <section class="section" id="section-market-map">
+      <div class="card-grid" id="mm-competitors"></div>
+    </section>
+
+    <section class="section" id="section-competitor-dna">
+      <div class="card-grid" id="dna-cards"></div>
+    </section>
+
+    <section class="section" id="section-next-move">
+      <div id="nm-tables"></div>
+    </section>
+
+    <section class="section" id="section-white-space">
+      <div class="card" id="ws-body"></div>
+    </section>
+
+    <section class="section" id="section-our-move">
+      <div class="card-grid" id="om-cards"></div>
+    </section>
+  </div>
+</div>
+
+<div class="modal-overlay" id="evidence-modal">
+  <div class="modal">
+    <button class="modal-close" id="evidence-close">✕ закрыть</button>
+    <h3>Why / Evidence</h3>
+    <div id="evidence-body"></div>
+  </div>
+</div>
+
+<script src="/analyze.js"></script>
+</body>
+</html>

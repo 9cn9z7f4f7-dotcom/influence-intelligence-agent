@@ -1,0 +1,4418 @@
+[
+  {
+    "creator_id": "cr_0001",
+    "name": "Fitness Creator 0001",
+    "canonical_url": "https://youtube.example/cr_0001",
+    "platform": "youtube",
+    "followers": 4512,
+    "avg_views": 1258.2,
+    "median_views": 1113.9,
+    "engagement_rate": 0.0317,
+    "topic_tags": [
+      "fitness"
+    ],
+    "audience_tags": [
+      "fitness_audience"
+    ],
+    "geo": "US",
+    "language": "en",
+    "created_at": "2024-07-23T12:00:00+00:00",
+    "last_seen_at": "2026-08-18T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0001"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0002",
+    "name": "Fitness Creator 0002",
+    "canonical_url": "https://youtube.example/cr_0002",
+    "platform": "youtube",
+    "followers": 11952,
+    "avg_views": 1707.0,
+    "median_views": 1485.8,
+    "engagement_rate": 0.022,
+    "topic_tags": [
+      "fitness"
+    ],
+    "audience_tags": [
+      "fitness_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2024-07-07T12:00:00+00:00",
+    "last_seen_at": "2026-08-14T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0002"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0003",
+    "name": "Fitness Creator 0003",
+    "canonical_url": "https://youtube.example/cr_0003",
+    "platform": "youtube",
+    "followers": 107787,
+    "avg_views": 16719.0,
+    "median_views": 15446.0,
+    "engagement_rate": 0.0487,
+    "topic_tags": [
+      "fitness"
+    ],
+    "audience_tags": [
+      "fitness_audience"
+    ],
+    "geo": "LATAM",
+    "language": "es",
+    "created_at": "2025-08-22T12:00:00+00:00",
+    "last_seen_at": "2026-08-07T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0003"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0004",
+    "name": "Fitness Creator 0004",
+    "canonical_url": "https://youtube.example/cr_0004",
+    "platform": "youtube",
+    "followers": 4027,
+    "avg_views": 688.1,
+    "median_views": 528.8,
+    "engagement_rate": 0.0868,
+    "topic_tags": [
+      "fitness"
+    ],
+    "audience_tags": [
+      "fitness_audience"
+    ],
+    "geo": "EU",
+    "language": "en",
+    "created_at": "2025-10-25T12:00:00+00:00",
+    "last_seen_at": "2026-08-09T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0004"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0005",
+    "name": "Fitness Creator 0005",
+    "canonical_url": "https://youtube.example/cr_0005",
+    "platform": "youtube",
+    "followers": 61390,
+    "avg_views": 13799.3,
+    "median_views": 13035.1,
+    "engagement_rate": 0.0697,
+    "topic_tags": [
+      "fitness"
+    ],
+    "audience_tags": [
+      "fitness_audience"
+    ],
+    "geo": "US",
+    "language": "en",
+    "created_at": "2025-01-10T12:00:00+00:00",
+    "last_seen_at": "2026-08-18T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0005"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0006",
+    "name": "Fitness Creator 0006",
+    "canonical_url": "https://telegram.example/cr_0006",
+    "platform": "telegram",
+    "followers": 3650,
+    "avg_views": 337.2,
+    "median_views": 268.3,
+    "engagement_rate": 0.0678,
+    "topic_tags": [
+      "fitness"
+    ],
+    "audience_tags": [
+      "fitness_audience"
+    ],
+    "geo": "US",
+    "language": "en",
+    "created_at": "2025-04-11T12:00:00+00:00",
+    "last_seen_at": "2026-08-18T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0006"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0007",
+    "name": "Fitness Creator 0007",
+    "canonical_url": "https://telegram.example/cr_0007",
+    "platform": "telegram",
+    "followers": 149647,
+    "avg_views": 37656.4,
+    "median_views": 30990.0,
+    "engagement_rate": 0.0358,
+    "topic_tags": [
+      "fitness"
+    ],
+    "audience_tags": [
+      "fitness_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2025-01-18T12:00:00+00:00",
+    "last_seen_at": "2026-08-09T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0007"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0008",
+    "name": "Fitness Creator 0008",
+    "canonical_url": "https://telegram.example/cr_0008",
+    "platform": "telegram",
+    "followers": 1669,
+    "avg_views": 210.6,
+    "median_views": 188.7,
+    "engagement_rate": 0.0607,
+    "topic_tags": [
+      "fitness"
+    ],
+    "audience_tags": [
+      "fitness_audience"
+    ],
+    "geo": "US",
+    "language": "en",
+    "created_at": "2025-08-18T12:00:00+00:00",
+    "last_seen_at": "2026-08-06T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0008"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0009",
+    "name": "Fitness Creator 0009",
+    "canonical_url": "https://telegram.example/cr_0009",
+    "platform": "telegram",
+    "followers": 31252,
+    "avg_views": 9048.1,
+    "median_views": 7200.6,
+    "engagement_rate": 0.0782,
+    "topic_tags": [
+      "fitness"
+    ],
+    "audience_tags": [
+      "fitness_audience"
+    ],
+    "geo": "EU",
+    "language": "en",
+    "created_at": "2025-12-31T12:00:00+00:00",
+    "last_seen_at": "2026-08-10T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0009"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0010",
+    "name": "Fitness Creator 0010",
+    "canonical_url": "https://telegram.example/cr_0010",
+    "platform": "telegram",
+    "followers": 23826,
+    "avg_views": 5554.8,
+    "median_views": 4963.7,
+    "engagement_rate": 0.0835,
+    "topic_tags": [
+      "fitness"
+    ],
+    "audience_tags": [
+      "fitness_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2025-06-29T12:00:00+00:00",
+    "last_seen_at": "2026-07-31T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0010"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0011",
+    "name": "Fitness Creator 0011",
+    "canonical_url": "https://instagram.example/cr_0011",
+    "platform": "instagram",
+    "followers": 19363,
+    "avg_views": 2838.4,
+    "median_views": 2447.5,
+    "engagement_rate": 0.0349,
+    "topic_tags": [
+      "fitness"
+    ],
+    "audience_tags": [
+      "fitness_audience"
+    ],
+    "geo": "LATAM",
+    "language": "es",
+    "created_at": "2025-05-08T12:00:00+00:00",
+    "last_seen_at": "2026-08-02T12:00:00+00:00",
+    "source_refs": [
+      "https://instagram.example/cr_0011"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0012",
+    "name": "Fitness Creator 0012",
+    "canonical_url": "https://instagram.example/cr_0012",
+    "platform": "instagram",
+    "followers": 33723,
+    "avg_views": 11780.6,
+    "median_views": 10036.0,
+    "engagement_rate": 0.0314,
+    "topic_tags": [
+      "fitness"
+    ],
+    "audience_tags": [
+      "fitness_audience"
+    ],
+    "geo": "LATAM",
+    "language": "es",
+    "created_at": "2025-10-31T12:00:00+00:00",
+    "last_seen_at": "2026-08-19T12:00:00+00:00",
+    "source_refs": [
+      "https://instagram.example/cr_0012"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0013",
+    "name": "Fitness Creator 0013",
+    "canonical_url": "https://instagram.example/cr_0013",
+    "platform": "instagram",
+    "followers": 91938,
+    "avg_views": 17834.4,
+    "median_views": 13602.4,
+    "engagement_rate": 0.0744,
+    "topic_tags": [
+      "fitness"
+    ],
+    "audience_tags": [
+      "fitness_audience"
+    ],
+    "geo": "EU",
+    "language": "en",
+    "created_at": "2025-01-07T12:00:00+00:00",
+    "last_seen_at": "2026-08-01T12:00:00+00:00",
+    "source_refs": [
+      "https://instagram.example/cr_0013"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0014",
+    "name": "Fitness Creator 0014",
+    "canonical_url": "https://instagram.example/cr_0014",
+    "platform": "instagram",
+    "followers": 1360198,
+    "avg_views": 113032.3,
+    "median_views": 101067.2,
+    "engagement_rate": 0.0796,
+    "topic_tags": [
+      "fitness"
+    ],
+    "audience_tags": [
+      "fitness_audience"
+    ],
+    "geo": "US",
+    "language": "en",
+    "created_at": "2024-03-05T12:00:00+00:00",
+    "last_seen_at": "2026-08-03T12:00:00+00:00",
+    "source_refs": [
+      "https://instagram.example/cr_0014"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0015",
+    "name": "Gaming Creator 0015",
+    "canonical_url": "https://youtube.example/cr_0015",
+    "platform": "youtube",
+    "followers": 79242,
+    "avg_views": 9723.2,
+    "median_views": 7298.7,
+    "engagement_rate": 0.037,
+    "topic_tags": [
+      "gaming"
+    ],
+    "audience_tags": [
+      "gaming_audience"
+    ],
+    "geo": "US",
+    "language": "en",
+    "created_at": "2025-05-08T12:00:00+00:00",
+    "last_seen_at": "2026-08-04T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0015"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0016",
+    "name": "Gaming Creator 0016",
+    "canonical_url": "https://youtube.example/cr_0016",
+    "platform": "youtube",
+    "followers": 128235,
+    "avg_views": 27835.8,
+    "median_views": 21984.2,
+    "engagement_rate": 0.0781,
+    "topic_tags": [
+      "gaming"
+    ],
+    "audience_tags": [
+      "gaming_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2025-01-15T12:00:00+00:00",
+    "last_seen_at": "2026-08-15T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0016"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0017",
+    "name": "Gaming Creator 0017",
+    "canonical_url": "https://youtube.example/cr_0017",
+    "platform": "youtube",
+    "followers": 31243,
+    "avg_views": 3443.1,
+    "median_views": 2832.3,
+    "engagement_rate": 0.0516,
+    "topic_tags": [
+      "gaming"
+    ],
+    "audience_tags": [
+      "gaming_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2025-03-24T12:00:00+00:00",
+    "last_seen_at": "2026-08-13T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0017"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0018",
+    "name": "Gaming Creator 0018",
+    "canonical_url": "https://youtube.example/cr_0018",
+    "platform": "youtube",
+    "followers": 1903,
+    "avg_views": 571.5,
+    "median_views": 540.4,
+    "engagement_rate": 0.0699,
+    "topic_tags": [
+      "gaming"
+    ],
+    "audience_tags": [
+      "gaming_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2024-08-05T12:00:00+00:00",
+    "last_seen_at": "2026-08-16T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0018"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0019",
+    "name": "Gaming Creator 0019",
+    "canonical_url": "https://telegram.example/cr_0019",
+    "platform": "telegram",
+    "followers": 27370,
+    "avg_views": 6672.3,
+    "median_views": 6291.1,
+    "engagement_rate": 0.0546,
+    "topic_tags": [
+      "gaming"
+    ],
+    "audience_tags": [
+      "gaming_audience"
+    ],
+    "geo": "EU",
+    "language": "en",
+    "created_at": "2024-07-29T12:00:00+00:00",
+    "last_seen_at": "2026-08-14T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0019"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0020",
+    "name": "Gaming Creator 0020",
+    "canonical_url": "https://telegram.example/cr_0020",
+    "platform": "telegram",
+    "followers": 147889,
+    "avg_views": 32497.9,
+    "median_views": 25159.9,
+    "engagement_rate": 0.0479,
+    "topic_tags": [
+      "gaming"
+    ],
+    "audience_tags": [
+      "gaming_audience"
+    ],
+    "geo": "LATAM",
+    "language": "es",
+    "created_at": "2025-06-16T12:00:00+00:00",
+    "last_seen_at": "2026-08-18T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0020"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0021",
+    "name": "Gaming Creator 0021",
+    "canonical_url": "https://telegram.example/cr_0021",
+    "platform": "telegram",
+    "followers": 4108,
+    "avg_views": 1113.7,
+    "median_views": 848.4,
+    "engagement_rate": 0.0155,
+    "topic_tags": [
+      "gaming"
+    ],
+    "audience_tags": [
+      "gaming_audience"
+    ],
+    "geo": "EU",
+    "language": "en",
+    "created_at": "2025-11-24T12:00:00+00:00",
+    "last_seen_at": "2026-08-19T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0021"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0022",
+    "name": "Gaming Creator 0022",
+    "canonical_url": "https://instagram.example/cr_0022",
+    "platform": "instagram",
+    "followers": 5062,
+    "avg_views": 697.8,
+    "median_views": 541.8,
+    "engagement_rate": 0.0652,
+    "topic_tags": [
+      "gaming"
+    ],
+    "audience_tags": [
+      "gaming_audience"
+    ],
+    "geo": "EU",
+    "language": "en",
+    "created_at": "2024-06-27T12:00:00+00:00",
+    "last_seen_at": "2026-08-02T12:00:00+00:00",
+    "source_refs": [
+      "https://instagram.example/cr_0022"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0023",
+    "name": "Gaming Creator 0023",
+    "canonical_url": "https://instagram.example/cr_0023",
+    "platform": "instagram",
+    "followers": 36677,
+    "avg_views": 3894.0,
+    "median_views": 3256.2,
+    "engagement_rate": 0.0293,
+    "topic_tags": [
+      "gaming"
+    ],
+    "audience_tags": [
+      "gaming_audience"
+    ],
+    "geo": "LATAM",
+    "language": "es",
+    "created_at": "2024-11-25T12:00:00+00:00",
+    "last_seen_at": "2026-08-07T12:00:00+00:00",
+    "source_refs": [
+      "https://instagram.example/cr_0023"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0024",
+    "name": "Gaming Creator 0024",
+    "canonical_url": "https://instagram.example/cr_0024",
+    "platform": "instagram",
+    "followers": 16449,
+    "avg_views": 4550.1,
+    "median_views": 4141.1,
+    "engagement_rate": 0.0195,
+    "topic_tags": [
+      "gaming"
+    ],
+    "audience_tags": [
+      "gaming_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2025-10-13T12:00:00+00:00",
+    "last_seen_at": "2026-08-13T12:00:00+00:00",
+    "source_refs": [
+      "https://instagram.example/cr_0024"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0025",
+    "name": "Gaming Creator 0025",
+    "canonical_url": "https://instagram.example/cr_0025",
+    "platform": "instagram",
+    "followers": 2796,
+    "avg_views": 434.0,
+    "median_views": 347.2,
+    "engagement_rate": 0.0466,
+    "topic_tags": [
+      "gaming"
+    ],
+    "audience_tags": [
+      "gaming_audience"
+    ],
+    "geo": "LATAM",
+    "language": "es",
+    "created_at": "2025-11-16T12:00:00+00:00",
+    "last_seen_at": "2026-08-06T12:00:00+00:00",
+    "source_refs": [
+      "https://instagram.example/cr_0025"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0026",
+    "name": "Medical Students Creator 0026",
+    "canonical_url": "https://youtube.example/cr_0026",
+    "platform": "youtube",
+    "followers": 2028,
+    "avg_views": 627.0,
+    "median_views": 491.1,
+    "engagement_rate": 0.0845,
+    "topic_tags": [
+      "medical_students"
+    ],
+    "audience_tags": [
+      "medical_students_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2024-09-22T12:00:00+00:00",
+    "last_seen_at": "2026-08-05T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0026"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0027",
+    "name": "Medical Students Creator 0027",
+    "canonical_url": "https://youtube.example/cr_0027",
+    "platform": "youtube",
+    "followers": 1460,
+    "avg_views": 117.6,
+    "median_views": 97.4,
+    "engagement_rate": 0.0273,
+    "topic_tags": [
+      "medical_students"
+    ],
+    "audience_tags": [
+      "medical_students_audience"
+    ],
+    "geo": "LATAM",
+    "language": "es",
+    "created_at": "2024-10-24T12:00:00+00:00",
+    "last_seen_at": "2026-08-11T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0027"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0028",
+    "name": "Medical Students Creator 0028",
+    "canonical_url": "https://youtube.example/cr_0028",
+    "platform": "youtube",
+    "followers": 20144,
+    "avg_views": 2795.6,
+    "median_views": 2129.4,
+    "engagement_rate": 0.0292,
+    "topic_tags": [
+      "medical_students"
+    ],
+    "audience_tags": [
+      "medical_students_audience"
+    ],
+    "geo": "LATAM",
+    "language": "es",
+    "created_at": "2024-07-26T12:00:00+00:00",
+    "last_seen_at": "2026-08-19T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0028"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0029",
+    "name": "Medical Students Creator 0029",
+    "canonical_url": "https://youtube.example/cr_0029",
+    "platform": "youtube",
+    "followers": 63144,
+    "avg_views": 13624.6,
+    "median_views": 12542.0,
+    "engagement_rate": 0.0588,
+    "topic_tags": [
+      "medical_students"
+    ],
+    "audience_tags": [
+      "medical_students_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2025-08-24T12:00:00+00:00",
+    "last_seen_at": "2026-08-19T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0029"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0030",
+    "name": "Medical Students Creator 0030",
+    "canonical_url": "https://youtube.example/cr_0030",
+    "platform": "youtube",
+    "followers": 1985394,
+    "avg_views": 477803.9,
+    "median_views": 422876.8,
+    "engagement_rate": 0.0289,
+    "topic_tags": [
+      "medical_students"
+    ],
+    "audience_tags": [
+      "medical_students_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2025-06-06T12:00:00+00:00",
+    "last_seen_at": "2026-08-08T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0030"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0031",
+    "name": "Medical Students Creator 0031",
+    "canonical_url": "https://telegram.example/cr_0031",
+    "platform": "telegram",
+    "followers": 1414081,
+    "avg_views": 349607.5,
+    "median_views": 291518.5,
+    "engagement_rate": 0.0596,
+    "topic_tags": [
+      "medical_students"
+    ],
+    "audience_tags": [
+      "medical_students_audience"
+    ],
+    "geo": "EU",
+    "language": "en",
+    "created_at": "2024-06-14T12:00:00+00:00",
+    "last_seen_at": "2026-08-02T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0031"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0032",
+    "name": "Medical Students Creator 0032",
+    "canonical_url": "https://telegram.example/cr_0032",
+    "platform": "telegram",
+    "followers": 23386,
+    "avg_views": 3854.7,
+    "median_views": 3095.8,
+    "engagement_rate": 0.0652,
+    "topic_tags": [
+      "medical_students"
+    ],
+    "audience_tags": [
+      "medical_students_audience"
+    ],
+    "geo": "US",
+    "language": "en",
+    "created_at": "2025-09-20T12:00:00+00:00",
+    "last_seen_at": "2026-07-31T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0032"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0033",
+    "name": "Medical Students Creator 0033",
+    "canonical_url": "https://telegram.example/cr_0033",
+    "platform": "telegram",
+    "followers": 1688,
+    "avg_views": 418.1,
+    "median_views": 360.7,
+    "engagement_rate": 0.0157,
+    "topic_tags": [
+      "medical_students"
+    ],
+    "audience_tags": [
+      "medical_students_audience"
+    ],
+    "geo": "US",
+    "language": "en",
+    "created_at": "2025-10-22T12:00:00+00:00",
+    "last_seen_at": "2026-08-18T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0033"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0034",
+    "name": "Medical Students Creator 0034",
+    "canonical_url": "https://instagram.example/cr_0034",
+    "platform": "instagram",
+    "followers": 2670,
+    "avg_views": 848.6,
+    "median_views": 785.7,
+    "engagement_rate": 0.085,
+    "topic_tags": [
+      "medical_students"
+    ],
+    "audience_tags": [
+      "medical_students_audience"
+    ],
+    "geo": "US",
+    "language": "en",
+    "created_at": "2025-01-19T12:00:00+00:00",
+    "last_seen_at": "2026-08-11T12:00:00+00:00",
+    "source_refs": [
+      "https://instagram.example/cr_0034"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0035",
+    "name": "Medical Students Creator 0035",
+    "canonical_url": "https://instagram.example/cr_0035",
+    "platform": "instagram",
+    "followers": 9166,
+    "avg_views": 2755.5,
+    "median_views": 2231.6,
+    "engagement_rate": 0.0156,
+    "topic_tags": [
+      "medical_students"
+    ],
+    "audience_tags": [
+      "medical_students_audience"
+    ],
+    "geo": "US",
+    "language": "en",
+    "created_at": "2024-03-24T12:00:00+00:00",
+    "last_seen_at": "2026-08-17T12:00:00+00:00",
+    "source_refs": [
+      "https://instagram.example/cr_0035"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0036",
+    "name": "Medical Students Creator 0036",
+    "canonical_url": "https://instagram.example/cr_0036",
+    "platform": "instagram",
+    "followers": 754625,
+    "avg_views": 82178.4,
+    "median_views": 70726.4,
+    "engagement_rate": 0.0237,
+    "topic_tags": [
+      "medical_students"
+    ],
+    "audience_tags": [
+      "medical_students_audience"
+    ],
+    "geo": "EU",
+    "language": "en",
+    "created_at": "2025-04-29T12:00:00+00:00",
+    "last_seen_at": "2026-08-11T12:00:00+00:00",
+    "source_refs": [
+      "https://instagram.example/cr_0036"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0037",
+    "name": "Medical Students Creator 0037",
+    "canonical_url": "https://instagram.example/cr_0037",
+    "platform": "instagram",
+    "followers": 23342,
+    "avg_views": 7242.7,
+    "median_views": 6164.1,
+    "engagement_rate": 0.0666,
+    "topic_tags": [
+      "medical_students"
+    ],
+    "audience_tags": [
+      "medical_students_audience"
+    ],
+    "geo": "US",
+    "language": "en",
+    "created_at": "2025-05-20T12:00:00+00:00",
+    "last_seen_at": "2026-08-19T12:00:00+00:00",
+    "source_refs": [
+      "https://instagram.example/cr_0037"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0038",
+    "name": "Medical Students Creator 0038",
+    "canonical_url": "https://instagram.example/cr_0038",
+    "platform": "instagram",
+    "followers": 5033,
+    "avg_views": 855.9,
+    "median_views": 664.3,
+    "engagement_rate": 0.0183,
+    "topic_tags": [
+      "medical_students"
+    ],
+    "audience_tags": [
+      "medical_students_audience"
+    ],
+    "geo": "LATAM",
+    "language": "es",
+    "created_at": "2025-05-09T12:00:00+00:00",
+    "last_seen_at": "2026-08-15T12:00:00+00:00",
+    "source_refs": [
+      "https://instagram.example/cr_0038"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0039",
+    "name": "Beauty Creator 0039",
+    "canonical_url": "https://youtube.example/cr_0039",
+    "platform": "youtube",
+    "followers": 46759,
+    "avg_views": 4690.7,
+    "median_views": 4346.5,
+    "engagement_rate": 0.0157,
+    "topic_tags": [
+      "beauty"
+    ],
+    "audience_tags": [
+      "beauty_audience"
+    ],
+    "geo": "LATAM",
+    "language": "es",
+    "created_at": "2025-09-02T12:00:00+00:00",
+    "last_seen_at": "2026-08-03T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0039"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0040",
+    "name": "Beauty Creator 0040",
+    "canonical_url": "https://youtube.example/cr_0040",
+    "platform": "youtube",
+    "followers": 9552,
+    "avg_views": 1092.8,
+    "median_views": 887.0,
+    "engagement_rate": 0.0261,
+    "topic_tags": [
+      "beauty"
+    ],
+    "audience_tags": [
+      "beauty_audience"
+    ],
+    "geo": "US",
+    "language": "en",
+    "created_at": "2025-12-23T12:00:00+00:00",
+    "last_seen_at": "2026-08-09T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0040"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0041",
+    "name": "Beauty Creator 0041",
+    "canonical_url": "https://youtube.example/cr_0041",
+    "platform": "youtube",
+    "followers": 2184,
+    "avg_views": 504.9,
+    "median_views": 467.0,
+    "engagement_rate": 0.0415,
+    "topic_tags": [
+      "beauty"
+    ],
+    "audience_tags": [
+      "beauty_audience"
+    ],
+    "geo": "EU",
+    "language": "en",
+    "created_at": "2024-05-07T12:00:00+00:00",
+    "last_seen_at": "2026-08-16T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0041"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0042",
+    "name": "Beauty Creator 0042",
+    "canonical_url": "https://youtube.example/cr_0042",
+    "platform": "youtube",
+    "followers": 540790,
+    "avg_views": 161646.7,
+    "median_views": 149730.6,
+    "engagement_rate": 0.0882,
+    "topic_tags": [
+      "beauty"
+    ],
+    "audience_tags": [
+      "beauty_audience"
+    ],
+    "geo": "EU",
+    "language": "en",
+    "created_at": "2026-01-07T12:00:00+00:00",
+    "last_seen_at": "2026-08-15T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0042"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0043",
+    "name": "Beauty Creator 0043",
+    "canonical_url": "https://youtube.example/cr_0043",
+    "platform": "youtube",
+    "followers": 157928,
+    "avg_views": 49478.4,
+    "median_views": 45131.7,
+    "engagement_rate": 0.0752,
+    "topic_tags": [
+      "beauty"
+    ],
+    "audience_tags": [
+      "beauty_audience"
+    ],
+    "geo": "US",
+    "language": "en",
+    "created_at": "2025-05-04T12:00:00+00:00",
+    "last_seen_at": "2026-08-15T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0043"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0044",
+    "name": "Beauty Creator 0044",
+    "canonical_url": "https://telegram.example/cr_0044",
+    "platform": "telegram",
+    "followers": 8211,
+    "avg_views": 2467.2,
+    "median_views": 2077.5,
+    "engagement_rate": 0.0317,
+    "topic_tags": [
+      "beauty"
+    ],
+    "audience_tags": [
+      "beauty_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2025-03-26T12:00:00+00:00",
+    "last_seen_at": "2026-08-13T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0044"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0045",
+    "name": "Beauty Creator 0045",
+    "canonical_url": "https://telegram.example/cr_0045",
+    "platform": "telegram",
+    "followers": 7028,
+    "avg_views": 2202.4,
+    "median_views": 2077.7,
+    "engagement_rate": 0.0396,
+    "topic_tags": [
+      "beauty"
+    ],
+    "audience_tags": [
+      "beauty_audience"
+    ],
+    "geo": "EU",
+    "language": "en",
+    "created_at": "2025-04-22T12:00:00+00:00",
+    "last_seen_at": "2026-08-09T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0045"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0046",
+    "name": "Beauty Creator 0046",
+    "canonical_url": "https://telegram.example/cr_0046",
+    "platform": "telegram",
+    "followers": 45141,
+    "avg_views": 3947.7,
+    "median_views": 3653.2,
+    "engagement_rate": 0.0398,
+    "topic_tags": [
+      "beauty"
+    ],
+    "audience_tags": [
+      "beauty_audience"
+    ],
+    "geo": "LATAM",
+    "language": "es",
+    "created_at": "2025-05-10T12:00:00+00:00",
+    "last_seen_at": "2026-08-15T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0046"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0047",
+    "name": "Beauty Creator 0047",
+    "canonical_url": "https://telegram.example/cr_0047",
+    "platform": "telegram",
+    "followers": 12507,
+    "avg_views": 2468.0,
+    "median_views": 2210.6,
+    "engagement_rate": 0.0231,
+    "topic_tags": [
+      "beauty"
+    ],
+    "audience_tags": [
+      "beauty_audience"
+    ],
+    "geo": "US",
+    "language": "en",
+    "created_at": "2025-03-17T12:00:00+00:00",
+    "last_seen_at": "2026-08-07T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0047"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0048",
+    "name": "Beauty Creator 0048",
+    "canonical_url": "https://telegram.example/cr_0048",
+    "platform": "telegram",
+    "followers": 35244,
+    "avg_views": 4628.3,
+    "median_views": 3512.3,
+    "engagement_rate": 0.0825,
+    "topic_tags": [
+      "beauty"
+    ],
+    "audience_tags": [
+      "beauty_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2024-11-12T12:00:00+00:00",
+    "last_seen_at": "2026-08-20T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0048"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0049",
+    "name": "Beauty Creator 0049",
+    "canonical_url": "https://instagram.example/cr_0049",
+    "platform": "instagram",
+    "followers": 963827,
+    "avg_views": 324034.9,
+    "median_views": 302698.6,
+    "engagement_rate": 0.0473,
+    "topic_tags": [
+      "beauty"
+    ],
+    "audience_tags": [
+      "beauty_audience"
+    ],
+    "geo": "EU",
+    "language": "en",
+    "created_at": "2024-05-04T12:00:00+00:00",
+    "last_seen_at": "2026-08-10T12:00:00+00:00",
+    "source_refs": [
+      "https://instagram.example/cr_0049"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0050",
+    "name": "Beauty Creator 0050",
+    "canonical_url": "https://instagram.example/cr_0050",
+    "platform": "instagram",
+    "followers": 29681,
+    "avg_views": 7718.9,
+    "median_views": 6292.7,
+    "engagement_rate": 0.053,
+    "topic_tags": [
+      "beauty"
+    ],
+    "audience_tags": [
+      "beauty_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2025-04-05T12:00:00+00:00",
+    "last_seen_at": "2026-08-03T12:00:00+00:00",
+    "source_refs": [
+      "https://instagram.example/cr_0050"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0051",
+    "name": "Beauty Creator 0051",
+    "canonical_url": "https://instagram.example/cr_0051",
+    "platform": "instagram",
+    "followers": 6711,
+    "avg_views": 2172.7,
+    "median_views": 1897.0,
+    "engagement_rate": 0.0658,
+    "topic_tags": [
+      "beauty"
+    ],
+    "audience_tags": [
+      "beauty_audience"
+    ],
+    "geo": "LATAM",
+    "language": "es",
+    "created_at": "2025-03-30T12:00:00+00:00",
+    "last_seen_at": "2026-08-08T12:00:00+00:00",
+    "source_refs": [
+      "https://instagram.example/cr_0051"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0052",
+    "name": "Beauty Creator 0052",
+    "canonical_url": "https://instagram.example/cr_0052",
+    "platform": "instagram",
+    "followers": 29914,
+    "avg_views": 5865.2,
+    "median_views": 5079.2,
+    "engagement_rate": 0.0365,
+    "topic_tags": [
+      "beauty"
+    ],
+    "audience_tags": [
+      "beauty_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2024-04-02T12:00:00+00:00",
+    "last_seen_at": "2026-08-10T12:00:00+00:00",
+    "source_refs": [
+      "https://instagram.example/cr_0052"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0053",
+    "name": "Beauty Creator 0053",
+    "canonical_url": "https://instagram.example/cr_0053",
+    "platform": "instagram",
+    "followers": 24005,
+    "avg_views": 7064.9,
+    "median_views": 6654.9,
+    "engagement_rate": 0.0533,
+    "topic_tags": [
+      "beauty"
+    ],
+    "audience_tags": [
+      "beauty_audience"
+    ],
+    "geo": "LATAM",
+    "language": "es",
+    "created_at": "2025-08-12T12:00:00+00:00",
+    "last_seen_at": "2026-08-18T12:00:00+00:00",
+    "source_refs": [
+      "https://instagram.example/cr_0053"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0054",
+    "name": "Personal Finance Creator 0054",
+    "canonical_url": "https://youtube.example/cr_0054",
+    "platform": "youtube",
+    "followers": 16120,
+    "avg_views": 4558.9,
+    "median_views": 4032.6,
+    "engagement_rate": 0.0764,
+    "topic_tags": [
+      "personal_finance"
+    ],
+    "audience_tags": [
+      "personal_finance_audience"
+    ],
+    "geo": "US",
+    "language": "en",
+    "created_at": "2025-06-16T12:00:00+00:00",
+    "last_seen_at": "2026-08-14T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0054"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0055",
+    "name": "Personal Finance Creator 0055",
+    "canonical_url": "https://youtube.example/cr_0055",
+    "platform": "youtube",
+    "followers": 4511,
+    "avg_views": 1105.4,
+    "median_views": 998.9,
+    "engagement_rate": 0.0888,
+    "topic_tags": [
+      "personal_finance"
+    ],
+    "audience_tags": [
+      "personal_finance_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2024-10-23T12:00:00+00:00",
+    "last_seen_at": "2026-08-07T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0055"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0056",
+    "name": "Personal Finance Creator 0056",
+    "canonical_url": "https://youtube.example/cr_0056",
+    "platform": "youtube",
+    "followers": 150657,
+    "avg_views": 21977.2,
+    "median_views": 19366.6,
+    "engagement_rate": 0.0521,
+    "topic_tags": [
+      "personal_finance"
+    ],
+    "audience_tags": [
+      "personal_finance_audience"
+    ],
+    "geo": "EU",
+    "language": "en",
+    "created_at": "2026-01-27T12:00:00+00:00",
+    "last_seen_at": "2026-08-17T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0056"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0057",
+    "name": "Personal Finance Creator 0057",
+    "canonical_url": "https://youtube.example/cr_0057",
+    "platform": "youtube",
+    "followers": 96107,
+    "avg_views": 25746.7,
+    "median_views": 21702.2,
+    "engagement_rate": 0.0753,
+    "topic_tags": [
+      "personal_finance"
+    ],
+    "audience_tags": [
+      "personal_finance_audience"
+    ],
+    "geo": "EU",
+    "language": "en",
+    "created_at": "2024-07-11T12:00:00+00:00",
+    "last_seen_at": "2026-08-13T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0057"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0058",
+    "name": "Personal Finance Creator 0058",
+    "canonical_url": "https://telegram.example/cr_0058",
+    "platform": "telegram",
+    "followers": 44808,
+    "avg_views": 10788.5,
+    "median_views": 10141.3,
+    "engagement_rate": 0.0891,
+    "topic_tags": [
+      "personal_finance"
+    ],
+    "audience_tags": [
+      "personal_finance_audience"
+    ],
+    "geo": "LATAM",
+    "language": "es",
+    "created_at": "2024-11-05T12:00:00+00:00",
+    "last_seen_at": "2026-08-01T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0058"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0059",
+    "name": "Personal Finance Creator 0059",
+    "canonical_url": "https://telegram.example/cr_0059",
+    "platform": "telegram",
+    "followers": 193621,
+    "avg_views": 23810.1,
+    "median_views": 21960.0,
+    "engagement_rate": 0.0484,
+    "topic_tags": [
+      "personal_finance"
+    ],
+    "audience_tags": [
+      "personal_finance_audience"
+    ],
+    "geo": "LATAM",
+    "language": "es",
+    "created_at": "2024-10-29T12:00:00+00:00",
+    "last_seen_at": "2026-08-12T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0059"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0060",
+    "name": "Personal Finance Creator 0060",
+    "canonical_url": "https://telegram.example/cr_0060",
+    "platform": "telegram",
+    "followers": 186655,
+    "avg_views": 26989.6,
+    "median_views": 22616.6,
+    "engagement_rate": 0.0513,
+    "topic_tags": [
+      "personal_finance"
+    ],
+    "audience_tags": [
+      "personal_finance_audience"
+    ],
+    "geo": "US",
+    "language": "en",
+    "created_at": "2025-04-15T12:00:00+00:00",
+    "last_seen_at": "2026-08-13T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0060"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0061",
+    "name": "Personal Finance Creator 0061",
+    "canonical_url": "https://instagram.example/cr_0061",
+    "platform": "instagram",
+    "followers": 2767,
+    "avg_views": 507.5,
+    "median_views": 396.1,
+    "engagement_rate": 0.0263,
+    "topic_tags": [
+      "personal_finance"
+    ],
+    "audience_tags": [
+      "personal_finance_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2025-06-27T12:00:00+00:00",
+    "last_seen_at": "2026-08-18T12:00:00+00:00",
+    "source_refs": [
+      "https://instagram.example/cr_0061"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0062",
+    "name": "Personal Finance Creator 0062",
+    "canonical_url": "https://instagram.example/cr_0062",
+    "platform": "instagram",
+    "followers": 45560,
+    "avg_views": 4410.7,
+    "median_views": 4042.8,
+    "engagement_rate": 0.0499,
+    "topic_tags": [
+      "personal_finance"
+    ],
+    "audience_tags": [
+      "personal_finance_audience"
+    ],
+    "geo": "US",
+    "language": "en",
+    "created_at": "2024-12-30T12:00:00+00:00",
+    "last_seen_at": "2026-08-02T12:00:00+00:00",
+    "source_refs": [
+      "https://instagram.example/cr_0062"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0063",
+    "name": "Personal Finance Creator 0063",
+    "canonical_url": "https://instagram.example/cr_0063",
+    "platform": "instagram",
+    "followers": 1996697,
+    "avg_views": 470095.1,
+    "median_views": 397416.5,
+    "engagement_rate": 0.081,
+    "topic_tags": [
+      "personal_finance"
+    ],
+    "audience_tags": [
+      "personal_finance_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2025-02-06T12:00:00+00:00",
+    "last_seen_at": "2026-08-11T12:00:00+00:00",
+    "source_refs": [
+      "https://instagram.example/cr_0063"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0064",
+    "name": "Personal Finance Creator 0064",
+    "canonical_url": "https://instagram.example/cr_0064",
+    "platform": "instagram",
+    "followers": 191091,
+    "avg_views": 43464.7,
+    "median_views": 37842.6,
+    "engagement_rate": 0.0711,
+    "topic_tags": [
+      "personal_finance"
+    ],
+    "audience_tags": [
+      "personal_finance_audience"
+    ],
+    "geo": "LATAM",
+    "language": "es",
+    "created_at": "2025-06-21T12:00:00+00:00",
+    "last_seen_at": "2026-08-05T12:00:00+00:00",
+    "source_refs": [
+      "https://instagram.example/cr_0064"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0065",
+    "name": "Coding Creator 0065",
+    "canonical_url": "https://youtube.example/cr_0065",
+    "platform": "youtube",
+    "followers": 975,
+    "avg_views": 254.1,
+    "median_views": 231.1,
+    "engagement_rate": 0.0442,
+    "topic_tags": [
+      "coding"
+    ],
+    "audience_tags": [
+      "coding_audience"
+    ],
+    "geo": "LATAM",
+    "language": "es",
+    "created_at": "2025-08-16T12:00:00+00:00",
+    "last_seen_at": "2026-08-06T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0065"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0066",
+    "name": "Coding Creator 0066",
+    "canonical_url": "https://youtube.example/cr_0066",
+    "platform": "youtube",
+    "followers": 153290,
+    "avg_views": 39703.6,
+    "median_views": 30444.3,
+    "engagement_rate": 0.0594,
+    "topic_tags": [
+      "coding"
+    ],
+    "audience_tags": [
+      "coding_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2024-11-20T12:00:00+00:00",
+    "last_seen_at": "2026-08-16T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0066"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0067",
+    "name": "Coding Creator 0067",
+    "canonical_url": "https://youtube.example/cr_0067",
+    "platform": "youtube",
+    "followers": 63181,
+    "avg_views": 10638.7,
+    "median_views": 8946.5,
+    "engagement_rate": 0.0345,
+    "topic_tags": [
+      "coding"
+    ],
+    "audience_tags": [
+      "coding_audience"
+    ],
+    "geo": "EU",
+    "language": "en",
+    "created_at": "2025-02-21T12:00:00+00:00",
+    "last_seen_at": "2026-08-08T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0067"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0068",
+    "name": "Coding Creator 0068",
+    "canonical_url": "https://telegram.example/cr_0068",
+    "platform": "telegram",
+    "followers": 116131,
+    "avg_views": 24037.1,
+    "median_views": 21628.7,
+    "engagement_rate": 0.0776,
+    "topic_tags": [
+      "coding"
+    ],
+    "audience_tags": [
+      "coding_audience"
+    ],
+    "geo": "LATAM",
+    "language": "es",
+    "created_at": "2025-12-10T12:00:00+00:00",
+    "last_seen_at": "2026-08-09T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0068"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0069",
+    "name": "Coding Creator 0069",
+    "canonical_url": "https://telegram.example/cr_0069",
+    "platform": "telegram",
+    "followers": 1159,
+    "avg_views": 389.9,
+    "median_views": 308.0,
+    "engagement_rate": 0.0716,
+    "topic_tags": [
+      "coding"
+    ],
+    "audience_tags": [
+      "coding_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2026-01-12T12:00:00+00:00",
+    "last_seen_at": "2026-08-01T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0069"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0070",
+    "name": "Coding Creator 0070",
+    "canonical_url": "https://telegram.example/cr_0070",
+    "platform": "telegram",
+    "followers": 8258,
+    "avg_views": 1918.1,
+    "median_views": 1522.2,
+    "engagement_rate": 0.0652,
+    "topic_tags": [
+      "coding"
+    ],
+    "audience_tags": [
+      "coding_audience"
+    ],
+    "geo": "EU",
+    "language": "en",
+    "created_at": "2025-05-15T12:00:00+00:00",
+    "last_seen_at": "2026-08-09T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0070"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0071",
+    "name": "Coding Creator 0071",
+    "canonical_url": "https://telegram.example/cr_0071",
+    "platform": "telegram",
+    "followers": 3183,
+    "avg_views": 347.5,
+    "median_views": 262.4,
+    "engagement_rate": 0.0874,
+    "topic_tags": [
+      "coding"
+    ],
+    "audience_tags": [
+      "coding_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2025-03-19T12:00:00+00:00",
+    "last_seen_at": "2026-08-02T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0071"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0072",
+    "name": "Coding Creator 0072",
+    "canonical_url": "https://instagram.example/cr_0072",
+    "platform": "instagram",
+    "followers": 153980,
+    "avg_views": 20563.9,
+    "median_views": 17858.1,
+    "engagement_rate": 0.0856,
+    "topic_tags": [
+      "coding"
+    ],
+    "audience_tags": [
+      "coding_audience"
+    ],
+    "geo": "LATAM",
+    "language": "es",
+    "created_at": "2024-04-30T12:00:00+00:00",
+    "last_seen_at": "2026-08-13T12:00:00+00:00",
+    "source_refs": [
+      "https://instagram.example/cr_0072"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0073",
+    "name": "Coding Creator 0073",
+    "canonical_url": "https://instagram.example/cr_0073",
+    "platform": "instagram",
+    "followers": 2483,
+    "avg_views": 578.0,
+    "median_views": 438.2,
+    "engagement_rate": 0.0747,
+    "topic_tags": [
+      "coding"
+    ],
+    "audience_tags": [
+      "coding_audience"
+    ],
+    "geo": "US",
+    "language": "en",
+    "created_at": "2024-08-05T12:00:00+00:00",
+    "last_seen_at": "2026-08-07T12:00:00+00:00",
+    "source_refs": [
+      "https://instagram.example/cr_0073"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0074",
+    "name": "Coding Creator 0074",
+    "canonical_url": "https://instagram.example/cr_0074",
+    "platform": "instagram",
+    "followers": 43158,
+    "avg_views": 3600.1,
+    "median_views": 3002.5,
+    "engagement_rate": 0.0636,
+    "topic_tags": [
+      "coding"
+    ],
+    "audience_tags": [
+      "coding_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2024-09-18T12:00:00+00:00",
+    "last_seen_at": "2026-08-17T12:00:00+00:00",
+    "source_refs": [
+      "https://instagram.example/cr_0074"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0075",
+    "name": "Coding Creator 0075",
+    "canonical_url": "https://instagram.example/cr_0075",
+    "platform": "instagram",
+    "followers": 40129,
+    "avg_views": 7928.7,
+    "median_views": 7110.1,
+    "engagement_rate": 0.068,
+    "topic_tags": [
+      "coding"
+    ],
+    "audience_tags": [
+      "coding_audience"
+    ],
+    "geo": "US",
+    "language": "en",
+    "created_at": "2024-04-06T12:00:00+00:00",
+    "last_seen_at": "2026-08-12T12:00:00+00:00",
+    "source_refs": [
+      "https://instagram.example/cr_0075"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0076",
+    "name": "Coding Creator 0076",
+    "canonical_url": "https://instagram.example/cr_0076",
+    "platform": "instagram",
+    "followers": 40465,
+    "avg_views": 11224.1,
+    "median_views": 9020.6,
+    "engagement_rate": 0.0477,
+    "topic_tags": [
+      "coding"
+    ],
+    "audience_tags": [
+      "coding_audience"
+    ],
+    "geo": "LATAM",
+    "language": "es",
+    "created_at": "2025-05-26T12:00:00+00:00",
+    "last_seen_at": "2026-08-18T12:00:00+00:00",
+    "source_refs": [
+      "https://instagram.example/cr_0076"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0077",
+    "name": "Cooking Creator 0077",
+    "canonical_url": "https://youtube.example/cr_0077",
+    "platform": "youtube",
+    "followers": 171820,
+    "avg_views": 44743.8,
+    "median_views": 36568.2,
+    "engagement_rate": 0.0577,
+    "topic_tags": [
+      "cooking"
+    ],
+    "audience_tags": [
+      "cooking_audience"
+    ],
+    "geo": "EU",
+    "language": "en",
+    "created_at": "2024-09-13T12:00:00+00:00",
+    "last_seen_at": "2026-08-10T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0077"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0078",
+    "name": "Cooking Creator 0078",
+    "canonical_url": "https://youtube.example/cr_0078",
+    "platform": "youtube",
+    "followers": 6313,
+    "avg_views": 1085.2,
+    "median_views": 1005.0,
+    "engagement_rate": 0.0748,
+    "topic_tags": [
+      "cooking"
+    ],
+    "audience_tags": [
+      "cooking_audience"
+    ],
+    "geo": "EU",
+    "language": "en",
+    "created_at": "2025-04-25T12:00:00+00:00",
+    "last_seen_at": "2026-08-03T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0078"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0079",
+    "name": "Cooking Creator 0079",
+    "canonical_url": "https://youtube.example/cr_0079",
+    "platform": "youtube",
+    "followers": 1902,
+    "avg_views": 360.9,
+    "median_views": 310.7,
+    "engagement_rate": 0.0331,
+    "topic_tags": [
+      "cooking"
+    ],
+    "audience_tags": [
+      "cooking_audience"
+    ],
+    "geo": "EU",
+    "language": "en",
+    "created_at": "2025-05-31T12:00:00+00:00",
+    "last_seen_at": "2026-08-05T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0079"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0080",
+    "name": "Cooking Creator 0080",
+    "canonical_url": "https://youtube.example/cr_0080",
+    "platform": "youtube",
+    "followers": 39371,
+    "avg_views": 4138.9,
+    "median_views": 3287.6,
+    "engagement_rate": 0.0745,
+    "topic_tags": [
+      "cooking"
+    ],
+    "audience_tags": [
+      "cooking_audience"
+    ],
+    "geo": "LATAM",
+    "language": "es",
+    "created_at": "2025-05-28T12:00:00+00:00",
+    "last_seen_at": "2026-08-11T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0080"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0081",
+    "name": "Cooking Creator 0081",
+    "canonical_url": "https://telegram.example/cr_0081",
+    "platform": "telegram",
+    "followers": 46272,
+    "avg_views": 9017.8,
+    "median_views": 8108.7,
+    "engagement_rate": 0.0548,
+    "topic_tags": [
+      "cooking"
+    ],
+    "audience_tags": [
+      "cooking_audience"
+    ],
+    "geo": "LATAM",
+    "language": "es",
+    "created_at": "2025-02-28T12:00:00+00:00",
+    "last_seen_at": "2026-08-09T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0081"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0082",
+    "name": "Cooking Creator 0082",
+    "canonical_url": "https://telegram.example/cr_0082",
+    "platform": "telegram",
+    "followers": 130379,
+    "avg_views": 14677.7,
+    "median_views": 11573.6,
+    "engagement_rate": 0.0339,
+    "topic_tags": [
+      "cooking"
+    ],
+    "audience_tags": [
+      "cooking_audience"
+    ],
+    "geo": "US",
+    "language": "en",
+    "created_at": "2025-10-02T12:00:00+00:00",
+    "last_seen_at": "2026-08-03T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0082"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0083",
+    "name": "Cooking Creator 0083",
+    "canonical_url": "https://telegram.example/cr_0083",
+    "platform": "telegram",
+    "followers": 601690,
+    "avg_views": 126796.3,
+    "median_views": 113472.2,
+    "engagement_rate": 0.0312,
+    "topic_tags": [
+      "cooking"
+    ],
+    "audience_tags": [
+      "cooking_audience"
+    ],
+    "geo": "EU",
+    "language": "en",
+    "created_at": "2024-08-13T12:00:00+00:00",
+    "last_seen_at": "2026-08-01T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0083"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0084",
+    "name": "Cooking Creator 0084",
+    "canonical_url": "https://telegram.example/cr_0084",
+    "platform": "telegram",
+    "followers": 3680,
+    "avg_views": 653.0,
+    "median_views": 529.2,
+    "engagement_rate": 0.0372,
+    "topic_tags": [
+      "cooking"
+    ],
+    "audience_tags": [
+      "cooking_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2024-08-04T12:00:00+00:00",
+    "last_seen_at": "2026-08-16T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0084"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0085",
+    "name": "Cooking Creator 0085",
+    "canonical_url": "https://telegram.example/cr_0085",
+    "platform": "telegram",
+    "followers": 9566,
+    "avg_views": 3203.7,
+    "median_views": 2811.5,
+    "engagement_rate": 0.0369,
+    "topic_tags": [
+      "cooking"
+    ],
+    "audience_tags": [
+      "cooking_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2024-09-17T12:00:00+00:00",
+    "last_seen_at": "2026-08-17T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0085"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0086",
+    "name": "Cooking Creator 0086",
+    "canonical_url": "https://instagram.example/cr_0086",
+    "platform": "instagram",
+    "followers": 41373,
+    "avg_views": 5369.3,
+    "median_views": 4082.1,
+    "engagement_rate": 0.048,
+    "topic_tags": [
+      "cooking"
+    ],
+    "audience_tags": [
+      "cooking_audience"
+    ],
+    "geo": "LATAM",
+    "language": "es",
+    "created_at": "2024-09-30T12:00:00+00:00",
+    "last_seen_at": "2026-08-17T12:00:00+00:00",
+    "source_refs": [
+      "https://instagram.example/cr_0086"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0087",
+    "name": "Cooking Creator 0087",
+    "canonical_url": "https://instagram.example/cr_0087",
+    "platform": "instagram",
+    "followers": 178908,
+    "avg_views": 44718.1,
+    "median_views": 34018.0,
+    "engagement_rate": 0.0206,
+    "topic_tags": [
+      "cooking"
+    ],
+    "audience_tags": [
+      "cooking_audience"
+    ],
+    "geo": "LATAM",
+    "language": "es",
+    "created_at": "2025-09-02T12:00:00+00:00",
+    "last_seen_at": "2026-08-02T12:00:00+00:00",
+    "source_refs": [
+      "https://instagram.example/cr_0087"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0088",
+    "name": "Cooking Creator 0088",
+    "canonical_url": "https://instagram.example/cr_0088",
+    "platform": "instagram",
+    "followers": 720494,
+    "avg_views": 206349.3,
+    "median_views": 179784.6,
+    "engagement_rate": 0.0239,
+    "topic_tags": [
+      "cooking"
+    ],
+    "audience_tags": [
+      "cooking_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2024-05-09T12:00:00+00:00",
+    "last_seen_at": "2026-08-13T12:00:00+00:00",
+    "source_refs": [
+      "https://instagram.example/cr_0088"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0089",
+    "name": "Travel Creator 0089",
+    "canonical_url": "https://youtube.example/cr_0089",
+    "platform": "youtube",
+    "followers": 29487,
+    "avg_views": 10241.1,
+    "median_views": 8306.3,
+    "engagement_rate": 0.0795,
+    "topic_tags": [
+      "travel"
+    ],
+    "audience_tags": [
+      "travel_audience"
+    ],
+    "geo": "LATAM",
+    "language": "es",
+    "created_at": "2024-05-07T12:00:00+00:00",
+    "last_seen_at": "2026-08-19T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0089"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0090",
+    "name": "Travel Creator 0090",
+    "canonical_url": "https://youtube.example/cr_0090",
+    "platform": "youtube",
+    "followers": 23617,
+    "avg_views": 3576.9,
+    "median_views": 2740.8,
+    "engagement_rate": 0.0619,
+    "topic_tags": [
+      "travel"
+    ],
+    "audience_tags": [
+      "travel_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2025-06-01T12:00:00+00:00",
+    "last_seen_at": "2026-08-15T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0090"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0091",
+    "name": "Travel Creator 0091",
+    "canonical_url": "https://youtube.example/cr_0091",
+    "platform": "youtube",
+    "followers": 10175,
+    "avg_views": 2707.9,
+    "median_views": 2285.4,
+    "engagement_rate": 0.0456,
+    "topic_tags": [
+      "travel"
+    ],
+    "audience_tags": [
+      "travel_audience"
+    ],
+    "geo": "EU",
+    "language": "en",
+    "created_at": "2025-12-30T12:00:00+00:00",
+    "last_seen_at": "2026-08-13T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0091"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0092",
+    "name": "Travel Creator 0092",
+    "canonical_url": "https://youtube.example/cr_0092",
+    "platform": "youtube",
+    "followers": 7938,
+    "avg_views": 1135.3,
+    "median_views": 911.5,
+    "engagement_rate": 0.0203,
+    "topic_tags": [
+      "travel"
+    ],
+    "audience_tags": [
+      "travel_audience"
+    ],
+    "geo": "US",
+    "language": "en",
+    "created_at": "2024-05-02T12:00:00+00:00",
+    "last_seen_at": "2026-08-02T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0092"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0093",
+    "name": "Travel Creator 0093",
+    "canonical_url": "https://youtube.example/cr_0093",
+    "platform": "youtube",
+    "followers": 37861,
+    "avg_views": 5327.0,
+    "median_views": 4154.0,
+    "engagement_rate": 0.0236,
+    "topic_tags": [
+      "travel"
+    ],
+    "audience_tags": [
+      "travel_audience"
+    ],
+    "geo": "EU",
+    "language": "en",
+    "created_at": "2025-05-05T12:00:00+00:00",
+    "last_seen_at": "2026-08-16T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0093"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0094",
+    "name": "Travel Creator 0094",
+    "canonical_url": "https://telegram.example/cr_0094",
+    "platform": "telegram",
+    "followers": 9825,
+    "avg_views": 1951.0,
+    "median_views": 1646.1,
+    "engagement_rate": 0.0841,
+    "topic_tags": [
+      "travel"
+    ],
+    "audience_tags": [
+      "travel_audience"
+    ],
+    "geo": "US",
+    "language": "en",
+    "created_at": "2025-03-27T12:00:00+00:00",
+    "last_seen_at": "2026-08-08T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0094"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0095",
+    "name": "Travel Creator 0095",
+    "canonical_url": "https://telegram.example/cr_0095",
+    "platform": "telegram",
+    "followers": 1118046,
+    "avg_views": 101476.6,
+    "median_views": 84875.6,
+    "engagement_rate": 0.021,
+    "topic_tags": [
+      "travel"
+    ],
+    "audience_tags": [
+      "travel_audience"
+    ],
+    "geo": "LATAM",
+    "language": "es",
+    "created_at": "2025-03-08T12:00:00+00:00",
+    "last_seen_at": "2026-08-01T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0095"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0096",
+    "name": "Travel Creator 0096",
+    "canonical_url": "https://telegram.example/cr_0096",
+    "platform": "telegram",
+    "followers": 4250,
+    "avg_views": 1299.3,
+    "median_views": 1123.9,
+    "engagement_rate": 0.0871,
+    "topic_tags": [
+      "travel"
+    ],
+    "audience_tags": [
+      "travel_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2026-01-11T12:00:00+00:00",
+    "last_seen_at": "2026-08-12T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0096"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0097",
+    "name": "Travel Creator 0097",
+    "canonical_url": "https://instagram.example/cr_0097",
+    "platform": "instagram",
+    "followers": 8208,
+    "avg_views": 1636.7,
+    "median_views": 1318.6,
+    "engagement_rate": 0.0539,
+    "topic_tags": [
+      "travel"
+    ],
+    "audience_tags": [
+      "travel_audience"
+    ],
+    "geo": "EU",
+    "language": "en",
+    "created_at": "2024-06-12T12:00:00+00:00",
+    "last_seen_at": "2026-08-07T12:00:00+00:00",
+    "source_refs": [
+      "https://instagram.example/cr_0097"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0098",
+    "name": "Travel Creator 0098",
+    "canonical_url": "https://instagram.example/cr_0098",
+    "platform": "instagram",
+    "followers": 15979,
+    "avg_views": 3040.1,
+    "median_views": 2475.3,
+    "engagement_rate": 0.0503,
+    "topic_tags": [
+      "travel"
+    ],
+    "audience_tags": [
+      "travel_audience"
+    ],
+    "geo": "LATAM",
+    "language": "es",
+    "created_at": "2025-10-17T12:00:00+00:00",
+    "last_seen_at": "2026-08-15T12:00:00+00:00",
+    "source_refs": [
+      "https://instagram.example/cr_0098"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0099",
+    "name": "Travel Creator 0099",
+    "canonical_url": "https://instagram.example/cr_0099",
+    "platform": "instagram",
+    "followers": 5222,
+    "avg_views": 982.4,
+    "median_views": 886.2,
+    "engagement_rate": 0.0647,
+    "topic_tags": [
+      "travel"
+    ],
+    "audience_tags": [
+      "travel_audience"
+    ],
+    "geo": "LATAM",
+    "language": "es",
+    "created_at": "2025-12-26T12:00:00+00:00",
+    "last_seen_at": "2026-08-06T12:00:00+00:00",
+    "source_refs": [
+      "https://instagram.example/cr_0099"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0100",
+    "name": "Travel Creator 0100",
+    "canonical_url": "https://instagram.example/cr_0100",
+    "platform": "instagram",
+    "followers": 5796,
+    "avg_views": 1672.7,
+    "median_views": 1543.9,
+    "engagement_rate": 0.0237,
+    "topic_tags": [
+      "travel"
+    ],
+    "audience_tags": [
+      "travel_audience"
+    ],
+    "geo": "US",
+    "language": "en",
+    "created_at": "2026-01-31T12:00:00+00:00",
+    "last_seen_at": "2026-08-03T12:00:00+00:00",
+    "source_refs": [
+      "https://instagram.example/cr_0100"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0101",
+    "name": "Travel Creator 0101",
+    "canonical_url": "https://instagram.example/cr_0101",
+    "platform": "instagram",
+    "followers": 22293,
+    "avg_views": 5531.1,
+    "median_views": 4699.8,
+    "engagement_rate": 0.0539,
+    "topic_tags": [
+      "travel"
+    ],
+    "audience_tags": [
+      "travel_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2024-11-06T12:00:00+00:00",
+    "last_seen_at": "2026-08-19T12:00:00+00:00",
+    "source_refs": [
+      "https://instagram.example/cr_0101"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0102",
+    "name": "Fitness Creator 0102",
+    "canonical_url": "https://youtube.example/cr_0102",
+    "platform": "youtube",
+    "followers": 120007,
+    "avg_views": 39658.9,
+    "median_views": 33219.2,
+    "engagement_rate": 0.0562,
+    "topic_tags": [
+      "fitness"
+    ],
+    "audience_tags": [
+      "fitness_audience"
+    ],
+    "geo": "EU",
+    "language": "en",
+    "created_at": "2024-09-23T12:00:00+00:00",
+    "last_seen_at": "2026-08-17T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0102"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0103",
+    "name": "Fitness Creator 0103",
+    "canonical_url": "https://youtube.example/cr_0103",
+    "platform": "youtube",
+    "followers": 112730,
+    "avg_views": 18476.7,
+    "median_views": 13908.1,
+    "engagement_rate": 0.0682,
+    "topic_tags": [
+      "fitness"
+    ],
+    "audience_tags": [
+      "fitness_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2024-12-11T12:00:00+00:00",
+    "last_seen_at": "2026-08-18T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0103"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0104",
+    "name": "Fitness Creator 0104",
+    "canonical_url": "https://youtube.example/cr_0104",
+    "platform": "youtube",
+    "followers": 79743,
+    "avg_views": 8908.6,
+    "median_views": 8164.1,
+    "engagement_rate": 0.0496,
+    "topic_tags": [
+      "fitness"
+    ],
+    "audience_tags": [
+      "fitness_audience"
+    ],
+    "geo": "EU",
+    "language": "en",
+    "created_at": "2024-09-09T12:00:00+00:00",
+    "last_seen_at": "2026-08-11T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0104"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0105",
+    "name": "Fitness Creator 0105",
+    "canonical_url": "https://youtube.example/cr_0105",
+    "platform": "youtube",
+    "followers": 158918,
+    "avg_views": 54773.6,
+    "median_views": 43750.2,
+    "engagement_rate": 0.0776,
+    "topic_tags": [
+      "fitness"
+    ],
+    "audience_tags": [
+      "fitness_audience"
+    ],
+    "geo": "US",
+    "language": "en",
+    "created_at": "2024-07-17T12:00:00+00:00",
+    "last_seen_at": "2026-08-16T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0105"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0106",
+    "name": "Fitness Creator 0106",
+    "canonical_url": "https://youtube.example/cr_0106",
+    "platform": "youtube",
+    "followers": 99967,
+    "avg_views": 21715.3,
+    "median_views": 20105.4,
+    "engagement_rate": 0.0841,
+    "topic_tags": [
+      "fitness"
+    ],
+    "audience_tags": [
+      "fitness_audience"
+    ],
+    "geo": "LATAM",
+    "language": "es",
+    "created_at": "2025-11-22T12:00:00+00:00",
+    "last_seen_at": "2026-08-12T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0106"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0107",
+    "name": "Fitness Creator 0107",
+    "canonical_url": "https://youtube.example/cr_0107",
+    "platform": "youtube",
+    "followers": 139096,
+    "avg_views": 30196.2,
+    "median_views": 27602.6,
+    "engagement_rate": 0.0851,
+    "topic_tags": [
+      "fitness"
+    ],
+    "audience_tags": [
+      "fitness_audience"
+    ],
+    "geo": "LATAM",
+    "language": "es",
+    "created_at": "2025-04-18T12:00:00+00:00",
+    "last_seen_at": "2026-08-11T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0107"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0108",
+    "name": "Fitness Creator 0108",
+    "canonical_url": "https://youtube.example/cr_0108",
+    "platform": "youtube",
+    "followers": 88953,
+    "avg_views": 18748.8,
+    "median_views": 15308.2,
+    "engagement_rate": 0.0485,
+    "topic_tags": [
+      "fitness"
+    ],
+    "audience_tags": [
+      "fitness_audience"
+    ],
+    "geo": "LATAM",
+    "language": "es",
+    "created_at": "2024-07-25T12:00:00+00:00",
+    "last_seen_at": "2026-08-08T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0108"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0109",
+    "name": "Fitness Creator 0109",
+    "canonical_url": "https://youtube.example/cr_0109",
+    "platform": "youtube",
+    "followers": 134352,
+    "avg_views": 46325.8,
+    "median_views": 36956.9,
+    "engagement_rate": 0.0802,
+    "topic_tags": [
+      "fitness"
+    ],
+    "audience_tags": [
+      "fitness_audience"
+    ],
+    "geo": "LATAM",
+    "language": "es",
+    "created_at": "2025-01-05T12:00:00+00:00",
+    "last_seen_at": "2026-08-13T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0109"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0110",
+    "name": "Fitness Creator 0110",
+    "canonical_url": "https://youtube.example/cr_0110",
+    "platform": "youtube",
+    "followers": 61441,
+    "avg_views": 12761.5,
+    "median_views": 11902.5,
+    "engagement_rate": 0.0389,
+    "topic_tags": [
+      "fitness"
+    ],
+    "audience_tags": [
+      "fitness_audience"
+    ],
+    "geo": "LATAM",
+    "language": "es",
+    "created_at": "2025-01-07T12:00:00+00:00",
+    "last_seen_at": "2026-08-08T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0110"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0111",
+    "name": "Fitness Creator 0111",
+    "canonical_url": "https://youtube.example/cr_0111",
+    "platform": "youtube",
+    "followers": 179847,
+    "avg_views": 20518.1,
+    "median_views": 19350.0,
+    "engagement_rate": 0.0874,
+    "topic_tags": [
+      "fitness"
+    ],
+    "audience_tags": [
+      "fitness_audience"
+    ],
+    "geo": "EU",
+    "language": "en",
+    "created_at": "2025-02-27T12:00:00+00:00",
+    "last_seen_at": "2026-08-17T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0111"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0112",
+    "name": "Medical Students Creator 0112",
+    "canonical_url": "https://telegram.example/cr_0112",
+    "platform": "telegram",
+    "followers": 7898,
+    "avg_views": 1514.3,
+    "median_views": 1386.3,
+    "engagement_rate": 0.0816,
+    "topic_tags": [
+      "medical_students"
+    ],
+    "audience_tags": [
+      "medical_students_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2024-12-20T12:00:00+00:00",
+    "last_seen_at": "2026-08-07T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0112"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0113",
+    "name": "Medical Students Creator 0113",
+    "canonical_url": "https://telegram.example/cr_0113",
+    "platform": "telegram",
+    "followers": 2057,
+    "avg_views": 338.1,
+    "median_views": 270.8,
+    "engagement_rate": 0.0384,
+    "topic_tags": [
+      "medical_students"
+    ],
+    "audience_tags": [
+      "medical_students_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2025-08-29T12:00:00+00:00",
+    "last_seen_at": "2026-08-05T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0113"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0114",
+    "name": "Medical Students Creator 0114",
+    "canonical_url": "https://telegram.example/cr_0114",
+    "platform": "telegram",
+    "followers": 1599,
+    "avg_views": 164.8,
+    "median_views": 137.8,
+    "engagement_rate": 0.0218,
+    "topic_tags": [
+      "medical_students"
+    ],
+    "audience_tags": [
+      "medical_students_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2025-01-16T12:00:00+00:00",
+    "last_seen_at": "2026-08-16T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0114"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0115",
+    "name": "Medical Students Creator 0115",
+    "canonical_url": "https://telegram.example/cr_0115",
+    "platform": "telegram",
+    "followers": 9615,
+    "avg_views": 3252.6,
+    "median_views": 2804.8,
+    "engagement_rate": 0.0195,
+    "topic_tags": [
+      "medical_students"
+    ],
+    "audience_tags": [
+      "medical_students_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2024-03-17T12:00:00+00:00",
+    "last_seen_at": "2026-08-17T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0115"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0116",
+    "name": "Medical Students Creator 0116",
+    "canonical_url": "https://telegram.example/cr_0116",
+    "platform": "telegram",
+    "followers": 7230,
+    "avg_views": 1877.2,
+    "median_views": 1689.6,
+    "engagement_rate": 0.0415,
+    "topic_tags": [
+      "medical_students"
+    ],
+    "audience_tags": [
+      "medical_students_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2025-12-11T12:00:00+00:00",
+    "last_seen_at": "2026-08-11T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0116"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0117",
+    "name": "Medical Students Creator 0117",
+    "canonical_url": "https://telegram.example/cr_0117",
+    "platform": "telegram",
+    "followers": 5619,
+    "avg_views": 1326.3,
+    "median_views": 1051.2,
+    "engagement_rate": 0.0414,
+    "topic_tags": [
+      "medical_students"
+    ],
+    "audience_tags": [
+      "medical_students_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2024-03-31T12:00:00+00:00",
+    "last_seen_at": "2026-08-05T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0117"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0118",
+    "name": "Medical Students Creator 0118",
+    "canonical_url": "https://telegram.example/cr_0118",
+    "platform": "telegram",
+    "followers": 4174,
+    "avg_views": 728.5,
+    "median_views": 627.4,
+    "engagement_rate": 0.0785,
+    "topic_tags": [
+      "medical_students"
+    ],
+    "audience_tags": [
+      "medical_students_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2025-10-07T12:00:00+00:00",
+    "last_seen_at": "2026-08-12T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0118"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0119",
+    "name": "Medical Students Creator 0119",
+    "canonical_url": "https://telegram.example/cr_0119",
+    "platform": "telegram",
+    "followers": 4205,
+    "avg_views": 1295.9,
+    "median_views": 1224.5,
+    "engagement_rate": 0.0755,
+    "topic_tags": [
+      "medical_students"
+    ],
+    "audience_tags": [
+      "medical_students_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2024-05-06T12:00:00+00:00",
+    "last_seen_at": "2026-08-01T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0119"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0120",
+    "name": "Medical Students Creator 0120",
+    "canonical_url": "https://telegram.example/cr_0120",
+    "platform": "telegram",
+    "followers": 9621,
+    "avg_views": 3183.1,
+    "median_views": 2915.4,
+    "engagement_rate": 0.017,
+    "topic_tags": [
+      "medical_students"
+    ],
+    "audience_tags": [
+      "medical_students_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2025-05-04T12:00:00+00:00",
+    "last_seen_at": "2026-08-20T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0120"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0121",
+    "name": "Medical Students Creator 0121",
+    "canonical_url": "https://telegram.example/cr_0121",
+    "platform": "telegram",
+    "followers": 3455,
+    "avg_views": 987.6,
+    "median_views": 922.7,
+    "engagement_rate": 0.0355,
+    "topic_tags": [
+      "medical_students"
+    ],
+    "audience_tags": [
+      "medical_students_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2025-02-07T12:00:00+00:00",
+    "last_seen_at": "2026-08-20T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0121"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0122",
+    "name": "Medical Students Creator 0122",
+    "canonical_url": "https://telegram.example/cr_0122",
+    "platform": "telegram",
+    "followers": 3472,
+    "avg_views": 808.7,
+    "median_views": 671.3,
+    "engagement_rate": 0.0802,
+    "topic_tags": [
+      "medical_students"
+    ],
+    "audience_tags": [
+      "medical_students_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2025-09-09T12:00:00+00:00",
+    "last_seen_at": "2026-07-31T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0122"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0123",
+    "name": "Medical Students Creator 0123",
+    "canonical_url": "https://telegram.example/cr_0123",
+    "platform": "telegram",
+    "followers": 1002,
+    "avg_views": 223.7,
+    "median_views": 184.6,
+    "engagement_rate": 0.0219,
+    "topic_tags": [
+      "medical_students"
+    ],
+    "audience_tags": [
+      "medical_students_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2024-10-25T12:00:00+00:00",
+    "last_seen_at": "2026-08-10T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0123"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0124",
+    "name": "Medical Students Creator 0124",
+    "canonical_url": "https://telegram.example/cr_0124",
+    "platform": "telegram",
+    "followers": 3078,
+    "avg_views": 845.9,
+    "median_views": 765.9,
+    "engagement_rate": 0.0428,
+    "topic_tags": [
+      "medical_students"
+    ],
+    "audience_tags": [
+      "medical_students_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2024-06-30T12:00:00+00:00",
+    "last_seen_at": "2026-08-01T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0124"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0125",
+    "name": "Medical Students Creator 0125",
+    "canonical_url": "https://telegram.example/cr_0125",
+    "platform": "telegram",
+    "followers": 1891,
+    "avg_views": 230.7,
+    "median_views": 207.8,
+    "engagement_rate": 0.0813,
+    "topic_tags": [
+      "medical_students"
+    ],
+    "audience_tags": [
+      "medical_students_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2025-12-13T12:00:00+00:00",
+    "last_seen_at": "2026-08-18T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0125"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0126",
+    "name": "Medical Students Creator 0126",
+    "canonical_url": "https://telegram.example/cr_0126",
+    "platform": "telegram",
+    "followers": 4958,
+    "avg_views": 964.3,
+    "median_views": 840.3,
+    "engagement_rate": 0.0482,
+    "topic_tags": [
+      "medical_students"
+    ],
+    "audience_tags": [
+      "medical_students_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2024-12-04T12:00:00+00:00",
+    "last_seen_at": "2026-08-12T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0126"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0127",
+    "name": "Medical Students Creator 0127",
+    "canonical_url": "https://telegram.example/cr_0127",
+    "platform": "telegram",
+    "followers": 4031,
+    "avg_views": 446.4,
+    "median_views": 373.2,
+    "engagement_rate": 0.0716,
+    "topic_tags": [
+      "medical_students"
+    ],
+    "audience_tags": [
+      "medical_students_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2025-04-17T12:00:00+00:00",
+    "last_seen_at": "2026-08-02T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0127"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0128",
+    "name": "Medical Students Creator 0128",
+    "canonical_url": "https://telegram.example/cr_0128",
+    "platform": "telegram",
+    "followers": 8472,
+    "avg_views": 1383.3,
+    "median_views": 1098.5,
+    "engagement_rate": 0.0545,
+    "topic_tags": [
+      "medical_students"
+    ],
+    "audience_tags": [
+      "medical_students_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2024-05-29T12:00:00+00:00",
+    "last_seen_at": "2026-08-19T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0128"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0129",
+    "name": "Medical Students Creator 0129",
+    "canonical_url": "https://telegram.example/cr_0129",
+    "platform": "telegram",
+    "followers": 625,
+    "avg_views": 209.5,
+    "median_views": 189.3,
+    "engagement_rate": 0.0303,
+    "topic_tags": [
+      "medical_students"
+    ],
+    "audience_tags": [
+      "medical_students_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2025-05-16T12:00:00+00:00",
+    "last_seen_at": "2026-08-11T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0129"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0130",
+    "name": "Medical Students Creator 0130",
+    "canonical_url": "https://telegram.example/cr_0130",
+    "platform": "telegram",
+    "followers": 5875,
+    "avg_views": 1259.0,
+    "median_views": 1052.7,
+    "engagement_rate": 0.024,
+    "topic_tags": [
+      "medical_students"
+    ],
+    "audience_tags": [
+      "medical_students_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2025-09-22T12:00:00+00:00",
+    "last_seen_at": "2026-08-08T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0130"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0131",
+    "name": "Medical Students Creator 0131",
+    "canonical_url": "https://telegram.example/cr_0131",
+    "platform": "telegram",
+    "followers": 9225,
+    "avg_views": 1984.0,
+    "median_views": 1818.7,
+    "engagement_rate": 0.0678,
+    "topic_tags": [
+      "medical_students"
+    ],
+    "audience_tags": [
+      "medical_students_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2025-02-04T12:00:00+00:00",
+    "last_seen_at": "2026-08-18T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0131"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0132",
+    "name": "Medical Students Creator 0132",
+    "canonical_url": "https://telegram.example/cr_0132",
+    "platform": "telegram",
+    "followers": 7005,
+    "avg_views": 640.4,
+    "median_views": 482.7,
+    "engagement_rate": 0.0796,
+    "topic_tags": [
+      "medical_students"
+    ],
+    "audience_tags": [
+      "medical_students_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2025-11-14T12:00:00+00:00",
+    "last_seen_at": "2026-08-10T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0132"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0133",
+    "name": "Medical Students Creator 0133",
+    "canonical_url": "https://telegram.example/cr_0133",
+    "platform": "telegram",
+    "followers": 7533,
+    "avg_views": 2045.7,
+    "median_views": 1705.2,
+    "engagement_rate": 0.058,
+    "topic_tags": [
+      "medical_students"
+    ],
+    "audience_tags": [
+      "medical_students_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2025-10-07T12:00:00+00:00",
+    "last_seen_at": "2026-08-08T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0133"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0134",
+    "name": "Medical Students Creator 0134",
+    "canonical_url": "https://telegram.example/cr_0134",
+    "platform": "telegram",
+    "followers": 841,
+    "avg_views": 106.3,
+    "median_views": 99.9,
+    "engagement_rate": 0.0875,
+    "topic_tags": [
+      "medical_students"
+    ],
+    "audience_tags": [
+      "medical_students_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2024-10-18T12:00:00+00:00",
+    "last_seen_at": "2026-08-09T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0134"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0135",
+    "name": "Medical Students Creator 0135",
+    "canonical_url": "https://telegram.example/cr_0135",
+    "platform": "telegram",
+    "followers": 1943,
+    "avg_views": 211.0,
+    "median_views": 176.6,
+    "engagement_rate": 0.0478,
+    "topic_tags": [
+      "medical_students"
+    ],
+    "audience_tags": [
+      "medical_students_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2024-12-18T12:00:00+00:00",
+    "last_seen_at": "2026-08-04T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0135"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0136",
+    "name": "Medical Students Creator 0136",
+    "canonical_url": "https://telegram.example/cr_0136",
+    "platform": "telegram",
+    "followers": 1788,
+    "avg_views": 292.8,
+    "median_views": 239.5,
+    "engagement_rate": 0.0447,
+    "topic_tags": [
+      "medical_students"
+    ],
+    "audience_tags": [
+      "medical_students_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2025-02-25T12:00:00+00:00",
+    "last_seen_at": "2026-08-15T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0136"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0137",
+    "name": "Medical Students Creator 0137",
+    "canonical_url": "https://telegram.example/cr_0137",
+    "platform": "telegram",
+    "followers": 1751,
+    "avg_views": 194.0,
+    "median_views": 165.3,
+    "engagement_rate": 0.0533,
+    "topic_tags": [
+      "medical_students"
+    ],
+    "audience_tags": [
+      "medical_students_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2025-02-09T12:00:00+00:00",
+    "last_seen_at": "2026-08-09T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0137"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0138",
+    "name": "Medical Students Creator 0138",
+    "canonical_url": "https://telegram.example/cr_0138",
+    "platform": "telegram",
+    "followers": 2919,
+    "avg_views": 348.9,
+    "median_views": 275.4,
+    "engagement_rate": 0.0327,
+    "topic_tags": [
+      "medical_students"
+    ],
+    "audience_tags": [
+      "medical_students_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2024-05-26T12:00:00+00:00",
+    "last_seen_at": "2026-08-16T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0138"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0139",
+    "name": "Medical Students Creator 0139",
+    "canonical_url": "https://telegram.example/cr_0139",
+    "platform": "telegram",
+    "followers": 1734,
+    "avg_views": 500.6,
+    "median_views": 424.9,
+    "engagement_rate": 0.0283,
+    "topic_tags": [
+      "medical_students"
+    ],
+    "audience_tags": [
+      "medical_students_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2024-07-04T12:00:00+00:00",
+    "last_seen_at": "2026-08-02T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0139"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0140",
+    "name": "Fitness Creator 0140",
+    "canonical_url": "https://youtube.example/cr_0140",
+    "platform": "youtube",
+    "followers": 938076,
+    "avg_views": 153666.3,
+    "median_views": 129138.5,
+    "engagement_rate": 0.0531,
+    "topic_tags": [
+      "fitness"
+    ],
+    "audience_tags": [
+      "fitness_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2025-12-05T12:00:00+00:00",
+    "last_seen_at": "2026-08-09T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0140"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0141",
+    "name": "Fitness Creator 0141",
+    "canonical_url": "https://youtube.example/cr_0141",
+    "platform": "youtube",
+    "followers": 360916,
+    "avg_views": 124115.2,
+    "median_views": 95327.8,
+    "engagement_rate": 0.0633,
+    "topic_tags": [
+      "fitness"
+    ],
+    "audience_tags": [
+      "fitness_audience"
+    ],
+    "geo": "US",
+    "language": "en",
+    "created_at": "2024-06-03T12:00:00+00:00",
+    "last_seen_at": "2026-08-04T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0141"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0142",
+    "name": "Fitness Creator 0142",
+    "canonical_url": "https://youtube.example/cr_0142",
+    "platform": "youtube",
+    "followers": 1170376,
+    "avg_views": 395168.7,
+    "median_views": 354776.2,
+    "engagement_rate": 0.0585,
+    "topic_tags": [
+      "fitness"
+    ],
+    "audience_tags": [
+      "fitness_audience"
+    ],
+    "geo": "LATAM",
+    "language": "es",
+    "created_at": "2025-12-21T12:00:00+00:00",
+    "last_seen_at": "2026-08-06T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0142"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0143",
+    "name": "Fitness Creator 0143",
+    "canonical_url": "https://youtube.example/cr_0143",
+    "platform": "youtube",
+    "followers": 874290,
+    "avg_views": 188295.1,
+    "median_views": 177288.2,
+    "engagement_rate": 0.0604,
+    "topic_tags": [
+      "fitness"
+    ],
+    "audience_tags": [
+      "fitness_audience"
+    ],
+    "geo": "EU",
+    "language": "en",
+    "created_at": "2024-10-28T12:00:00+00:00",
+    "last_seen_at": "2026-08-17T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0143"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0144",
+    "name": "Fitness Creator 0144",
+    "canonical_url": "https://youtube.example/cr_0144",
+    "platform": "youtube",
+    "followers": 1698028,
+    "avg_views": 432070.6,
+    "median_views": 327435.4,
+    "engagement_rate": 0.0213,
+    "topic_tags": [
+      "fitness"
+    ],
+    "audience_tags": [
+      "fitness_audience"
+    ],
+    "geo": "US",
+    "language": "en",
+    "created_at": "2024-11-10T12:00:00+00:00",
+    "last_seen_at": "2026-08-06T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0144"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0145",
+    "name": "Fitness Creator 0145",
+    "canonical_url": "https://youtube.example/cr_0145",
+    "platform": "youtube",
+    "followers": 963149,
+    "avg_views": 150618.5,
+    "median_views": 125277.5,
+    "engagement_rate": 0.043,
+    "topic_tags": [
+      "fitness"
+    ],
+    "audience_tags": [
+      "fitness_audience"
+    ],
+    "geo": "EU",
+    "language": "en",
+    "created_at": "2025-02-20T12:00:00+00:00",
+    "last_seen_at": "2026-08-01T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0145"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0146",
+    "name": "Coding Creator 0146",
+    "canonical_url": "https://telegram.example/cr_0146",
+    "platform": "telegram",
+    "followers": 24037,
+    "avg_views": 6895.3,
+    "median_views": 5436.3,
+    "engagement_rate": 0.0406,
+    "topic_tags": [
+      "coding"
+    ],
+    "audience_tags": [
+      "coding_audience"
+    ],
+    "geo": "EU",
+    "language": "en",
+    "created_at": "2025-09-14T12:00:00+00:00",
+    "last_seen_at": "2026-08-16T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0146"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0147",
+    "name": "Coding Creator 0147",
+    "canonical_url": "https://telegram.example/cr_0147",
+    "platform": "telegram",
+    "followers": 29385,
+    "avg_views": 3153.2,
+    "median_views": 2851.0,
+    "engagement_rate": 0.0783,
+    "topic_tags": [
+      "coding"
+    ],
+    "audience_tags": [
+      "coding_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2024-08-11T12:00:00+00:00",
+    "last_seen_at": "2026-08-19T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0147"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0148",
+    "name": "Coding Creator 0148",
+    "canonical_url": "https://telegram.example/cr_0148",
+    "platform": "telegram",
+    "followers": 18588,
+    "avg_views": 2261.2,
+    "median_views": 1777.7,
+    "engagement_rate": 0.0598,
+    "topic_tags": [
+      "coding"
+    ],
+    "audience_tags": [
+      "coding_audience"
+    ],
+    "geo": "US",
+    "language": "en",
+    "created_at": "2024-05-03T12:00:00+00:00",
+    "last_seen_at": "2026-08-15T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0148"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0149",
+    "name": "Coding Creator 0149",
+    "canonical_url": "https://telegram.example/cr_0149",
+    "platform": "telegram",
+    "followers": 12863,
+    "avg_views": 3378.1,
+    "median_views": 2694.1,
+    "engagement_rate": 0.0458,
+    "topic_tags": [
+      "coding"
+    ],
+    "audience_tags": [
+      "coding_audience"
+    ],
+    "geo": "LATAM",
+    "language": "es",
+    "created_at": "2024-11-04T12:00:00+00:00",
+    "last_seen_at": "2026-08-01T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0149"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0150",
+    "name": "Coding Creator 0150",
+    "canonical_url": "https://telegram.example/cr_0150",
+    "platform": "telegram",
+    "followers": 39420,
+    "avg_views": 5699.2,
+    "median_views": 5375.0,
+    "engagement_rate": 0.0326,
+    "topic_tags": [
+      "coding"
+    ],
+    "audience_tags": [
+      "coding_audience"
+    ],
+    "geo": "US",
+    "language": "en",
+    "created_at": "2024-10-09T12:00:00+00:00",
+    "last_seen_at": "2026-08-14T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0150"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0151",
+    "name": "Coding Creator 0151",
+    "canonical_url": "https://telegram.example/cr_0151",
+    "platform": "telegram",
+    "followers": 47383,
+    "avg_views": 9697.1,
+    "median_views": 7819.3,
+    "engagement_rate": 0.0888,
+    "topic_tags": [
+      "coding"
+    ],
+    "audience_tags": [
+      "coding_audience"
+    ],
+    "geo": "US",
+    "language": "en",
+    "created_at": "2025-01-06T12:00:00+00:00",
+    "last_seen_at": "2026-08-04T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0151"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0152",
+    "name": "Coding Creator 0152",
+    "canonical_url": "https://telegram.example/cr_0152",
+    "platform": "telegram",
+    "followers": 20620,
+    "avg_views": 6110.5,
+    "median_views": 4752.0,
+    "engagement_rate": 0.0763,
+    "topic_tags": [
+      "coding"
+    ],
+    "audience_tags": [
+      "coding_audience"
+    ],
+    "geo": "LATAM",
+    "language": "es",
+    "created_at": "2025-05-21T12:00:00+00:00",
+    "last_seen_at": "2026-08-19T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0152"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0153",
+    "name": "Coding Creator 0153",
+    "canonical_url": "https://telegram.example/cr_0153",
+    "platform": "telegram",
+    "followers": 34327,
+    "avg_views": 3697.0,
+    "median_views": 3398.2,
+    "engagement_rate": 0.0566,
+    "topic_tags": [
+      "coding"
+    ],
+    "audience_tags": [
+      "coding_audience"
+    ],
+    "geo": "LATAM",
+    "language": "es",
+    "created_at": "2025-09-27T12:00:00+00:00",
+    "last_seen_at": "2026-08-11T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0153"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0154",
+    "name": "Coding Creator 0154",
+    "canonical_url": "https://telegram.example/cr_0154",
+    "platform": "telegram",
+    "followers": 20506,
+    "avg_views": 6652.8,
+    "median_views": 5185.7,
+    "engagement_rate": 0.0355,
+    "topic_tags": [
+      "coding"
+    ],
+    "audience_tags": [
+      "coding_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2024-11-11T12:00:00+00:00",
+    "last_seen_at": "2026-08-18T12:00:00+00:00",
+    "source_refs": [
+      "https://telegram.example/cr_0154"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0155",
+    "name": "Gaming Creator 0155",
+    "canonical_url": "https://instagram.example/cr_0155",
+    "platform": "instagram",
+    "followers": 432485,
+    "avg_views": 92964.3,
+    "median_views": 79690.0,
+    "engagement_rate": 0.0778,
+    "topic_tags": [
+      "gaming"
+    ],
+    "audience_tags": [
+      "gaming_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2024-04-25T12:00:00+00:00",
+    "last_seen_at": "2026-08-04T12:00:00+00:00",
+    "source_refs": [
+      "https://instagram.example/cr_0155"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0156",
+    "name": "Gaming Creator 0156",
+    "canonical_url": "https://instagram.example/cr_0156",
+    "platform": "instagram",
+    "followers": 126355,
+    "avg_views": 31083.2,
+    "median_views": 24807.9,
+    "engagement_rate": 0.0472,
+    "topic_tags": [
+      "gaming"
+    ],
+    "audience_tags": [
+      "gaming_audience"
+    ],
+    "geo": "EU",
+    "language": "en",
+    "created_at": "2024-12-02T12:00:00+00:00",
+    "last_seen_at": "2026-08-15T12:00:00+00:00",
+    "source_refs": [
+      "https://instagram.example/cr_0156"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0157",
+    "name": "Gaming Creator 0157",
+    "canonical_url": "https://instagram.example/cr_0157",
+    "platform": "instagram",
+    "followers": 67741,
+    "avg_views": 15370.6,
+    "median_views": 13945.5,
+    "engagement_rate": 0.0865,
+    "topic_tags": [
+      "gaming"
+    ],
+    "audience_tags": [
+      "gaming_audience"
+    ],
+    "geo": "US",
+    "language": "en",
+    "created_at": "2024-08-31T12:00:00+00:00",
+    "last_seen_at": "2026-08-03T12:00:00+00:00",
+    "source_refs": [
+      "https://instagram.example/cr_0157"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0158",
+    "name": "Gaming Creator 0158",
+    "canonical_url": "https://instagram.example/cr_0158",
+    "platform": "instagram",
+    "followers": 173243,
+    "avg_views": 31956.0,
+    "median_views": 26352.9,
+    "engagement_rate": 0.0183,
+    "topic_tags": [
+      "gaming"
+    ],
+    "audience_tags": [
+      "gaming_audience"
+    ],
+    "geo": "LATAM",
+    "language": "es",
+    "created_at": "2026-01-16T12:00:00+00:00",
+    "last_seen_at": "2026-08-09T12:00:00+00:00",
+    "source_refs": [
+      "https://instagram.example/cr_0158"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0159",
+    "name": "Gaming Creator 0159",
+    "canonical_url": "https://instagram.example/cr_0159",
+    "platform": "instagram",
+    "followers": 113209,
+    "avg_views": 28260.3,
+    "median_views": 25555.8,
+    "engagement_rate": 0.07,
+    "topic_tags": [
+      "gaming"
+    ],
+    "audience_tags": [
+      "gaming_audience"
+    ],
+    "geo": "US",
+    "language": "en",
+    "created_at": "2025-02-26T12:00:00+00:00",
+    "last_seen_at": "2026-08-16T12:00:00+00:00",
+    "source_refs": [
+      "https://instagram.example/cr_0159"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0160",
+    "name": "Gaming Creator 0160",
+    "canonical_url": "https://instagram.example/cr_0160",
+    "platform": "instagram",
+    "followers": 193134,
+    "avg_views": 48970.1,
+    "median_views": 44860.4,
+    "engagement_rate": 0.0404,
+    "topic_tags": [
+      "gaming"
+    ],
+    "audience_tags": [
+      "gaming_audience"
+    ],
+    "geo": "US",
+    "language": "en",
+    "created_at": "2024-10-14T12:00:00+00:00",
+    "last_seen_at": "2026-08-05T12:00:00+00:00",
+    "source_refs": [
+      "https://instagram.example/cr_0160"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0161",
+    "name": "Gaming Creator 0161",
+    "canonical_url": "https://instagram.example/cr_0161",
+    "platform": "instagram",
+    "followers": 66541,
+    "avg_views": 22276.2,
+    "median_views": 16871.9,
+    "engagement_rate": 0.0687,
+    "topic_tags": [
+      "gaming"
+    ],
+    "audience_tags": [
+      "gaming_audience"
+    ],
+    "geo": "EU",
+    "language": "en",
+    "created_at": "2025-07-10T12:00:00+00:00",
+    "last_seen_at": "2026-08-19T12:00:00+00:00",
+    "source_refs": [
+      "https://instagram.example/cr_0161"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0162",
+    "name": "Gaming Creator 0162",
+    "canonical_url": "https://instagram.example/cr_0162",
+    "platform": "instagram",
+    "followers": 132731,
+    "avg_views": 29088.5,
+    "median_views": 27570.8,
+    "engagement_rate": 0.085,
+    "topic_tags": [
+      "gaming"
+    ],
+    "audience_tags": [
+      "gaming_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2024-07-25T12:00:00+00:00",
+    "last_seen_at": "2026-08-05T12:00:00+00:00",
+    "source_refs": [
+      "https://instagram.example/cr_0162"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0163",
+    "name": "Gaming Creator 0163",
+    "canonical_url": "https://instagram.example/cr_0163",
+    "platform": "instagram",
+    "followers": 1779765,
+    "avg_views": 279867.9,
+    "median_views": 258157.9,
+    "engagement_rate": 0.0635,
+    "topic_tags": [
+      "gaming"
+    ],
+    "audience_tags": [
+      "gaming_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2025-12-15T12:00:00+00:00",
+    "last_seen_at": "2026-07-31T12:00:00+00:00",
+    "source_refs": [
+      "https://instagram.example/cr_0163"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0164",
+    "name": "Gaming Creator 0164",
+    "canonical_url": "https://instagram.example/cr_0164",
+    "platform": "instagram",
+    "followers": 461043,
+    "avg_views": 91275.9,
+    "median_views": 75759.4,
+    "engagement_rate": 0.075,
+    "topic_tags": [
+      "gaming"
+    ],
+    "audience_tags": [
+      "gaming_audience"
+    ],
+    "geo": "US",
+    "language": "en",
+    "created_at": "2024-11-08T12:00:00+00:00",
+    "last_seen_at": "2026-08-08T12:00:00+00:00",
+    "source_refs": [
+      "https://instagram.example/cr_0164"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0165",
+    "name": "Beauty Creator 0165",
+    "canonical_url": "https://instagram.example/cr_0165",
+    "platform": "instagram",
+    "followers": 22192,
+    "avg_views": 4094.1,
+    "median_views": 3530.5,
+    "engagement_rate": 0.0524,
+    "topic_tags": [
+      "beauty"
+    ],
+    "audience_tags": [
+      "beauty_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2025-05-09T12:00:00+00:00",
+    "last_seen_at": "2026-08-12T12:00:00+00:00",
+    "source_refs": [
+      "https://instagram.example/cr_0165"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0166",
+    "name": "Beauty Creator 0166",
+    "canonical_url": "https://instagram.example/cr_0166",
+    "platform": "instagram",
+    "followers": 124862,
+    "avg_views": 43655.5,
+    "median_views": 34489.4,
+    "engagement_rate": 0.067,
+    "topic_tags": [
+      "beauty"
+    ],
+    "audience_tags": [
+      "beauty_audience"
+    ],
+    "geo": "EU",
+    "language": "en",
+    "created_at": "2025-09-16T12:00:00+00:00",
+    "last_seen_at": "2026-08-18T12:00:00+00:00",
+    "source_refs": [
+      "https://instagram.example/cr_0166"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0167",
+    "name": "Beauty Creator 0167",
+    "canonical_url": "https://instagram.example/cr_0167",
+    "platform": "instagram",
+    "followers": 166683,
+    "avg_views": 49811.3,
+    "median_views": 46997.6,
+    "engagement_rate": 0.0898,
+    "topic_tags": [
+      "beauty"
+    ],
+    "audience_tags": [
+      "beauty_audience"
+    ],
+    "geo": "EU",
+    "language": "en",
+    "created_at": "2025-03-11T12:00:00+00:00",
+    "last_seen_at": "2026-08-09T12:00:00+00:00",
+    "source_refs": [
+      "https://instagram.example/cr_0167"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0168",
+    "name": "Beauty Creator 0168",
+    "canonical_url": "https://instagram.example/cr_0168",
+    "platform": "instagram",
+    "followers": 29657,
+    "avg_views": 8072.3,
+    "median_views": 7551.4,
+    "engagement_rate": 0.0789,
+    "topic_tags": [
+      "beauty"
+    ],
+    "audience_tags": [
+      "beauty_audience"
+    ],
+    "geo": "US",
+    "language": "en",
+    "created_at": "2024-04-19T12:00:00+00:00",
+    "last_seen_at": "2026-08-15T12:00:00+00:00",
+    "source_refs": [
+      "https://instagram.example/cr_0168"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0169",
+    "name": "Beauty Creator 0169",
+    "canonical_url": "https://instagram.example/cr_0169",
+    "platform": "instagram",
+    "followers": 81814,
+    "avg_views": 24041.7,
+    "median_views": 19169.6,
+    "engagement_rate": 0.0889,
+    "topic_tags": [
+      "beauty"
+    ],
+    "audience_tags": [
+      "beauty_audience"
+    ],
+    "geo": "EU",
+    "language": "en",
+    "created_at": "2024-09-14T12:00:00+00:00",
+    "last_seen_at": "2026-08-20T12:00:00+00:00",
+    "source_refs": [
+      "https://instagram.example/cr_0169"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0170",
+    "name": "Beauty Creator 0170",
+    "canonical_url": "https://instagram.example/cr_0170",
+    "platform": "instagram",
+    "followers": 172527,
+    "avg_views": 39499.1,
+    "median_views": 34458.6,
+    "engagement_rate": 0.0753,
+    "topic_tags": [
+      "beauty"
+    ],
+    "audience_tags": [
+      "beauty_audience"
+    ],
+    "geo": "US",
+    "language": "en",
+    "created_at": "2025-11-05T12:00:00+00:00",
+    "last_seen_at": "2026-08-18T12:00:00+00:00",
+    "source_refs": [
+      "https://instagram.example/cr_0170"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0171",
+    "name": "Travel Creator 0171",
+    "canonical_url": "https://instagram.example/cr_0171",
+    "platform": "instagram",
+    "followers": 175479,
+    "avg_views": 50480.8,
+    "median_views": 46173.2,
+    "engagement_rate": 0.0544,
+    "topic_tags": [
+      "travel"
+    ],
+    "audience_tags": [
+      "travel_audience"
+    ],
+    "geo": "LATAM",
+    "language": "es",
+    "created_at": "2025-11-18T12:00:00+00:00",
+    "last_seen_at": "2026-08-16T12:00:00+00:00",
+    "source_refs": [
+      "https://instagram.example/cr_0171"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0172",
+    "name": "Travel Creator 0172",
+    "canonical_url": "https://instagram.example/cr_0172",
+    "platform": "instagram",
+    "followers": 167958,
+    "avg_views": 36898.2,
+    "median_views": 28620.7,
+    "engagement_rate": 0.0499,
+    "topic_tags": [
+      "travel"
+    ],
+    "audience_tags": [
+      "travel_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2024-07-17T12:00:00+00:00",
+    "last_seen_at": "2026-07-31T12:00:00+00:00",
+    "source_refs": [
+      "https://instagram.example/cr_0172"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0173",
+    "name": "Travel Creator 0173",
+    "canonical_url": "https://instagram.example/cr_0173",
+    "platform": "instagram",
+    "followers": 38352,
+    "avg_views": 12058.5,
+    "median_views": 11048.9,
+    "engagement_rate": 0.0527,
+    "topic_tags": [
+      "travel"
+    ],
+    "audience_tags": [
+      "travel_audience"
+    ],
+    "geo": "EU",
+    "language": "en",
+    "created_at": "2024-08-20T12:00:00+00:00",
+    "last_seen_at": "2026-08-16T12:00:00+00:00",
+    "source_refs": [
+      "https://instagram.example/cr_0173"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0174",
+    "name": "Travel Creator 0174",
+    "canonical_url": "https://instagram.example/cr_0174",
+    "platform": "instagram",
+    "followers": 92458,
+    "avg_views": 25104.2,
+    "median_views": 20565.5,
+    "engagement_rate": 0.0392,
+    "topic_tags": [
+      "travel"
+    ],
+    "audience_tags": [
+      "travel_audience"
+    ],
+    "geo": "EU",
+    "language": "en",
+    "created_at": "2024-08-19T12:00:00+00:00",
+    "last_seen_at": "2026-08-11T12:00:00+00:00",
+    "source_refs": [
+      "https://instagram.example/cr_0174"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0175",
+    "name": "Travel Creator 0175",
+    "canonical_url": "https://instagram.example/cr_0175",
+    "platform": "instagram",
+    "followers": 22864,
+    "avg_views": 5229.6,
+    "median_views": 4053.1,
+    "engagement_rate": 0.0626,
+    "topic_tags": [
+      "travel"
+    ],
+    "audience_tags": [
+      "travel_audience"
+    ],
+    "geo": "US",
+    "language": "en",
+    "created_at": "2025-03-28T12:00:00+00:00",
+    "last_seen_at": "2026-08-01T12:00:00+00:00",
+    "source_refs": [
+      "https://instagram.example/cr_0175"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0176",
+    "name": "Personal Finance Creator 0176",
+    "canonical_url": "https://youtube.example/cr_0176",
+    "platform": "youtube",
+    "followers": 123755,
+    "avg_views": 39382.8,
+    "median_views": 34690.4,
+    "engagement_rate": 0.0521,
+    "topic_tags": [
+      "personal_finance"
+    ],
+    "audience_tags": [
+      "personal_finance_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2024-10-08T12:00:00+00:00",
+    "last_seen_at": "2026-08-11T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0176"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0177",
+    "name": "Personal Finance Creator 0177",
+    "canonical_url": "https://youtube.example/cr_0177",
+    "platform": "youtube",
+    "followers": 162965,
+    "avg_views": 24674.2,
+    "median_views": 20310.7,
+    "engagement_rate": 0.025,
+    "topic_tags": [
+      "personal_finance"
+    ],
+    "audience_tags": [
+      "personal_finance_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2024-12-16T12:00:00+00:00",
+    "last_seen_at": "2026-08-09T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0177"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0178",
+    "name": "Personal Finance Creator 0178",
+    "canonical_url": "https://youtube.example/cr_0178",
+    "platform": "youtube",
+    "followers": 63410,
+    "avg_views": 8405.4,
+    "median_views": 7234.1,
+    "engagement_rate": 0.0578,
+    "topic_tags": [
+      "personal_finance"
+    ],
+    "audience_tags": [
+      "personal_finance_audience"
+    ],
+    "geo": "LATAM",
+    "language": "es",
+    "created_at": "2025-11-18T12:00:00+00:00",
+    "last_seen_at": "2026-08-08T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0178"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0179",
+    "name": "Personal Finance Creator 0179",
+    "canonical_url": "https://youtube.example/cr_0179",
+    "platform": "youtube",
+    "followers": 1930803,
+    "avg_views": 509167.5,
+    "median_views": 393974.6,
+    "engagement_rate": 0.0892,
+    "topic_tags": [
+      "personal_finance"
+    ],
+    "audience_tags": [
+      "personal_finance_audience"
+    ],
+    "geo": "US",
+    "language": "en",
+    "created_at": "2025-10-25T12:00:00+00:00",
+    "last_seen_at": "2026-08-08T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0179"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0180",
+    "name": "Personal Finance Creator 0180",
+    "canonical_url": "https://youtube.example/cr_0180",
+    "platform": "youtube",
+    "followers": 1369858,
+    "avg_views": 388821.3,
+    "median_views": 307095.6,
+    "engagement_rate": 0.0854,
+    "topic_tags": [
+      "personal_finance"
+    ],
+    "audience_tags": [
+      "personal_finance_audience"
+    ],
+    "geo": "US",
+    "language": "en",
+    "created_at": "2024-08-29T12:00:00+00:00",
+    "last_seen_at": "2026-08-08T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0180"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0181",
+    "name": "Personal Finance Creator 0181",
+    "canonical_url": "https://youtube.example/cr_0181",
+    "platform": "youtube",
+    "followers": 60201,
+    "avg_views": 10229.4,
+    "median_views": 8641.3,
+    "engagement_rate": 0.0253,
+    "topic_tags": [
+      "personal_finance"
+    ],
+    "audience_tags": [
+      "personal_finance_audience"
+    ],
+    "geo": "RU",
+    "language": "ru",
+    "created_at": "2024-10-22T12:00:00+00:00",
+    "last_seen_at": "2026-08-16T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0181"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0182",
+    "name": "Personal Finance Creator 0182",
+    "canonical_url": "https://youtube.example/cr_0182",
+    "platform": "youtube",
+    "followers": 133500,
+    "avg_views": 46386.7,
+    "median_views": 41648.9,
+    "engagement_rate": 0.0272,
+    "topic_tags": [
+      "personal_finance"
+    ],
+    "audience_tags": [
+      "personal_finance_audience"
+    ],
+    "geo": "US",
+    "language": "en",
+    "created_at": "2025-04-01T12:00:00+00:00",
+    "last_seen_at": "2026-08-02T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0182"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0183",
+    "name": "Personal Finance Creator 0183",
+    "canonical_url": "https://youtube.example/cr_0183",
+    "platform": "youtube",
+    "followers": 1686335,
+    "avg_views": 351130.4,
+    "median_views": 264516.1,
+    "engagement_rate": 0.0572,
+    "topic_tags": [
+      "personal_finance"
+    ],
+    "audience_tags": [
+      "personal_finance_audience"
+    ],
+    "geo": "LATAM",
+    "language": "es",
+    "created_at": "2025-02-27T12:00:00+00:00",
+    "last_seen_at": "2026-08-17T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0183"
+    ],
+    "is_synthetic": true
+  },
+  {
+    "creator_id": "cr_0184",
+    "name": "Personal Finance Creator 0184",
+    "canonical_url": "https://youtube.example/cr_0184",
+    "platform": "youtube",
+    "followers": 1870915,
+    "avg_views": 590211.5,
+    "median_views": 516938.0,
+    "engagement_rate": 0.0824,
+    "topic_tags": [
+      "personal_finance"
+    ],
+    "audience_tags": [
+      "personal_finance_audience"
+    ],
+    "geo": "US",
+    "language": "en",
+    "created_at": "2024-05-31T12:00:00+00:00",
+    "last_seen_at": "2026-08-05T12:00:00+00:00",
+    "source_refs": [
+      "https://youtube.example/cr_0184"
+    ],
+    "is_synthetic": true
+  }
+]

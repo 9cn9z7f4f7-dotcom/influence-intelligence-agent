@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Influence Intelligence Agent</title>
+<link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+<div class="app-shell">
+  <div class="sidebar">
+    <div class="brand">Influence Intelligence Agent<span>Market strategy intelligence</span></div>
+    <div class="nav-item active" data-section="overview">Overview</div>
+    <div class="nav-item" data-section="market-map">Market Map</div>
+    <div class="nav-item" data-section="competitor-dna">Competitor DNA</div>
+    <div class="nav-item" data-section="next-move">Next Move</div>
+    <div class="nav-item" data-section="white-space">White Space</div>
+    <div class="nav-item" data-section="our-move">Our Move</div>
+    <div class="sidebar-footer">
+      <button class="demo-flow-btn" id="demo-flow-btn">▶ Demo Flow</button>
+      <a href="/" class="link-btn" style="display:block; text-align:center; margin-top:8px;">← Analyze a brand</a>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="topbar">
+      <div>
+        <h1 id="page-title">Overview</h1>
+        <p class="subtitle" id="page-subtitle">Агент превращает сотни разрозненных influencer-интеграций конкурентов в актуальную карту стратегии рынка.</p>
+      </div>
+      <div style="display:flex; align-items:center; gap:10px;">
+        <span class="mode-badge" id="mode-badge">DEMO</span>
+        <div class="health-pills" id="health-pills"></div>
+      </div>
+    </div>
+
+    <div id="limitations-slot"></div>
+
+    <section class="section active" id="section-overview">
+      <div class="stat-grid" id="overview-stats"></div>
+      <h2>Источники данных</h2>
+      <div class="card" id="overview-sources"></div>
+    </section>
+
+    <section class="section" id="section-market-map">
+      <h2>Насыщенность сегментов (топ по saturation)</h2>
+      <div class="card" id="mm-saturation"></div>
+      <div class="card-grid">
+        <div class="card">
+          <h2 style="margin-top:0">Доля по платформам</h2>
+          <div id="mm-platform"></div>
+        </div>
+        <div class="card">
+          <h2 style="margin-top:0">Доля по размеру креаторов</h2>
+          <div id="mm-size"></div>
+        </div>
+      </div>
+      <h2>По конкурентам</h2>
+      <div class="card-grid" id="mm-competitors"></div>
+    </section>
+
+    <section class="section" id="section-competitor-dna">
+      <div class="card-grid" id="dna-cards"></div>
+    </section>
+
+    <section class="section" id="section-next-move">
+      <div id="nm-tables"></div>
+    </section>
+
+    <section class="section" id="section-white-space">
+      <div class="card-grid" id="ws-cards"></div>
+    </section>
+
+    <section class="section" id="section-our-move">
+      <div class="card-grid" id="om-cards"></div>
+    </section>
+  </div>
+</div>
+
+<div class="modal-overlay" id="evidence-modal">
+  <div class="modal">
+    <button class="modal-close" id="evidence-close">✕ закрыть</button>
+    <h3>Why / Evidence</h3>
+    <div id="evidence-body"></div>
+  </div>
+</div>
+
+<div class="demo-flow-overlay" id="demo-flow-overlay">
+  <div class="demo-flow-card" id="demo-flow-card"></div>
+</div>
+
+<script src="/app.js"></script>
+</body>
+</html>

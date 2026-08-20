@@ -1,0 +1,3783 @@
+[
+  {
+    "integration_id": "int_0001",
+    "competitor_id": "comp_novafit",
+    "creator_id": "cr_0109",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0109/int_0001",
+    "published_at": "2026-07-02T02:00:00+00:00",
+    "content_type": "review",
+    "detected_offer": "bundle_offer",
+    "detected_cta": "link in bio",
+    "detected_mechanic": "story_mention",
+    "campaign_tags": [
+      "fitness",
+      "bundle_offer"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0109 x comp_novafit: review c офером bundle_offer (story_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0002",
+    "competitor_id": "comp_novafit",
+    "creator_id": "cr_0109",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0109/int_0002",
+    "published_at": "2026-05-03T02:00:00+00:00",
+    "content_type": "live_stream",
+    "detected_offer": "bundle_offer",
+    "detected_cta": "link in bio",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "fitness",
+      "bundle_offer"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0109 x comp_novafit: live_stream c офером bundle_offer (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0003",
+    "competitor_id": "comp_novafit",
+    "creator_id": "cr_0109",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0109/int_0003",
+    "published_at": "2026-04-25T16:00:00+00:00",
+    "content_type": "vlog_mention",
+    "detected_offer": "bundle_offer",
+    "detected_cta": "link in bio",
+    "detected_mechanic": "story_mention",
+    "campaign_tags": [
+      "fitness",
+      "bundle_offer"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0109 x comp_novafit: vlog_mention c офером bundle_offer (story_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0004",
+    "competitor_id": "comp_novafit",
+    "creator_id": "cr_0103",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0103/int_0004",
+    "published_at": "2026-05-20T10:00:00+00:00",
+    "content_type": "vlog_mention",
+    "detected_offer": "discount_code",
+    "detected_cta": "use code at checkout",
+    "detected_mechanic": "live_mention",
+    "campaign_tags": [
+      "fitness",
+      "discount_code"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0103 x comp_novafit: vlog_mention c офером discount_code (live_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0005",
+    "competitor_id": "comp_novafit",
+    "creator_id": "cr_0103",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0103/int_0005",
+    "published_at": "2026-06-20T13:00:00+00:00",
+    "content_type": "live_stream",
+    "detected_offer": "giveaway",
+    "detected_cta": "join giveaway",
+    "detected_mechanic": "pre_roll",
+    "campaign_tags": [
+      "fitness",
+      "giveaway"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0103 x comp_novafit: live_stream c офером giveaway (pre_roll).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0006",
+    "competitor_id": "comp_novafit",
+    "creator_id": "cr_0103",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0103/int_0006",
+    "published_at": "2026-07-09T22:00:00+00:00",
+    "content_type": "tutorial",
+    "detected_offer": "discount_code",
+    "detected_cta": "use code at checkout",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "fitness",
+      "discount_code"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0103 x comp_novafit: tutorial c офером discount_code (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0007",
+    "competitor_id": "comp_novafit",
+    "creator_id": "cr_0111",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0111/int_0007",
+    "published_at": "2026-04-24T02:00:00+00:00",
+    "content_type": "unboxing",
+    "detected_offer": "discount_code",
+    "detected_cta": "use code at checkout",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "fitness",
+      "discount_code"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0111 x comp_novafit: unboxing c офером discount_code (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0008",
+    "competitor_id": "comp_novafit",
+    "creator_id": "cr_0102",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0102/int_0008",
+    "published_at": "2026-06-14T08:00:00+00:00",
+    "content_type": "unboxing",
+    "detected_offer": "giveaway",
+    "detected_cta": "join giveaway",
+    "detected_mechanic": "pinned_post",
+    "campaign_tags": [
+      "fitness",
+      "giveaway"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0102 x comp_novafit: unboxing c офером giveaway (pinned_post).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0009",
+    "competitor_id": "comp_novafit",
+    "creator_id": "cr_0107",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0107/int_0009",
+    "published_at": "2026-05-15T07:00:00+00:00",
+    "content_type": "tutorial",
+    "detected_offer": "referral_bonus",
+    "detected_cta": "invite friends via link",
+    "detected_mechanic": "pre_roll",
+    "campaign_tags": [
+      "fitness",
+      "referral_bonus"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0107 x comp_novafit: tutorial c офером referral_bonus (pre_roll).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0010",
+    "competitor_id": "comp_novafit",
+    "creator_id": "cr_0110",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0110/int_0010",
+    "published_at": "2026-07-10T15:00:00+00:00",
+    "content_type": "vlog_mention",
+    "detected_offer": "bundle_offer",
+    "detected_cta": "link in bio",
+    "detected_mechanic": "live_mention",
+    "campaign_tags": [
+      "fitness",
+      "bundle_offer"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0110 x comp_novafit: vlog_mention c офером bundle_offer (live_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0011",
+    "competitor_id": "comp_novafit",
+    "creator_id": "cr_0105",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0105/int_0011",
+    "published_at": "2026-05-18T22:00:00+00:00",
+    "content_type": "vlog_mention",
+    "detected_offer": "free_trial",
+    "detected_cta": "sign up via link",
+    "detected_mechanic": "pre_roll",
+    "campaign_tags": [
+      "fitness",
+      "free_trial"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0105 x comp_novafit: vlog_mention c офером free_trial (pre_roll).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0012",
+    "competitor_id": "comp_pulsemedia",
+    "creator_id": "cr_0106",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0106/int_0012",
+    "published_at": "2026-05-13T01:00:00+00:00",
+    "content_type": "integration_ad",
+    "detected_offer": "discount_code",
+    "detected_cta": "use code at checkout",
+    "detected_mechanic": "pinned_post",
+    "campaign_tags": [
+      "fitness",
+      "discount_code"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0106 x comp_pulsemedia: integration_ad c офером discount_code (pinned_post).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0013",
+    "competitor_id": "comp_pulsemedia",
+    "creator_id": "cr_0106",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0106/int_0013",
+    "published_at": "2026-05-06T22:00:00+00:00",
+    "content_type": "unboxing",
+    "detected_offer": "bundle_offer",
+    "detected_cta": "link in bio",
+    "detected_mechanic": "story_mention",
+    "campaign_tags": [
+      "fitness",
+      "bundle_offer"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0106 x comp_pulsemedia: unboxing c офером bundle_offer (story_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0014",
+    "competitor_id": "comp_pulsemedia",
+    "creator_id": "cr_0106",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0106/int_0014",
+    "published_at": "2026-06-13T09:00:00+00:00",
+    "content_type": "integration_ad",
+    "detected_offer": "bundle_offer",
+    "detected_cta": "link in bio",
+    "detected_mechanic": "pinned_post",
+    "campaign_tags": [
+      "fitness",
+      "bundle_offer"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0106 x comp_pulsemedia: integration_ad c офером bundle_offer (pinned_post).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0015",
+    "competitor_id": "comp_pulsemedia",
+    "creator_id": "cr_0109",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0109/int_0015",
+    "published_at": "2026-06-03T03:00:00+00:00",
+    "content_type": "vlog_mention",
+    "detected_offer": "giveaway",
+    "detected_cta": "join giveaway",
+    "detected_mechanic": "live_mention",
+    "campaign_tags": [
+      "fitness",
+      "giveaway"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0109 x comp_pulsemedia: vlog_mention c офером giveaway (live_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0016",
+    "competitor_id": "comp_pulsemedia",
+    "creator_id": "cr_0111",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0111/int_0016",
+    "published_at": "2026-06-14T12:00:00+00:00",
+    "content_type": "review",
+    "detected_offer": "bundle_offer",
+    "detected_cta": "link in bio",
+    "detected_mechanic": "story_mention",
+    "campaign_tags": [
+      "fitness",
+      "bundle_offer"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0111 x comp_pulsemedia: review c офером bundle_offer (story_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0017",
+    "competitor_id": "comp_pulsemedia",
+    "creator_id": "cr_0111",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0111/int_0017",
+    "published_at": "2026-05-09T13:00:00+00:00",
+    "content_type": "live_stream",
+    "detected_offer": "discount_code",
+    "detected_cta": "use code at checkout",
+    "detected_mechanic": "live_mention",
+    "campaign_tags": [
+      "fitness",
+      "discount_code"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0111 x comp_pulsemedia: live_stream c офером discount_code (live_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0018",
+    "competitor_id": "comp_pulsemedia",
+    "creator_id": "cr_0111",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0111/int_0018",
+    "published_at": "2026-05-19T01:00:00+00:00",
+    "content_type": "unboxing",
+    "detected_offer": "free_trial",
+    "detected_cta": "sign up via link",
+    "detected_mechanic": "live_mention",
+    "campaign_tags": [
+      "fitness",
+      "free_trial"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0111 x comp_pulsemedia: unboxing c офером free_trial (live_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0019",
+    "competitor_id": "comp_pulsemedia",
+    "creator_id": "cr_0107",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0107/int_0019",
+    "published_at": "2026-04-30T15:00:00+00:00",
+    "content_type": "integration_ad",
+    "detected_offer": "referral_bonus",
+    "detected_cta": "invite friends via link",
+    "detected_mechanic": "story_mention",
+    "campaign_tags": [
+      "fitness",
+      "referral_bonus"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0107 x comp_pulsemedia: integration_ad c офером referral_bonus (story_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0020",
+    "competitor_id": "comp_pulsemedia",
+    "creator_id": "cr_0102",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0102/int_0020",
+    "published_at": "2026-04-27T16:00:00+00:00",
+    "content_type": "live_stream",
+    "detected_offer": "free_trial",
+    "detected_cta": "sign up via link",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "fitness",
+      "free_trial"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0102 x comp_pulsemedia: live_stream c офером free_trial (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0021",
+    "competitor_id": "comp_pulsemedia",
+    "creator_id": "cr_0102",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0102/int_0021",
+    "published_at": "2026-04-30T11:00:00+00:00",
+    "content_type": "review",
+    "detected_offer": "giveaway",
+    "detected_cta": "join giveaway",
+    "detected_mechanic": "pinned_post",
+    "campaign_tags": [
+      "fitness",
+      "giveaway"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0102 x comp_pulsemedia: review c офером giveaway (pinned_post).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0022",
+    "competitor_id": "comp_pulsemedia",
+    "creator_id": "cr_0102",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0102/int_0022",
+    "published_at": "2026-05-08T03:00:00+00:00",
+    "content_type": "unboxing",
+    "detected_offer": "free_trial",
+    "detected_cta": "sign up via link",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "fitness",
+      "free_trial"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0102 x comp_pulsemedia: unboxing c офером free_trial (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0023",
+    "competitor_id": "comp_pulsemedia",
+    "creator_id": "cr_0105",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0105/int_0023",
+    "published_at": "2026-05-28T19:00:00+00:00",
+    "content_type": "integration_ad",
+    "detected_offer": "free_trial",
+    "detected_cta": "sign up via link",
+    "detected_mechanic": "pre_roll",
+    "campaign_tags": [
+      "fitness",
+      "free_trial"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0105 x comp_pulsemedia: integration_ad c офером free_trial (pre_roll).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0024",
+    "competitor_id": "comp_pulsemedia",
+    "creator_id": "cr_0105",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0105/int_0024",
+    "published_at": "2026-06-05T07:00:00+00:00",
+    "content_type": "vlog_mention",
+    "detected_offer": "referral_bonus",
+    "detected_cta": "invite friends via link",
+    "detected_mechanic": "story_mention",
+    "campaign_tags": [
+      "fitness",
+      "referral_bonus"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0105 x comp_pulsemedia: vlog_mention c офером referral_bonus (story_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0025",
+    "competitor_id": "comp_pulsemedia",
+    "creator_id": "cr_0104",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0104/int_0025",
+    "published_at": "2026-05-20T22:00:00+00:00",
+    "content_type": "unboxing",
+    "detected_offer": "giveaway",
+    "detected_cta": "join giveaway",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "fitness",
+      "giveaway"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0104 x comp_pulsemedia: unboxing c офером giveaway (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0026",
+    "competitor_id": "comp_pulsemedia",
+    "creator_id": "cr_0104",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0104/int_0026",
+    "published_at": "2026-07-11T19:00:00+00:00",
+    "content_type": "integration_ad",
+    "detected_offer": "free_trial",
+    "detected_cta": "sign up via link",
+    "detected_mechanic": "pinned_post",
+    "campaign_tags": [
+      "fitness",
+      "free_trial"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0104 x comp_pulsemedia: integration_ad c офером free_trial (pinned_post).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0027",
+    "competitor_id": "comp_growthlabs",
+    "creator_id": "cr_0107",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0107/int_0027",
+    "published_at": "2026-06-04T00:00:00+00:00",
+    "content_type": "live_stream",
+    "detected_offer": "giveaway",
+    "detected_cta": "join giveaway",
+    "detected_mechanic": "live_mention",
+    "campaign_tags": [
+      "fitness",
+      "giveaway"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0107 x comp_growthlabs: live_stream c офером giveaway (live_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0028",
+    "competitor_id": "comp_growthlabs",
+    "creator_id": "cr_0107",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0107/int_0028",
+    "published_at": "2026-04-30T21:00:00+00:00",
+    "content_type": "unboxing",
+    "detected_offer": "discount_code",
+    "detected_cta": "use code at checkout",
+    "detected_mechanic": "pre_roll",
+    "campaign_tags": [
+      "fitness",
+      "discount_code"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0107 x comp_growthlabs: unboxing c офером discount_code (pre_roll).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0029",
+    "competitor_id": "comp_growthlabs",
+    "creator_id": "cr_0103",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0103/int_0029",
+    "published_at": "2026-05-03T05:00:00+00:00",
+    "content_type": "vlog_mention",
+    "detected_offer": "giveaway",
+    "detected_cta": "join giveaway",
+    "detected_mechanic": "live_mention",
+    "campaign_tags": [
+      "fitness",
+      "giveaway"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0103 x comp_growthlabs: vlog_mention c офером giveaway (live_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0030",
+    "competitor_id": "comp_growthlabs",
+    "creator_id": "cr_0108",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0108/int_0030",
+    "published_at": "2026-07-12T16:00:00+00:00",
+    "content_type": "live_stream",
+    "detected_offer": "bundle_offer",
+    "detected_cta": "link in bio",
+    "detected_mechanic": "story_mention",
+    "campaign_tags": [
+      "fitness",
+      "bundle_offer"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0108 x comp_growthlabs: live_stream c офером bundle_offer (story_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0031",
+    "competitor_id": "comp_growthlabs",
+    "creator_id": "cr_0108",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0108/int_0031",
+    "published_at": "2026-05-30T11:00:00+00:00",
+    "content_type": "review",
+    "detected_offer": "free_trial",
+    "detected_cta": "sign up via link",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "fitness",
+      "free_trial"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0108 x comp_growthlabs: review c офером free_trial (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0032",
+    "competitor_id": "comp_growthlabs",
+    "creator_id": "cr_0108",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0108/int_0032",
+    "published_at": "2026-06-13T05:00:00+00:00",
+    "content_type": "tutorial",
+    "detected_offer": "discount_code",
+    "detected_cta": "use code at checkout",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "fitness",
+      "discount_code"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0108 x comp_growthlabs: tutorial c офером discount_code (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0033",
+    "competitor_id": "comp_growthlabs",
+    "creator_id": "cr_0102",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0102/int_0033",
+    "published_at": "2026-07-03T15:00:00+00:00",
+    "content_type": "tutorial",
+    "detected_offer": "bundle_offer",
+    "detected_cta": "link in bio",
+    "detected_mechanic": "story_mention",
+    "campaign_tags": [
+      "fitness",
+      "bundle_offer"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0102 x comp_growthlabs: tutorial c офером bundle_offer (story_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0034",
+    "competitor_id": "comp_growthlabs",
+    "creator_id": "cr_0102",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0102/int_0034",
+    "published_at": "2026-04-22T13:00:00+00:00",
+    "content_type": "vlog_mention",
+    "detected_offer": "bundle_offer",
+    "detected_cta": "link in bio",
+    "detected_mechanic": "live_mention",
+    "campaign_tags": [
+      "fitness",
+      "bundle_offer"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0102 x comp_growthlabs: vlog_mention c офером bundle_offer (live_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0035",
+    "competitor_id": "comp_growthlabs",
+    "creator_id": "cr_0102",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0102/int_0035",
+    "published_at": "2026-07-01T17:00:00+00:00",
+    "content_type": "tutorial",
+    "detected_offer": "discount_code",
+    "detected_cta": "use code at checkout",
+    "detected_mechanic": "pinned_post",
+    "campaign_tags": [
+      "fitness",
+      "discount_code"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0102 x comp_growthlabs: tutorial c офером discount_code (pinned_post).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0036",
+    "competitor_id": "comp_growthlabs",
+    "creator_id": "cr_0104",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0104/int_0036",
+    "published_at": "2026-06-15T22:00:00+00:00",
+    "content_type": "review",
+    "detected_offer": "giveaway",
+    "detected_cta": "join giveaway",
+    "detected_mechanic": "pre_roll",
+    "campaign_tags": [
+      "fitness",
+      "giveaway"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0104 x comp_growthlabs: review c офером giveaway (pre_roll).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0037",
+    "competitor_id": "comp_growthlabs",
+    "creator_id": "cr_0104",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0104/int_0037",
+    "published_at": "2026-05-25T15:00:00+00:00",
+    "content_type": "integration_ad",
+    "detected_offer": "giveaway",
+    "detected_cta": "join giveaway",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "fitness",
+      "giveaway"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0104 x comp_growthlabs: integration_ad c офером giveaway (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0038",
+    "competitor_id": "comp_growthlabs",
+    "creator_id": "cr_0106",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0106/int_0038",
+    "published_at": "2026-05-13T00:00:00+00:00",
+    "content_type": "live_stream",
+    "detected_offer": "giveaway",
+    "detected_cta": "join giveaway",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "fitness",
+      "giveaway"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0106 x comp_growthlabs: live_stream c офером giveaway (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0039",
+    "competitor_id": "comp_growthlabs",
+    "creator_id": "cr_0106",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0106/int_0039",
+    "published_at": "2026-06-16T10:00:00+00:00",
+    "content_type": "integration_ad",
+    "detected_offer": "discount_code",
+    "detected_cta": "use code at checkout",
+    "detected_mechanic": "pinned_post",
+    "campaign_tags": [
+      "fitness",
+      "discount_code"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0106 x comp_growthlabs: integration_ad c офером discount_code (pinned_post).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0040",
+    "competitor_id": "comp_growthlabs",
+    "creator_id": "cr_0109",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0109/int_0040",
+    "published_at": "2026-06-24T11:00:00+00:00",
+    "content_type": "live_stream",
+    "detected_offer": "referral_bonus",
+    "detected_cta": "invite friends via link",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "fitness",
+      "referral_bonus"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0109 x comp_growthlabs: live_stream c офером referral_bonus (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0041",
+    "competitor_id": "comp_growthlabs",
+    "creator_id": "cr_0109",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0109/int_0041",
+    "published_at": "2026-06-09T06:00:00+00:00",
+    "content_type": "integration_ad",
+    "detected_offer": "free_trial",
+    "detected_cta": "sign up via link",
+    "detected_mechanic": "live_mention",
+    "campaign_tags": [
+      "fitness",
+      "free_trial"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0109 x comp_growthlabs: integration_ad c офером free_trial (live_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0042",
+    "competitor_id": "comp_growthlabs",
+    "creator_id": "cr_0109",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0109/int_0042",
+    "published_at": "2026-07-13T06:00:00+00:00",
+    "content_type": "vlog_mention",
+    "detected_offer": "free_trial",
+    "detected_cta": "sign up via link",
+    "detected_mechanic": "live_mention",
+    "campaign_tags": [
+      "fitness",
+      "free_trial"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0109 x comp_growthlabs: vlog_mention c офером free_trial (live_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0043",
+    "competitor_id": "comp_peakpromo",
+    "creator_id": "cr_0105",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0105/int_0043",
+    "published_at": "2026-07-05T09:00:00+00:00",
+    "content_type": "vlog_mention",
+    "detected_offer": "giveaway",
+    "detected_cta": "join giveaway",
+    "detected_mechanic": "pre_roll",
+    "campaign_tags": [
+      "fitness",
+      "giveaway"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0105 x comp_peakpromo: vlog_mention c офером giveaway (pre_roll).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0044",
+    "competitor_id": "comp_peakpromo",
+    "creator_id": "cr_0107",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0107/int_0044",
+    "published_at": "2026-07-18T05:00:00+00:00",
+    "content_type": "integration_ad",
+    "detected_offer": "discount_code",
+    "detected_cta": "use code at checkout",
+    "detected_mechanic": "story_mention",
+    "campaign_tags": [
+      "fitness",
+      "discount_code"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0107 x comp_peakpromo: integration_ad c офером discount_code (story_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0045",
+    "competitor_id": "comp_peakpromo",
+    "creator_id": "cr_0107",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0107/int_0045",
+    "published_at": "2026-05-07T04:00:00+00:00",
+    "content_type": "unboxing",
+    "detected_offer": "discount_code",
+    "detected_cta": "use code at checkout",
+    "detected_mechanic": "pre_roll",
+    "campaign_tags": [
+      "fitness",
+      "discount_code"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0107 x comp_peakpromo: unboxing c офером discount_code (pre_roll).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0046",
+    "competitor_id": "comp_peakpromo",
+    "creator_id": "cr_0107",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0107/int_0046",
+    "published_at": "2026-07-15T09:00:00+00:00",
+    "content_type": "integration_ad",
+    "detected_offer": "bundle_offer",
+    "detected_cta": "link in bio",
+    "detected_mechanic": "live_mention",
+    "campaign_tags": [
+      "fitness",
+      "bundle_offer"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0107 x comp_peakpromo: integration_ad c офером bundle_offer (live_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0047",
+    "competitor_id": "comp_peakpromo",
+    "creator_id": "cr_0104",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0104/int_0047",
+    "published_at": "2026-07-12T20:00:00+00:00",
+    "content_type": "tutorial",
+    "detected_offer": "bundle_offer",
+    "detected_cta": "link in bio",
+    "detected_mechanic": "story_mention",
+    "campaign_tags": [
+      "fitness",
+      "bundle_offer"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0104 x comp_peakpromo: tutorial c офером bundle_offer (story_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0048",
+    "competitor_id": "comp_peakpromo",
+    "creator_id": "cr_0104",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0104/int_0048",
+    "published_at": "2026-05-07T05:00:00+00:00",
+    "content_type": "review",
+    "detected_offer": "bundle_offer",
+    "detected_cta": "link in bio",
+    "detected_mechanic": "live_mention",
+    "campaign_tags": [
+      "fitness",
+      "bundle_offer"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0104 x comp_peakpromo: review c офером bundle_offer (live_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0049",
+    "competitor_id": "comp_peakpromo",
+    "creator_id": "cr_0104",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0104/int_0049",
+    "published_at": "2026-05-03T22:00:00+00:00",
+    "content_type": "review",
+    "detected_offer": "referral_bonus",
+    "detected_cta": "invite friends via link",
+    "detected_mechanic": "story_mention",
+    "campaign_tags": [
+      "fitness",
+      "referral_bonus"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0104 x comp_peakpromo: review c офером referral_bonus (story_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0050",
+    "competitor_id": "comp_peakpromo",
+    "creator_id": "cr_0108",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0108/int_0050",
+    "published_at": "2026-07-17T23:00:00+00:00",
+    "content_type": "review",
+    "detected_offer": "bundle_offer",
+    "detected_cta": "link in bio",
+    "detected_mechanic": "pinned_post",
+    "campaign_tags": [
+      "fitness",
+      "bundle_offer"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0108 x comp_peakpromo: review c офером bundle_offer (pinned_post).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0051",
+    "competitor_id": "comp_peakpromo",
+    "creator_id": "cr_0108",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0108/int_0051",
+    "published_at": "2026-04-25T10:00:00+00:00",
+    "content_type": "review",
+    "detected_offer": "bundle_offer",
+    "detected_cta": "link in bio",
+    "detected_mechanic": "pinned_post",
+    "campaign_tags": [
+      "fitness",
+      "bundle_offer"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0108 x comp_peakpromo: review c офером bundle_offer (pinned_post).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0052",
+    "competitor_id": "comp_peakpromo",
+    "creator_id": "cr_0108",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0108/int_0052",
+    "published_at": "2026-07-11T10:00:00+00:00",
+    "content_type": "unboxing",
+    "detected_offer": "referral_bonus",
+    "detected_cta": "invite friends via link",
+    "detected_mechanic": "pre_roll",
+    "campaign_tags": [
+      "fitness",
+      "referral_bonus"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0108 x comp_peakpromo: unboxing c офером referral_bonus (pre_roll).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0053",
+    "competitor_id": "comp_peakpromo",
+    "creator_id": "cr_0106",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0106/int_0053",
+    "published_at": "2026-06-15T14:00:00+00:00",
+    "content_type": "vlog_mention",
+    "detected_offer": "referral_bonus",
+    "detected_cta": "invite friends via link",
+    "detected_mechanic": "live_mention",
+    "campaign_tags": [
+      "fitness",
+      "referral_bonus"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0106 x comp_peakpromo: vlog_mention c офером referral_bonus (live_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0054",
+    "competitor_id": "comp_peakpromo",
+    "creator_id": "cr_0102",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0102/int_0054",
+    "published_at": "2026-06-02T22:00:00+00:00",
+    "content_type": "vlog_mention",
+    "detected_offer": "referral_bonus",
+    "detected_cta": "invite friends via link",
+    "detected_mechanic": "story_mention",
+    "campaign_tags": [
+      "fitness",
+      "referral_bonus"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0102 x comp_peakpromo: vlog_mention c офером referral_bonus (story_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0055",
+    "competitor_id": "comp_peakpromo",
+    "creator_id": "cr_0102",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0102/int_0055",
+    "published_at": "2026-05-17T14:00:00+00:00",
+    "content_type": "vlog_mention",
+    "detected_offer": "bundle_offer",
+    "detected_cta": "link in bio",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "fitness",
+      "bundle_offer"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0102 x comp_peakpromo: vlog_mention c офером bundle_offer (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0056",
+    "competitor_id": "comp_peakpromo",
+    "creator_id": "cr_0109",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0109/int_0056",
+    "published_at": "2026-04-28T23:00:00+00:00",
+    "content_type": "live_stream",
+    "detected_offer": "referral_bonus",
+    "detected_cta": "invite friends via link",
+    "detected_mechanic": "pre_roll",
+    "campaign_tags": [
+      "fitness",
+      "referral_bonus"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0109 x comp_peakpromo: live_stream c офером referral_bonus (pre_roll).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0057",
+    "competitor_id": "comp_growthlabs",
+    "creator_id": "cr_0126",
+    "platform": "telegram",
+    "content_url": "https://telegram.example/cr_0126/int_0057",
+    "published_at": "2026-05-09T16:00:00+00:00",
+    "content_type": "live_stream",
+    "detected_offer": "referral_bonus",
+    "detected_cta": "invite friends via link",
+    "detected_mechanic": "story_mention",
+    "campaign_tags": [
+      "medical_students",
+      "referral_bonus"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Medical Students Creator 0126 x comp_growthlabs: live_stream c офером referral_bonus (story_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0058",
+    "competitor_id": "comp_growthlabs",
+    "creator_id": "cr_0133",
+    "platform": "telegram",
+    "content_url": "https://telegram.example/cr_0133/int_0058",
+    "published_at": "2026-06-10T21:00:00+00:00",
+    "content_type": "integration_ad",
+    "detected_offer": "bundle_offer",
+    "detected_cta": "link in bio",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "medical_students",
+      "bundle_offer"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Medical Students Creator 0133 x comp_growthlabs: integration_ad c офером bundle_offer (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0059",
+    "competitor_id": "comp_growthlabs",
+    "creator_id": "cr_0126",
+    "platform": "telegram",
+    "content_url": "https://telegram.example/cr_0126/int_0059",
+    "published_at": "2026-05-25T18:00:00+00:00",
+    "content_type": "live_stream",
+    "detected_offer": "giveaway",
+    "detected_cta": "join giveaway",
+    "detected_mechanic": "story_mention",
+    "campaign_tags": [
+      "medical_students",
+      "giveaway"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Medical Students Creator 0126 x comp_growthlabs: live_stream c офером giveaway (story_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0060",
+    "competitor_id": "comp_novafit",
+    "creator_id": "cr_0140",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0140/int_0060",
+    "published_at": "2026-07-15T10:00:00+00:00",
+    "content_type": "review",
+    "detected_offer": "giveaway",
+    "detected_cta": "join giveaway",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "fitness",
+      "giveaway"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0140 x comp_novafit: review c офером giveaway (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0061",
+    "competitor_id": "comp_novafit",
+    "creator_id": "cr_0140",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0140/int_0061",
+    "published_at": "2026-06-08T15:00:00+00:00",
+    "content_type": "review",
+    "detected_offer": "referral_bonus",
+    "detected_cta": "invite friends via link",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "fitness",
+      "referral_bonus"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0140 x comp_novafit: review c офером referral_bonus (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0062",
+    "competitor_id": "comp_novafit",
+    "creator_id": "cr_0141",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0141/int_0062",
+    "published_at": "2026-06-02T04:00:00+00:00",
+    "content_type": "review",
+    "detected_offer": "giveaway",
+    "detected_cta": "join giveaway",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "fitness",
+      "giveaway"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0141 x comp_novafit: review c офером giveaway (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0063",
+    "competitor_id": "comp_novafit",
+    "creator_id": "cr_0141",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0141/int_0063",
+    "published_at": "2026-04-28T02:00:00+00:00",
+    "content_type": "vlog_mention",
+    "detected_offer": "free_trial",
+    "detected_cta": "sign up via link",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "fitness",
+      "free_trial"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0141 x comp_novafit: vlog_mention c офером free_trial (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0064",
+    "competitor_id": "comp_novafit",
+    "creator_id": "cr_0142",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0142/int_0064",
+    "published_at": "2026-07-10T15:00:00+00:00",
+    "content_type": "review",
+    "detected_offer": "referral_bonus",
+    "detected_cta": "invite friends via link",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "fitness",
+      "referral_bonus"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0142 x comp_novafit: review c офером referral_bonus (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0065",
+    "competitor_id": "comp_novafit",
+    "creator_id": "cr_0142",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0142/int_0065",
+    "published_at": "2026-07-02T16:00:00+00:00",
+    "content_type": "unboxing",
+    "detected_offer": "giveaway",
+    "detected_cta": "join giveaway",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "fitness",
+      "giveaway"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0142 x comp_novafit: unboxing c офером giveaway (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0066",
+    "competitor_id": "comp_novafit",
+    "creator_id": "cr_0143",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0143/int_0066",
+    "published_at": "2026-04-23T08:00:00+00:00",
+    "content_type": "review",
+    "detected_offer": "bundle_offer",
+    "detected_cta": "link in bio",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "fitness",
+      "bundle_offer"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0143 x comp_novafit: review c офером bundle_offer (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0067",
+    "competitor_id": "comp_novafit",
+    "creator_id": "cr_0143",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0143/int_0067",
+    "published_at": "2026-05-06T03:00:00+00:00",
+    "content_type": "live_stream",
+    "detected_offer": "discount_code",
+    "detected_cta": "use code at checkout",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "fitness",
+      "discount_code"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0143 x comp_novafit: live_stream c офером discount_code (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0068",
+    "competitor_id": "comp_novafit",
+    "creator_id": "cr_0144",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0144/int_0068",
+    "published_at": "2026-05-10T16:00:00+00:00",
+    "content_type": "review",
+    "detected_offer": "bundle_offer",
+    "detected_cta": "link in bio",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "fitness",
+      "bundle_offer"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0144 x comp_novafit: review c офером bundle_offer (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0069",
+    "competitor_id": "comp_novafit",
+    "creator_id": "cr_0144",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0144/int_0069",
+    "published_at": "2026-06-09T10:00:00+00:00",
+    "content_type": "integration_ad",
+    "detected_offer": "referral_bonus",
+    "detected_cta": "invite friends via link",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "fitness",
+      "referral_bonus"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0144 x comp_novafit: integration_ad c офером referral_bonus (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0070",
+    "competitor_id": "comp_novafit",
+    "creator_id": "cr_0145",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0145/int_0070",
+    "published_at": "2026-04-29T20:00:00+00:00",
+    "content_type": "review",
+    "detected_offer": "bundle_offer",
+    "detected_cta": "link in bio",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "fitness",
+      "bundle_offer"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0145 x comp_novafit: review c офером bundle_offer (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0071",
+    "competitor_id": "comp_novafit",
+    "creator_id": "cr_0145",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0145/int_0071",
+    "published_at": "2026-06-05T03:00:00+00:00",
+    "content_type": "review",
+    "detected_offer": "giveaway",
+    "detected_cta": "join giveaway",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "fitness",
+      "giveaway"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0145 x comp_novafit: review c офером giveaway (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0072",
+    "competitor_id": "comp_novafit",
+    "creator_id": "cr_0146",
+    "platform": "telegram",
+    "content_url": "https://telegram.example/cr_0146/int_0072",
+    "published_at": "2026-07-22T05:00:00+00:00",
+    "content_type": "tutorial",
+    "detected_offer": "referral_bonus",
+    "detected_cta": "invite friends via link",
+    "detected_mechanic": "pinned_post",
+    "campaign_tags": [
+      "coding",
+      "referral_bonus"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Coding Creator 0146 x comp_novafit: tutorial c офером referral_bonus (pinned_post).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0073",
+    "competitor_id": "comp_novafit",
+    "creator_id": "cr_0146",
+    "platform": "telegram",
+    "content_url": "https://telegram.example/cr_0146/int_0073",
+    "published_at": "2026-07-25T12:00:00+00:00",
+    "content_type": "tutorial",
+    "detected_offer": "giveaway",
+    "detected_cta": "join giveaway",
+    "detected_mechanic": "pinned_post",
+    "campaign_tags": [
+      "coding",
+      "giveaway"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Coding Creator 0146 x comp_novafit: tutorial c офером giveaway (pinned_post).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0074",
+    "competitor_id": "comp_novafit",
+    "creator_id": "cr_0147",
+    "platform": "telegram",
+    "content_url": "https://telegram.example/cr_0147/int_0074",
+    "published_at": "2026-08-07T11:00:00+00:00",
+    "content_type": "tutorial",
+    "detected_offer": "referral_bonus",
+    "detected_cta": "invite friends via link",
+    "detected_mechanic": "pinned_post",
+    "campaign_tags": [
+      "coding",
+      "referral_bonus"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Coding Creator 0147 x comp_novafit: tutorial c офером referral_bonus (pinned_post).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0075",
+    "competitor_id": "comp_novafit",
+    "creator_id": "cr_0147",
+    "platform": "telegram",
+    "content_url": "https://telegram.example/cr_0147/int_0075",
+    "published_at": "2026-08-08T05:00:00+00:00",
+    "content_type": "vlog_mention",
+    "detected_offer": "giveaway",
+    "detected_cta": "join giveaway",
+    "detected_mechanic": "pinned_post",
+    "campaign_tags": [
+      "coding",
+      "giveaway"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Coding Creator 0147 x comp_novafit: vlog_mention c офером giveaway (pinned_post).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0076",
+    "competitor_id": "comp_novafit",
+    "creator_id": "cr_0148",
+    "platform": "telegram",
+    "content_url": "https://telegram.example/cr_0148/int_0076",
+    "published_at": "2026-08-08T10:00:00+00:00",
+    "content_type": "tutorial",
+    "detected_offer": "referral_bonus",
+    "detected_cta": "invite friends via link",
+    "detected_mechanic": "pinned_post",
+    "campaign_tags": [
+      "coding",
+      "referral_bonus"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Coding Creator 0148 x comp_novafit: tutorial c офером referral_bonus (pinned_post).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0077",
+    "competitor_id": "comp_novafit",
+    "creator_id": "cr_0148",
+    "platform": "telegram",
+    "content_url": "https://telegram.example/cr_0148/int_0077",
+    "published_at": "2026-08-09T02:00:00+00:00",
+    "content_type": "integration_ad",
+    "detected_offer": "discount_code",
+    "detected_cta": "use code at checkout",
+    "detected_mechanic": "pinned_post",
+    "campaign_tags": [
+      "coding",
+      "discount_code"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Coding Creator 0148 x comp_novafit: integration_ad c офером discount_code (pinned_post).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0078",
+    "competitor_id": "comp_novafit",
+    "creator_id": "cr_0149",
+    "platform": "telegram",
+    "content_url": "https://telegram.example/cr_0149/int_0078",
+    "published_at": "2026-07-22T09:00:00+00:00",
+    "content_type": "tutorial",
+    "detected_offer": "referral_bonus",
+    "detected_cta": "invite friends via link",
+    "detected_mechanic": "pinned_post",
+    "campaign_tags": [
+      "coding",
+      "referral_bonus"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Coding Creator 0149 x comp_novafit: tutorial c офером referral_bonus (pinned_post).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0079",
+    "competitor_id": "comp_novafit",
+    "creator_id": "cr_0149",
+    "platform": "telegram",
+    "content_url": "https://telegram.example/cr_0149/int_0079",
+    "published_at": "2026-07-25T08:00:00+00:00",
+    "content_type": "live_stream",
+    "detected_offer": "giveaway",
+    "detected_cta": "join giveaway",
+    "detected_mechanic": "pinned_post",
+    "campaign_tags": [
+      "coding",
+      "giveaway"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Coding Creator 0149 x comp_novafit: live_stream c офером giveaway (pinned_post).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0080",
+    "competitor_id": "comp_novafit",
+    "creator_id": "cr_0150",
+    "platform": "telegram",
+    "content_url": "https://telegram.example/cr_0150/int_0080",
+    "published_at": "2026-08-16T11:00:00+00:00",
+    "content_type": "tutorial",
+    "detected_offer": "referral_bonus",
+    "detected_cta": "invite friends via link",
+    "detected_mechanic": "pinned_post",
+    "campaign_tags": [
+      "coding",
+      "referral_bonus"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Coding Creator 0150 x comp_novafit: tutorial c офером referral_bonus (pinned_post).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0081",
+    "competitor_id": "comp_novafit",
+    "creator_id": "cr_0150",
+    "platform": "telegram",
+    "content_url": "https://telegram.example/cr_0150/int_0081",
+    "published_at": "2026-08-10T14:00:00+00:00",
+    "content_type": "tutorial",
+    "detected_offer": "free_trial",
+    "detected_cta": "sign up via link",
+    "detected_mechanic": "pinned_post",
+    "campaign_tags": [
+      "coding",
+      "free_trial"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Coding Creator 0150 x comp_novafit: tutorial c офером free_trial (pinned_post).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0082",
+    "competitor_id": "comp_novafit",
+    "creator_id": "cr_0151",
+    "platform": "telegram",
+    "content_url": "https://telegram.example/cr_0151/int_0082",
+    "published_at": "2026-08-04T22:00:00+00:00",
+    "content_type": "tutorial",
+    "detected_offer": "referral_bonus",
+    "detected_cta": "invite friends via link",
+    "detected_mechanic": "pinned_post",
+    "campaign_tags": [
+      "coding",
+      "referral_bonus"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Coding Creator 0151 x comp_novafit: tutorial c офером referral_bonus (pinned_post).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0083",
+    "competitor_id": "comp_novafit",
+    "creator_id": "cr_0151",
+    "platform": "telegram",
+    "content_url": "https://telegram.example/cr_0151/int_0083",
+    "published_at": "2026-08-01T12:00:00+00:00",
+    "content_type": "review",
+    "detected_offer": "discount_code",
+    "detected_cta": "use code at checkout",
+    "detected_mechanic": "pinned_post",
+    "campaign_tags": [
+      "coding",
+      "discount_code"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Coding Creator 0151 x comp_novafit: review c офером discount_code (pinned_post).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0084",
+    "competitor_id": "comp_novafit",
+    "creator_id": "cr_0152",
+    "platform": "telegram",
+    "content_url": "https://telegram.example/cr_0152/int_0084",
+    "published_at": "2026-08-12T06:00:00+00:00",
+    "content_type": "tutorial",
+    "detected_offer": "referral_bonus",
+    "detected_cta": "invite friends via link",
+    "detected_mechanic": "pinned_post",
+    "campaign_tags": [
+      "coding",
+      "referral_bonus"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Coding Creator 0152 x comp_novafit: tutorial c офером referral_bonus (pinned_post).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0085",
+    "competitor_id": "comp_novafit",
+    "creator_id": "cr_0152",
+    "platform": "telegram",
+    "content_url": "https://telegram.example/cr_0152/int_0085",
+    "published_at": "2026-07-24T13:00:00+00:00",
+    "content_type": "integration_ad",
+    "detected_offer": "referral_bonus",
+    "detected_cta": "invite friends via link",
+    "detected_mechanic": "pinned_post",
+    "campaign_tags": [
+      "coding",
+      "referral_bonus"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Coding Creator 0152 x comp_novafit: integration_ad c офером referral_bonus (pinned_post).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0086",
+    "competitor_id": "comp_novafit",
+    "creator_id": "cr_0153",
+    "platform": "telegram",
+    "content_url": "https://telegram.example/cr_0153/int_0086",
+    "published_at": "2026-07-31T20:00:00+00:00",
+    "content_type": "tutorial",
+    "detected_offer": "referral_bonus",
+    "detected_cta": "invite friends via link",
+    "detected_mechanic": "pinned_post",
+    "campaign_tags": [
+      "coding",
+      "referral_bonus"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Coding Creator 0153 x comp_novafit: tutorial c офером referral_bonus (pinned_post).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0087",
+    "competitor_id": "comp_novafit",
+    "creator_id": "cr_0153",
+    "platform": "telegram",
+    "content_url": "https://telegram.example/cr_0153/int_0087",
+    "published_at": "2026-08-07T05:00:00+00:00",
+    "content_type": "review",
+    "detected_offer": "giveaway",
+    "detected_cta": "join giveaway",
+    "detected_mechanic": "pinned_post",
+    "campaign_tags": [
+      "coding",
+      "giveaway"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Coding Creator 0153 x comp_novafit: review c офером giveaway (pinned_post).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0088",
+    "competitor_id": "comp_novafit",
+    "creator_id": "cr_0154",
+    "platform": "telegram",
+    "content_url": "https://telegram.example/cr_0154/int_0088",
+    "published_at": "2026-08-11T09:00:00+00:00",
+    "content_type": "tutorial",
+    "detected_offer": "referral_bonus",
+    "detected_cta": "invite friends via link",
+    "detected_mechanic": "pinned_post",
+    "campaign_tags": [
+      "coding",
+      "referral_bonus"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Coding Creator 0154 x comp_novafit: tutorial c офером referral_bonus (pinned_post).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0089",
+    "competitor_id": "comp_novafit",
+    "creator_id": "cr_0154",
+    "platform": "telegram",
+    "content_url": "https://telegram.example/cr_0154/int_0089",
+    "published_at": "2026-08-18T16:00:00+00:00",
+    "content_type": "integration_ad",
+    "detected_offer": "bundle_offer",
+    "detected_cta": "link in bio",
+    "detected_mechanic": "pinned_post",
+    "campaign_tags": [
+      "coding",
+      "bundle_offer"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Coding Creator 0154 x comp_novafit: integration_ad c офером bundle_offer (pinned_post).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0090",
+    "competitor_id": "comp_pulsemedia",
+    "creator_id": "cr_0155",
+    "platform": "instagram",
+    "content_url": "https://instagram.example/cr_0155/int_0090",
+    "published_at": "2026-06-07T14:00:00+00:00",
+    "content_type": "integration_ad",
+    "detected_offer": "bundle_offer",
+    "detected_cta": "link in bio",
+    "detected_mechanic": "story_mention",
+    "campaign_tags": [
+      "gaming",
+      "bundle_offer"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Gaming Creator 0155 x comp_pulsemedia: integration_ad c офером bundle_offer (story_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0091",
+    "competitor_id": "comp_pulsemedia",
+    "creator_id": "cr_0155",
+    "platform": "instagram",
+    "content_url": "https://instagram.example/cr_0155/int_0091",
+    "published_at": "2026-07-22T10:00:00+00:00",
+    "content_type": "vlog_mention",
+    "detected_offer": "giveaway",
+    "detected_cta": "join giveaway",
+    "detected_mechanic": "story_mention",
+    "campaign_tags": [
+      "gaming",
+      "giveaway"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Gaming Creator 0155 x comp_pulsemedia: vlog_mention c офером giveaway (story_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0092",
+    "competitor_id": "comp_pulsemedia",
+    "creator_id": "cr_0156",
+    "platform": "instagram",
+    "content_url": "https://instagram.example/cr_0156/int_0092",
+    "published_at": "2026-05-27T17:00:00+00:00",
+    "content_type": "review",
+    "detected_offer": "bundle_offer",
+    "detected_cta": "link in bio",
+    "detected_mechanic": "story_mention",
+    "campaign_tags": [
+      "gaming",
+      "bundle_offer"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Gaming Creator 0156 x comp_pulsemedia: review c офером bundle_offer (story_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0093",
+    "competitor_id": "comp_pulsemedia",
+    "creator_id": "cr_0157",
+    "platform": "instagram",
+    "content_url": "https://instagram.example/cr_0157/int_0093",
+    "published_at": "2026-06-28T02:00:00+00:00",
+    "content_type": "vlog_mention",
+    "detected_offer": "giveaway",
+    "detected_cta": "join giveaway",
+    "detected_mechanic": "story_mention",
+    "campaign_tags": [
+      "gaming",
+      "giveaway"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Gaming Creator 0157 x comp_pulsemedia: vlog_mention c офером giveaway (story_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0094",
+    "competitor_id": "comp_pulsemedia",
+    "creator_id": "cr_0157",
+    "platform": "instagram",
+    "content_url": "https://instagram.example/cr_0157/int_0094",
+    "published_at": "2026-08-10T03:00:00+00:00",
+    "content_type": "live_stream",
+    "detected_offer": "giveaway",
+    "detected_cta": "join giveaway",
+    "detected_mechanic": "story_mention",
+    "campaign_tags": [
+      "gaming",
+      "giveaway"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Gaming Creator 0157 x comp_pulsemedia: live_stream c офером giveaway (story_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0095",
+    "competitor_id": "comp_pulsemedia",
+    "creator_id": "cr_0158",
+    "platform": "instagram",
+    "content_url": "https://instagram.example/cr_0158/int_0095",
+    "published_at": "2026-05-25T07:00:00+00:00",
+    "content_type": "vlog_mention",
+    "detected_offer": "bundle_offer",
+    "detected_cta": "link in bio",
+    "detected_mechanic": "story_mention",
+    "campaign_tags": [
+      "gaming",
+      "bundle_offer"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Gaming Creator 0158 x comp_pulsemedia: vlog_mention c офером bundle_offer (story_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0096",
+    "competitor_id": "comp_pulsemedia",
+    "creator_id": "cr_0159",
+    "platform": "instagram",
+    "content_url": "https://instagram.example/cr_0159/int_0096",
+    "published_at": "2026-06-06T13:00:00+00:00",
+    "content_type": "tutorial",
+    "detected_offer": "discount_code",
+    "detected_cta": "use code at checkout",
+    "detected_mechanic": "story_mention",
+    "campaign_tags": [
+      "gaming",
+      "discount_code"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Gaming Creator 0159 x comp_pulsemedia: tutorial c офером discount_code (story_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0097",
+    "competitor_id": "comp_pulsemedia",
+    "creator_id": "cr_0160",
+    "platform": "instagram",
+    "content_url": "https://instagram.example/cr_0160/int_0097",
+    "published_at": "2026-06-06T04:00:00+00:00",
+    "content_type": "vlog_mention",
+    "detected_offer": "bundle_offer",
+    "detected_cta": "link in bio",
+    "detected_mechanic": "story_mention",
+    "campaign_tags": [
+      "gaming",
+      "bundle_offer"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Gaming Creator 0160 x comp_pulsemedia: vlog_mention c офером bundle_offer (story_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0098",
+    "competitor_id": "comp_pulsemedia",
+    "creator_id": "cr_0161",
+    "platform": "instagram",
+    "content_url": "https://instagram.example/cr_0161/int_0098",
+    "published_at": "2026-07-14T01:00:00+00:00",
+    "content_type": "review",
+    "detected_offer": "bundle_offer",
+    "detected_cta": "link in bio",
+    "detected_mechanic": "story_mention",
+    "campaign_tags": [
+      "gaming",
+      "bundle_offer"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Gaming Creator 0161 x comp_pulsemedia: review c офером bundle_offer (story_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0099",
+    "competitor_id": "comp_pulsemedia",
+    "creator_id": "cr_0161",
+    "platform": "instagram",
+    "content_url": "https://instagram.example/cr_0161/int_0099",
+    "published_at": "2026-07-28T12:00:00+00:00",
+    "content_type": "live_stream",
+    "detected_offer": "free_trial",
+    "detected_cta": "sign up via link",
+    "detected_mechanic": "story_mention",
+    "campaign_tags": [
+      "gaming",
+      "free_trial"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Gaming Creator 0161 x comp_pulsemedia: live_stream c офером free_trial (story_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0100",
+    "competitor_id": "comp_pulsemedia",
+    "creator_id": "cr_0162",
+    "platform": "instagram",
+    "content_url": "https://instagram.example/cr_0162/int_0100",
+    "published_at": "2026-07-03T11:00:00+00:00",
+    "content_type": "vlog_mention",
+    "detected_offer": "bundle_offer",
+    "detected_cta": "link in bio",
+    "detected_mechanic": "story_mention",
+    "campaign_tags": [
+      "gaming",
+      "bundle_offer"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Gaming Creator 0162 x comp_pulsemedia: vlog_mention c офером bundle_offer (story_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0101",
+    "competitor_id": "comp_pulsemedia",
+    "creator_id": "cr_0162",
+    "platform": "instagram",
+    "content_url": "https://instagram.example/cr_0162/int_0101",
+    "published_at": "2026-08-13T01:00:00+00:00",
+    "content_type": "live_stream",
+    "detected_offer": "giveaway",
+    "detected_cta": "join giveaway",
+    "detected_mechanic": "story_mention",
+    "campaign_tags": [
+      "gaming",
+      "giveaway"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Gaming Creator 0162 x comp_pulsemedia: live_stream c офером giveaway (story_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0102",
+    "competitor_id": "comp_pulsemedia",
+    "creator_id": "cr_0163",
+    "platform": "instagram",
+    "content_url": "https://instagram.example/cr_0163/int_0102",
+    "published_at": "2026-06-01T17:00:00+00:00",
+    "content_type": "vlog_mention",
+    "detected_offer": "discount_code",
+    "detected_cta": "use code at checkout",
+    "detected_mechanic": "story_mention",
+    "campaign_tags": [
+      "gaming",
+      "discount_code"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Gaming Creator 0163 x comp_pulsemedia: vlog_mention c офером discount_code (story_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0103",
+    "competitor_id": "comp_pulsemedia",
+    "creator_id": "cr_0163",
+    "platform": "instagram",
+    "content_url": "https://instagram.example/cr_0163/int_0103",
+    "published_at": "2026-08-05T22:00:00+00:00",
+    "content_type": "unboxing",
+    "detected_offer": "giveaway",
+    "detected_cta": "join giveaway",
+    "detected_mechanic": "story_mention",
+    "campaign_tags": [
+      "gaming",
+      "giveaway"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Gaming Creator 0163 x comp_pulsemedia: unboxing c офером giveaway (story_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0104",
+    "competitor_id": "comp_pulsemedia",
+    "creator_id": "cr_0164",
+    "platform": "instagram",
+    "content_url": "https://instagram.example/cr_0164/int_0104",
+    "published_at": "2026-07-11T20:00:00+00:00",
+    "content_type": "vlog_mention",
+    "detected_offer": "free_trial",
+    "detected_cta": "sign up via link",
+    "detected_mechanic": "story_mention",
+    "campaign_tags": [
+      "gaming",
+      "free_trial"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Gaming Creator 0164 x comp_pulsemedia: vlog_mention c офером free_trial (story_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0105",
+    "competitor_id": "comp_pulsemedia",
+    "creator_id": "cr_0164",
+    "platform": "instagram",
+    "content_url": "https://instagram.example/cr_0164/int_0105",
+    "published_at": "2026-08-10T05:00:00+00:00",
+    "content_type": "live_stream",
+    "detected_offer": "giveaway",
+    "detected_cta": "join giveaway",
+    "detected_mechanic": "story_mention",
+    "campaign_tags": [
+      "gaming",
+      "giveaway"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Gaming Creator 0164 x comp_pulsemedia: live_stream c офером giveaway (story_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0106",
+    "competitor_id": "comp_peakpromo",
+    "creator_id": "cr_0165",
+    "platform": "instagram",
+    "content_url": "https://instagram.example/cr_0165/int_0106",
+    "published_at": "2026-05-13T18:00:00+00:00",
+    "content_type": "review",
+    "detected_offer": "referral_bonus",
+    "detected_cta": "invite friends via link",
+    "detected_mechanic": "pre_roll",
+    "campaign_tags": [
+      "beauty",
+      "referral_bonus"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Beauty Creator 0165 x comp_peakpromo: review c офером referral_bonus (pre_roll).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0107",
+    "competitor_id": "comp_peakpromo",
+    "creator_id": "cr_0166",
+    "platform": "instagram",
+    "content_url": "https://instagram.example/cr_0166/int_0107",
+    "published_at": "2026-07-02T02:00:00+00:00",
+    "content_type": "integration_ad",
+    "detected_offer": "referral_bonus",
+    "detected_cta": "invite friends via link",
+    "detected_mechanic": "live_mention",
+    "campaign_tags": [
+      "beauty",
+      "referral_bonus"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Beauty Creator 0166 x comp_peakpromo: integration_ad c офером referral_bonus (live_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0108",
+    "competitor_id": "comp_peakpromo",
+    "creator_id": "cr_0167",
+    "platform": "instagram",
+    "content_url": "https://instagram.example/cr_0167/int_0108",
+    "published_at": "2026-05-10T11:00:00+00:00",
+    "content_type": "review",
+    "detected_offer": "discount_code",
+    "detected_cta": "use code at checkout",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "beauty",
+      "discount_code"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Beauty Creator 0167 x comp_peakpromo: review c офером discount_code (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0109",
+    "competitor_id": "comp_peakpromo",
+    "creator_id": "cr_0168",
+    "platform": "instagram",
+    "content_url": "https://instagram.example/cr_0168/int_0109",
+    "published_at": "2026-05-08T23:00:00+00:00",
+    "content_type": "unboxing",
+    "detected_offer": "free_trial",
+    "detected_cta": "sign up via link",
+    "detected_mechanic": "live_mention",
+    "campaign_tags": [
+      "beauty",
+      "free_trial"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Beauty Creator 0168 x comp_peakpromo: unboxing c офером free_trial (live_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0110",
+    "competitor_id": "comp_peakpromo",
+    "creator_id": "cr_0169",
+    "platform": "instagram",
+    "content_url": "https://instagram.example/cr_0169/int_0110",
+    "published_at": "2026-07-17T16:00:00+00:00",
+    "content_type": "tutorial",
+    "detected_offer": "referral_bonus",
+    "detected_cta": "invite friends via link",
+    "detected_mechanic": "story_mention",
+    "campaign_tags": [
+      "beauty",
+      "referral_bonus"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Beauty Creator 0169 x comp_peakpromo: tutorial c офером referral_bonus (story_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0111",
+    "competitor_id": "comp_peakpromo",
+    "creator_id": "cr_0170",
+    "platform": "instagram",
+    "content_url": "https://instagram.example/cr_0170/int_0111",
+    "published_at": "2026-05-20T22:00:00+00:00",
+    "content_type": "integration_ad",
+    "detected_offer": "bundle_offer",
+    "detected_cta": "link in bio",
+    "detected_mechanic": "story_mention",
+    "campaign_tags": [
+      "beauty",
+      "bundle_offer"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Beauty Creator 0170 x comp_peakpromo: integration_ad c офером bundle_offer (story_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0112",
+    "competitor_id": "comp_peakpromo",
+    "creator_id": "cr_0170",
+    "platform": "instagram",
+    "content_url": "https://instagram.example/cr_0170/int_0112",
+    "published_at": "2026-08-18T21:00:00+00:00",
+    "content_type": "integration_ad",
+    "detected_offer": "bundle_offer",
+    "detected_cta": "link in bio",
+    "detected_mechanic": "pinned_post",
+    "campaign_tags": [
+      "beauty",
+      "bundle_offer"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Beauty Creator 0170 x comp_peakpromo: integration_ad c офером bundle_offer (pinned_post).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0113",
+    "competitor_id": "comp_peakpromo",
+    "creator_id": "cr_0171",
+    "platform": "instagram",
+    "content_url": "https://instagram.example/cr_0171/int_0113",
+    "published_at": "2026-05-23T08:00:00+00:00",
+    "content_type": "integration_ad",
+    "detected_offer": "giveaway",
+    "detected_cta": "join giveaway",
+    "detected_mechanic": "live_mention",
+    "campaign_tags": [
+      "travel",
+      "giveaway"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Travel Creator 0171 x comp_peakpromo: integration_ad c офером giveaway (live_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0114",
+    "competitor_id": "comp_peakpromo",
+    "creator_id": "cr_0171",
+    "platform": "instagram",
+    "content_url": "https://instagram.example/cr_0171/int_0114",
+    "published_at": "2026-07-29T08:00:00+00:00",
+    "content_type": "unboxing",
+    "detected_offer": "giveaway",
+    "detected_cta": "join giveaway",
+    "detected_mechanic": "pinned_post",
+    "campaign_tags": [
+      "travel",
+      "giveaway"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Travel Creator 0171 x comp_peakpromo: unboxing c офером giveaway (pinned_post).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0115",
+    "competitor_id": "comp_peakpromo",
+    "creator_id": "cr_0172",
+    "platform": "instagram",
+    "content_url": "https://instagram.example/cr_0172/int_0115",
+    "published_at": "2026-06-04T02:00:00+00:00",
+    "content_type": "vlog_mention",
+    "detected_offer": "referral_bonus",
+    "detected_cta": "invite friends via link",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "travel",
+      "referral_bonus"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Travel Creator 0172 x comp_peakpromo: vlog_mention c офером referral_bonus (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0116",
+    "competitor_id": "comp_peakpromo",
+    "creator_id": "cr_0172",
+    "platform": "instagram",
+    "content_url": "https://instagram.example/cr_0172/int_0116",
+    "published_at": "2026-08-17T08:00:00+00:00",
+    "content_type": "unboxing",
+    "detected_offer": "bundle_offer",
+    "detected_cta": "link in bio",
+    "detected_mechanic": "pre_roll",
+    "campaign_tags": [
+      "travel",
+      "bundle_offer"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Travel Creator 0172 x comp_peakpromo: unboxing c офером bundle_offer (pre_roll).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0117",
+    "competitor_id": "comp_peakpromo",
+    "creator_id": "cr_0173",
+    "platform": "instagram",
+    "content_url": "https://instagram.example/cr_0173/int_0117",
+    "published_at": "2026-07-08T17:00:00+00:00",
+    "content_type": "review",
+    "detected_offer": "giveaway",
+    "detected_cta": "join giveaway",
+    "detected_mechanic": "pinned_post",
+    "campaign_tags": [
+      "travel",
+      "giveaway"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Travel Creator 0173 x comp_peakpromo: review c офером giveaway (pinned_post).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0118",
+    "competitor_id": "comp_peakpromo",
+    "creator_id": "cr_0173",
+    "platform": "instagram",
+    "content_url": "https://instagram.example/cr_0173/int_0118",
+    "published_at": "2026-07-23T13:00:00+00:00",
+    "content_type": "integration_ad",
+    "detected_offer": "giveaway",
+    "detected_cta": "join giveaway",
+    "detected_mechanic": "live_mention",
+    "campaign_tags": [
+      "travel",
+      "giveaway"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Travel Creator 0173 x comp_peakpromo: integration_ad c офером giveaway (live_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0119",
+    "competitor_id": "comp_peakpromo",
+    "creator_id": "cr_0174",
+    "platform": "instagram",
+    "content_url": "https://instagram.example/cr_0174/int_0119",
+    "published_at": "2026-06-10T20:00:00+00:00",
+    "content_type": "integration_ad",
+    "detected_offer": "free_trial",
+    "detected_cta": "sign up via link",
+    "detected_mechanic": "pinned_post",
+    "campaign_tags": [
+      "travel",
+      "free_trial"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Travel Creator 0174 x comp_peakpromo: integration_ad c офером free_trial (pinned_post).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0120",
+    "competitor_id": "comp_peakpromo",
+    "creator_id": "cr_0174",
+    "platform": "instagram",
+    "content_url": "https://instagram.example/cr_0174/int_0120",
+    "published_at": "2026-07-23T10:00:00+00:00",
+    "content_type": "unboxing",
+    "detected_offer": "bundle_offer",
+    "detected_cta": "link in bio",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "travel",
+      "bundle_offer"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Travel Creator 0174 x comp_peakpromo: unboxing c офером bundle_offer (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0121",
+    "competitor_id": "comp_peakpromo",
+    "creator_id": "cr_0175",
+    "platform": "instagram",
+    "content_url": "https://instagram.example/cr_0175/int_0121",
+    "published_at": "2026-06-01T06:00:00+00:00",
+    "content_type": "vlog_mention",
+    "detected_offer": "bundle_offer",
+    "detected_cta": "link in bio",
+    "detected_mechanic": "pre_roll",
+    "campaign_tags": [
+      "travel",
+      "bundle_offer"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Travel Creator 0175 x comp_peakpromo: vlog_mention c офером bundle_offer (pre_roll).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0122",
+    "competitor_id": "comp_growthlabs",
+    "creator_id": "cr_0176",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0176/int_0122",
+    "published_at": "2026-06-17T18:00:00+00:00",
+    "content_type": "live_stream",
+    "detected_offer": "referral_bonus",
+    "detected_cta": "invite friends via link",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "personal_finance",
+      "referral_bonus"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Personal Finance Creator 0176 x comp_growthlabs: live_stream c офером referral_bonus (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0123",
+    "competitor_id": "comp_growthlabs",
+    "creator_id": "cr_0176",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0176/int_0123",
+    "published_at": "2026-08-19T07:00:00+00:00",
+    "content_type": "vlog_mention",
+    "detected_offer": "bundle_offer",
+    "detected_cta": "link in bio",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "personal_finance",
+      "bundle_offer"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Personal Finance Creator 0176 x comp_growthlabs: vlog_mention c офером bundle_offer (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0124",
+    "competitor_id": "comp_growthlabs",
+    "creator_id": "cr_0177",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0177/int_0124",
+    "published_at": "2026-05-15T00:00:00+00:00",
+    "content_type": "live_stream",
+    "detected_offer": "referral_bonus",
+    "detected_cta": "invite friends via link",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "personal_finance",
+      "referral_bonus"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Personal Finance Creator 0177 x comp_growthlabs: live_stream c офером referral_bonus (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0125",
+    "competitor_id": "comp_growthlabs",
+    "creator_id": "cr_0177",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0177/int_0125",
+    "published_at": "2026-07-29T18:00:00+00:00",
+    "content_type": "integration_ad",
+    "detected_offer": "discount_code",
+    "detected_cta": "use code at checkout",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "personal_finance",
+      "discount_code"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Personal Finance Creator 0177 x comp_growthlabs: integration_ad c офером discount_code (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0126",
+    "competitor_id": "comp_growthlabs",
+    "creator_id": "cr_0178",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0178/int_0126",
+    "published_at": "2026-04-23T12:00:00+00:00",
+    "content_type": "review",
+    "detected_offer": "free_trial",
+    "detected_cta": "sign up via link",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "personal_finance",
+      "free_trial"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Personal Finance Creator 0178 x comp_growthlabs: review c офером free_trial (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0127",
+    "competitor_id": "comp_growthlabs",
+    "creator_id": "cr_0178",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0178/int_0127",
+    "published_at": "2026-08-06T14:00:00+00:00",
+    "content_type": "integration_ad",
+    "detected_offer": "bundle_offer",
+    "detected_cta": "link in bio",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "personal_finance",
+      "bundle_offer"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Personal Finance Creator 0178 x comp_growthlabs: integration_ad c офером bundle_offer (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0128",
+    "competitor_id": "comp_growthlabs",
+    "creator_id": "cr_0179",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0179/int_0128",
+    "published_at": "2026-06-24T17:00:00+00:00",
+    "content_type": "tutorial",
+    "detected_offer": "referral_bonus",
+    "detected_cta": "invite friends via link",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "personal_finance",
+      "referral_bonus"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Personal Finance Creator 0179 x comp_growthlabs: tutorial c офером referral_bonus (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0129",
+    "competitor_id": "comp_growthlabs",
+    "creator_id": "cr_0180",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0180/int_0129",
+    "published_at": "2026-07-13T20:00:00+00:00",
+    "content_type": "live_stream",
+    "detected_offer": "free_trial",
+    "detected_cta": "sign up via link",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "personal_finance",
+      "free_trial"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Personal Finance Creator 0180 x comp_growthlabs: live_stream c офером free_trial (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0130",
+    "competitor_id": "comp_growthlabs",
+    "creator_id": "cr_0180",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0180/int_0130",
+    "published_at": "2026-08-09T20:00:00+00:00",
+    "content_type": "live_stream",
+    "detected_offer": "bundle_offer",
+    "detected_cta": "link in bio",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "personal_finance",
+      "bundle_offer"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Personal Finance Creator 0180 x comp_growthlabs: live_stream c офером bundle_offer (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0131",
+    "competitor_id": "comp_growthlabs",
+    "creator_id": "cr_0181",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0181/int_0131",
+    "published_at": "2026-06-02T22:00:00+00:00",
+    "content_type": "unboxing",
+    "detected_offer": "free_trial",
+    "detected_cta": "sign up via link",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "personal_finance",
+      "free_trial"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Personal Finance Creator 0181 x comp_growthlabs: unboxing c офером free_trial (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0132",
+    "competitor_id": "comp_growthlabs",
+    "creator_id": "cr_0182",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0182/int_0132",
+    "published_at": "2026-06-07T15:00:00+00:00",
+    "content_type": "vlog_mention",
+    "detected_offer": "giveaway",
+    "detected_cta": "join giveaway",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "personal_finance",
+      "giveaway"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Personal Finance Creator 0182 x comp_growthlabs: vlog_mention c офером giveaway (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0133",
+    "competitor_id": "comp_growthlabs",
+    "creator_id": "cr_0183",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0183/int_0133",
+    "published_at": "2026-04-24T17:00:00+00:00",
+    "content_type": "live_stream",
+    "detected_offer": "giveaway",
+    "detected_cta": "join giveaway",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "personal_finance",
+      "giveaway"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Personal Finance Creator 0183 x comp_growthlabs: live_stream c офером giveaway (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0134",
+    "competitor_id": "comp_growthlabs",
+    "creator_id": "cr_0183",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0183/int_0134",
+    "published_at": "2026-08-13T03:00:00+00:00",
+    "content_type": "unboxing",
+    "detected_offer": "referral_bonus",
+    "detected_cta": "invite friends via link",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "personal_finance",
+      "referral_bonus"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Personal Finance Creator 0183 x comp_growthlabs: unboxing c офером referral_bonus (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0135",
+    "competitor_id": "comp_growthlabs",
+    "creator_id": "cr_0184",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0184/int_0135",
+    "published_at": "2026-06-22T14:00:00+00:00",
+    "content_type": "unboxing",
+    "detected_offer": "giveaway",
+    "detected_cta": "join giveaway",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "personal_finance",
+      "giveaway"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Personal Finance Creator 0184 x comp_growthlabs: unboxing c офером giveaway (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0136",
+    "competitor_id": "comp_growthlabs",
+    "creator_id": "cr_0184",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0184/int_0136",
+    "published_at": "2026-07-28T21:00:00+00:00",
+    "content_type": "tutorial",
+    "detected_offer": "giveaway",
+    "detected_cta": "join giveaway",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "personal_finance",
+      "giveaway"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Personal Finance Creator 0184 x comp_growthlabs: tutorial c офером giveaway (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0137",
+    "competitor_id": "comp_growthlabs",
+    "creator_id": "cr_0077",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0077/int_0137",
+    "published_at": "2026-06-01T11:00:00+00:00",
+    "content_type": "unboxing",
+    "detected_offer": "free_trial",
+    "detected_cta": "sign up via link",
+    "detected_mechanic": "story_mention",
+    "campaign_tags": [
+      "cooking",
+      "free_trial"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Cooking Creator 0077 x comp_growthlabs: unboxing c офером free_trial (story_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0138",
+    "competitor_id": "comp_growthlabs",
+    "creator_id": "cr_0077",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0077/int_0138",
+    "published_at": "2026-06-14T22:00:00+00:00",
+    "content_type": "live_stream",
+    "detected_offer": "discount_code",
+    "detected_cta": "use code at checkout",
+    "detected_mechanic": "story_mention",
+    "campaign_tags": [
+      "cooking",
+      "discount_code"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Cooking Creator 0077 x comp_growthlabs: live_stream c офером discount_code (story_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0139",
+    "competitor_id": "comp_growthlabs",
+    "creator_id": "cr_0079",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0079/int_0139",
+    "published_at": "2026-05-21T04:00:00+00:00",
+    "content_type": "integration_ad",
+    "detected_offer": "free_trial",
+    "detected_cta": "sign up via link",
+    "detected_mechanic": "live_mention",
+    "campaign_tags": [
+      "cooking",
+      "free_trial"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Cooking Creator 0079 x comp_growthlabs: integration_ad c офером free_trial (live_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0140",
+    "competitor_id": "comp_growthlabs",
+    "creator_id": "cr_0078",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0078/int_0140",
+    "published_at": "2026-04-22T17:00:00+00:00",
+    "content_type": "unboxing",
+    "detected_offer": "free_trial",
+    "detected_cta": "sign up via link",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "cooking",
+      "free_trial"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Cooking Creator 0078 x comp_growthlabs: unboxing c офером free_trial (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0141",
+    "competitor_id": "comp_growthlabs",
+    "creator_id": "cr_0078",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0078/int_0141",
+    "published_at": "2026-05-06T15:00:00+00:00",
+    "content_type": "integration_ad",
+    "detected_offer": "free_trial",
+    "detected_cta": "sign up via link",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "cooking",
+      "free_trial"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Cooking Creator 0078 x comp_growthlabs: integration_ad c офером free_trial (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0142",
+    "competitor_id": "comp_pulsemedia",
+    "creator_id": "cr_0086",
+    "platform": "instagram",
+    "content_url": "https://instagram.example/cr_0086/int_0142",
+    "published_at": "2026-05-21T19:00:00+00:00",
+    "content_type": "review",
+    "detected_offer": "free_trial",
+    "detected_cta": "sign up via link",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "cooking",
+      "free_trial"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Cooking Creator 0086 x comp_pulsemedia: review c офером free_trial (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0143",
+    "competitor_id": "comp_growthlabs",
+    "creator_id": "cr_0087",
+    "platform": "instagram",
+    "content_url": "https://instagram.example/cr_0087/int_0143",
+    "published_at": "2026-06-25T16:00:00+00:00",
+    "content_type": "unboxing",
+    "detected_offer": "giveaway",
+    "detected_cta": "join giveaway",
+    "detected_mechanic": "story_mention",
+    "campaign_tags": [
+      "cooking",
+      "giveaway"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Cooking Creator 0087 x comp_growthlabs: unboxing c офером giveaway (story_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0144",
+    "competitor_id": "comp_growthlabs",
+    "creator_id": "cr_0088",
+    "platform": "instagram",
+    "content_url": "https://instagram.example/cr_0088/int_0144",
+    "published_at": "2026-07-09T19:00:00+00:00",
+    "content_type": "live_stream",
+    "detected_offer": "referral_bonus",
+    "detected_cta": "invite friends via link",
+    "detected_mechanic": "pre_roll",
+    "campaign_tags": [
+      "cooking",
+      "referral_bonus"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Cooking Creator 0088 x comp_growthlabs: live_stream c офером referral_bonus (pre_roll).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0145",
+    "competitor_id": "comp_novafit",
+    "creator_id": "cr_0086",
+    "platform": "instagram",
+    "content_url": "https://instagram.example/cr_0086/int_0145",
+    "published_at": "2026-06-29T07:00:00+00:00",
+    "content_type": "review",
+    "detected_offer": "bundle_offer",
+    "detected_cta": "link in bio",
+    "detected_mechanic": "pinned_post",
+    "campaign_tags": [
+      "cooking",
+      "bundle_offer"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Cooking Creator 0086 x comp_novafit: review c офером bundle_offer (pinned_post).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0146",
+    "competitor_id": "comp_growthlabs",
+    "creator_id": "cr_0093",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0093/int_0146",
+    "published_at": "2026-04-30T08:00:00+00:00",
+    "content_type": "vlog_mention",
+    "detected_offer": "referral_bonus",
+    "detected_cta": "invite friends via link",
+    "detected_mechanic": "pinned_post",
+    "campaign_tags": [
+      "travel",
+      "referral_bonus"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Travel Creator 0093 x comp_growthlabs: vlog_mention c офером referral_bonus (pinned_post).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0147",
+    "competitor_id": "comp_growthlabs",
+    "creator_id": "cr_0089",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0089/int_0147",
+    "published_at": "2026-05-23T02:00:00+00:00",
+    "content_type": "unboxing",
+    "detected_offer": "free_trial",
+    "detected_cta": "sign up via link",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "travel",
+      "free_trial"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Travel Creator 0089 x comp_growthlabs: unboxing c офером free_trial (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0148",
+    "competitor_id": "comp_growthlabs",
+    "creator_id": "cr_0089",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0089/int_0148",
+    "published_at": "2026-06-30T14:00:00+00:00",
+    "content_type": "live_stream",
+    "detected_offer": "bundle_offer",
+    "detected_cta": "link in bio",
+    "detected_mechanic": "story_mention",
+    "campaign_tags": [
+      "travel",
+      "bundle_offer"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Travel Creator 0089 x comp_growthlabs: live_stream c офером bundle_offer (story_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0149",
+    "competitor_id": "comp_growthlabs",
+    "creator_id": "cr_0090",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0090/int_0149",
+    "published_at": "2026-06-08T07:00:00+00:00",
+    "content_type": "unboxing",
+    "detected_offer": "referral_bonus",
+    "detected_cta": "invite friends via link",
+    "detected_mechanic": "pre_roll",
+    "campaign_tags": [
+      "travel",
+      "referral_bonus"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Travel Creator 0090 x comp_growthlabs: unboxing c офером referral_bonus (pre_roll).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0150",
+    "competitor_id": "comp_novafit",
+    "creator_id": "cr_0092",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0092/int_0150",
+    "published_at": "2026-06-28T05:00:00+00:00",
+    "content_type": "integration_ad",
+    "detected_offer": "bundle_offer",
+    "detected_cta": "link in bio",
+    "detected_mechanic": "story_mention",
+    "campaign_tags": [
+      "travel",
+      "bundle_offer"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Travel Creator 0092 x comp_novafit: integration_ad c офером bundle_offer (story_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0151",
+    "competitor_id": "comp_novafit",
+    "creator_id": "cr_0091",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0091/int_0151",
+    "published_at": "2026-06-02T02:00:00+00:00",
+    "content_type": "integration_ad",
+    "detected_offer": "bundle_offer",
+    "detected_cta": "link in bio",
+    "detected_mechanic": "story_mention",
+    "campaign_tags": [
+      "travel",
+      "bundle_offer"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Travel Creator 0091 x comp_novafit: integration_ad c офером bundle_offer (story_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0152",
+    "competitor_id": "comp_novafit",
+    "creator_id": "cr_0089",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0089/int_0152",
+    "published_at": "2026-05-08T14:00:00+00:00",
+    "content_type": "review",
+    "detected_offer": "giveaway",
+    "detected_cta": "join giveaway",
+    "detected_mechanic": "story_mention",
+    "campaign_tags": [
+      "travel",
+      "giveaway"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Travel Creator 0089 x comp_novafit: review c офером giveaway (story_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0153",
+    "competitor_id": "comp_novafit",
+    "creator_id": "cr_0090",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0090/int_0153",
+    "published_at": "2026-04-27T07:00:00+00:00",
+    "content_type": "review",
+    "detected_offer": "bundle_offer",
+    "detected_cta": "link in bio",
+    "detected_mechanic": "story_mention",
+    "campaign_tags": [
+      "travel",
+      "bundle_offer"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Travel Creator 0090 x comp_novafit: review c офером bundle_offer (story_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0154",
+    "competitor_id": "comp_peakpromo",
+    "creator_id": "cr_0093",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0093/int_0154",
+    "published_at": "2026-06-14T05:00:00+00:00",
+    "content_type": "unboxing",
+    "detected_offer": "referral_bonus",
+    "detected_cta": "invite friends via link",
+    "detected_mechanic": "pre_roll",
+    "campaign_tags": [
+      "travel",
+      "referral_bonus"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Travel Creator 0093 x comp_peakpromo: unboxing c офером referral_bonus (pre_roll).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0155",
+    "competitor_id": "comp_peakpromo",
+    "creator_id": "cr_0091",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0091/int_0155",
+    "published_at": "2026-05-21T01:00:00+00:00",
+    "content_type": "integration_ad",
+    "detected_offer": "bundle_offer",
+    "detected_cta": "link in bio",
+    "detected_mechanic": "live_mention",
+    "campaign_tags": [
+      "travel",
+      "bundle_offer"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Travel Creator 0091 x comp_peakpromo: integration_ad c офером bundle_offer (live_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0156",
+    "competitor_id": "comp_peakpromo",
+    "creator_id": "cr_0091",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0091/int_0156",
+    "published_at": "2026-05-28T19:00:00+00:00",
+    "content_type": "live_stream",
+    "detected_offer": "referral_bonus",
+    "detected_cta": "invite friends via link",
+    "detected_mechanic": "pinned_post",
+    "campaign_tags": [
+      "travel",
+      "referral_bonus"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Travel Creator 0091 x comp_peakpromo: live_stream c офером referral_bonus (pinned_post).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0157",
+    "competitor_id": "comp_peakpromo",
+    "creator_id": "cr_0092",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0092/int_0157",
+    "published_at": "2026-06-23T20:00:00+00:00",
+    "content_type": "integration_ad",
+    "detected_offer": "referral_bonus",
+    "detected_cta": "invite friends via link",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "travel",
+      "referral_bonus"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Travel Creator 0092 x comp_peakpromo: integration_ad c офером referral_bonus (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0158",
+    "competitor_id": "comp_peakpromo",
+    "creator_id": "cr_0092",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0092/int_0158",
+    "published_at": "2026-05-24T18:00:00+00:00",
+    "content_type": "vlog_mention",
+    "detected_offer": "giveaway",
+    "detected_cta": "join giveaway",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "travel",
+      "giveaway"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Travel Creator 0092 x comp_peakpromo: vlog_mention c офером giveaway (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0159",
+    "competitor_id": "comp_peakpromo",
+    "creator_id": "cr_0089",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0089/int_0159",
+    "published_at": "2026-05-11T19:00:00+00:00",
+    "content_type": "vlog_mention",
+    "detected_offer": "free_trial",
+    "detected_cta": "sign up via link",
+    "detected_mechanic": "live_mention",
+    "campaign_tags": [
+      "travel",
+      "free_trial"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Travel Creator 0089 x comp_peakpromo: vlog_mention c офером free_trial (live_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0160",
+    "competitor_id": "comp_growthlabs",
+    "creator_id": "cr_0039",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0039/int_0160",
+    "published_at": "2026-05-17T08:00:00+00:00",
+    "content_type": "tutorial",
+    "detected_offer": "discount_code",
+    "detected_cta": "use code at checkout",
+    "detected_mechanic": "pinned_post",
+    "campaign_tags": [
+      "beauty",
+      "discount_code"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Beauty Creator 0039 x comp_growthlabs: tutorial c офером discount_code (pinned_post).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0161",
+    "competitor_id": "comp_growthlabs",
+    "creator_id": "cr_0040",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0040/int_0161",
+    "published_at": "2026-05-23T22:00:00+00:00",
+    "content_type": "vlog_mention",
+    "detected_offer": "discount_code",
+    "detected_cta": "use code at checkout",
+    "detected_mechanic": "live_mention",
+    "campaign_tags": [
+      "beauty",
+      "discount_code"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Beauty Creator 0040 x comp_growthlabs: vlog_mention c офером discount_code (live_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0162",
+    "competitor_id": "comp_growthlabs",
+    "creator_id": "cr_0041",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0041/int_0162",
+    "published_at": "2026-06-12T04:00:00+00:00",
+    "content_type": "live_stream",
+    "detected_offer": "discount_code",
+    "detected_cta": "use code at checkout",
+    "detected_mechanic": "pinned_post",
+    "campaign_tags": [
+      "beauty",
+      "discount_code"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Beauty Creator 0041 x comp_growthlabs: live_stream c офером discount_code (pinned_post).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0163",
+    "competitor_id": "comp_growthlabs",
+    "creator_id": "cr_0042",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0042/int_0163",
+    "published_at": "2026-06-23T23:00:00+00:00",
+    "content_type": "vlog_mention",
+    "detected_offer": "discount_code",
+    "detected_cta": "use code at checkout",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "beauty",
+      "discount_code"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Beauty Creator 0042 x comp_growthlabs: vlog_mention c офером discount_code (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0164",
+    "competitor_id": "comp_growthlabs",
+    "creator_id": "cr_0042",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0042/int_0164",
+    "published_at": "2026-06-07T11:00:00+00:00",
+    "content_type": "live_stream",
+    "detected_offer": "discount_code",
+    "detected_cta": "use code at checkout",
+    "detected_mechanic": "live_mention",
+    "campaign_tags": [
+      "beauty",
+      "discount_code"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Beauty Creator 0042 x comp_growthlabs: live_stream c офером discount_code (live_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0165",
+    "competitor_id": "comp_novafit",
+    "creator_id": "cr_0020",
+    "platform": "telegram",
+    "content_url": "https://telegram.example/cr_0020/int_0165",
+    "published_at": "2026-04-29T22:00:00+00:00",
+    "content_type": "tutorial",
+    "detected_offer": "giveaway",
+    "detected_cta": "join giveaway",
+    "detected_mechanic": "pinned_post",
+    "campaign_tags": [
+      "gaming",
+      "giveaway"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Gaming Creator 0020 x comp_novafit: tutorial c офером giveaway (pinned_post).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0166",
+    "competitor_id": "comp_novafit",
+    "creator_id": "cr_0020",
+    "platform": "telegram",
+    "content_url": "https://telegram.example/cr_0020/int_0166",
+    "published_at": "2026-06-03T08:00:00+00:00",
+    "content_type": "tutorial",
+    "detected_offer": "discount_code",
+    "detected_cta": "use code at checkout",
+    "detected_mechanic": "live_mention",
+    "campaign_tags": [
+      "gaming",
+      "discount_code"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Gaming Creator 0020 x comp_novafit: tutorial c офером discount_code (live_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0167",
+    "competitor_id": "comp_novafit",
+    "creator_id": "cr_0019",
+    "platform": "telegram",
+    "content_url": "https://telegram.example/cr_0019/int_0167",
+    "published_at": "2026-06-07T00:00:00+00:00",
+    "content_type": "review",
+    "detected_offer": "free_trial",
+    "detected_cta": "sign up via link",
+    "detected_mechanic": "live_mention",
+    "campaign_tags": [
+      "gaming",
+      "free_trial"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Gaming Creator 0019 x comp_novafit: review c офером free_trial (live_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0168",
+    "competitor_id": "comp_novafit",
+    "creator_id": "cr_0021",
+    "platform": "telegram",
+    "content_url": "https://telegram.example/cr_0021/int_0168",
+    "published_at": "2026-06-22T22:00:00+00:00",
+    "content_type": "review",
+    "detected_offer": "discount_code",
+    "detected_cta": "use code at checkout",
+    "detected_mechanic": "story_mention",
+    "campaign_tags": [
+      "gaming",
+      "discount_code"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Gaming Creator 0021 x comp_novafit: review c офером discount_code (story_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0169",
+    "competitor_id": "comp_pulsemedia",
+    "creator_id": "cr_0021",
+    "platform": "telegram",
+    "content_url": "https://telegram.example/cr_0021/int_0169",
+    "published_at": "2026-06-06T13:00:00+00:00",
+    "content_type": "integration_ad",
+    "detected_offer": "giveaway",
+    "detected_cta": "join giveaway",
+    "detected_mechanic": "pre_roll",
+    "campaign_tags": [
+      "gaming",
+      "giveaway"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Gaming Creator 0021 x comp_pulsemedia: integration_ad c офером giveaway (pre_roll).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0170",
+    "competitor_id": "comp_pulsemedia",
+    "creator_id": "cr_0020",
+    "platform": "telegram",
+    "content_url": "https://telegram.example/cr_0020/int_0170",
+    "published_at": "2026-07-17T12:00:00+00:00",
+    "content_type": "live_stream",
+    "detected_offer": "bundle_offer",
+    "detected_cta": "link in bio",
+    "detected_mechanic": "live_mention",
+    "campaign_tags": [
+      "gaming",
+      "bundle_offer"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Gaming Creator 0020 x comp_pulsemedia: live_stream c офером bundle_offer (live_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0171",
+    "competitor_id": "comp_pulsemedia",
+    "creator_id": "cr_0020",
+    "platform": "telegram",
+    "content_url": "https://telegram.example/cr_0020/int_0171",
+    "published_at": "2026-06-20T17:00:00+00:00",
+    "content_type": "integration_ad",
+    "detected_offer": "discount_code",
+    "detected_cta": "use code at checkout",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "gaming",
+      "discount_code"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Gaming Creator 0020 x comp_pulsemedia: integration_ad c офером discount_code (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0172",
+    "competitor_id": "comp_pulsemedia",
+    "creator_id": "cr_0019",
+    "platform": "telegram",
+    "content_url": "https://telegram.example/cr_0019/int_0172",
+    "published_at": "2026-05-05T13:00:00+00:00",
+    "content_type": "live_stream",
+    "detected_offer": "discount_code",
+    "detected_cta": "use code at checkout",
+    "detected_mechanic": "pre_roll",
+    "campaign_tags": [
+      "gaming",
+      "discount_code"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Gaming Creator 0019 x comp_pulsemedia: live_stream c офером discount_code (pre_roll).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0173",
+    "competitor_id": "comp_peakpromo",
+    "creator_id": "cr_0020",
+    "platform": "telegram",
+    "content_url": "https://telegram.example/cr_0020/int_0173",
+    "published_at": "2026-05-12T20:00:00+00:00",
+    "content_type": "integration_ad",
+    "detected_offer": "discount_code",
+    "detected_cta": "use code at checkout",
+    "detected_mechanic": "pre_roll",
+    "campaign_tags": [
+      "gaming",
+      "discount_code"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Gaming Creator 0020 x comp_peakpromo: integration_ad c офером discount_code (pre_roll).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0174",
+    "competitor_id": "comp_pulsemedia",
+    "creator_id": "cr_0058",
+    "platform": "telegram",
+    "content_url": "https://telegram.example/cr_0058/int_0174",
+    "published_at": "2026-05-16T04:00:00+00:00",
+    "content_type": "integration_ad",
+    "detected_offer": "bundle_offer",
+    "detected_cta": "link in bio",
+    "detected_mechanic": "story_mention",
+    "campaign_tags": [
+      "personal_finance",
+      "bundle_offer"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Personal Finance Creator 0058 x comp_pulsemedia: integration_ad c офером bundle_offer (story_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0175",
+    "competitor_id": "comp_pulsemedia",
+    "creator_id": "cr_0058",
+    "platform": "telegram",
+    "content_url": "https://telegram.example/cr_0058/int_0175",
+    "published_at": "2026-07-13T16:00:00+00:00",
+    "content_type": "vlog_mention",
+    "detected_offer": "referral_bonus",
+    "detected_cta": "invite friends via link",
+    "detected_mechanic": "pre_roll",
+    "campaign_tags": [
+      "personal_finance",
+      "referral_bonus"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Personal Finance Creator 0058 x comp_pulsemedia: vlog_mention c офером referral_bonus (pre_roll).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0176",
+    "competitor_id": "comp_pulsemedia",
+    "creator_id": "cr_0059",
+    "platform": "telegram",
+    "content_url": "https://telegram.example/cr_0059/int_0176",
+    "published_at": "2026-05-10T16:00:00+00:00",
+    "content_type": "tutorial",
+    "detected_offer": "discount_code",
+    "detected_cta": "use code at checkout",
+    "detected_mechanic": "story_mention",
+    "campaign_tags": [
+      "personal_finance",
+      "discount_code"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Personal Finance Creator 0059 x comp_pulsemedia: tutorial c офером discount_code (story_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0177",
+    "competitor_id": "comp_pulsemedia",
+    "creator_id": "cr_0060",
+    "platform": "telegram",
+    "content_url": "https://telegram.example/cr_0060/int_0177",
+    "published_at": "2026-05-15T08:00:00+00:00",
+    "content_type": "unboxing",
+    "detected_offer": "bundle_offer",
+    "detected_cta": "link in bio",
+    "detected_mechanic": "pinned_post",
+    "campaign_tags": [
+      "personal_finance",
+      "bundle_offer"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Personal Finance Creator 0060 x comp_pulsemedia: unboxing c офером bundle_offer (pinned_post).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0178",
+    "competitor_id": "comp_growthlabs",
+    "creator_id": "cr_0059",
+    "platform": "telegram",
+    "content_url": "https://telegram.example/cr_0059/int_0178",
+    "published_at": "2026-06-23T11:00:00+00:00",
+    "content_type": "unboxing",
+    "detected_offer": "free_trial",
+    "detected_cta": "sign up via link",
+    "detected_mechanic": "pinned_post",
+    "campaign_tags": [
+      "personal_finance",
+      "free_trial"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Personal Finance Creator 0059 x comp_growthlabs: unboxing c офером free_trial (pinned_post).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0179",
+    "competitor_id": "comp_growthlabs",
+    "creator_id": "cr_0058",
+    "platform": "telegram",
+    "content_url": "https://telegram.example/cr_0058/int_0179",
+    "published_at": "2026-05-29T00:00:00+00:00",
+    "content_type": "vlog_mention",
+    "detected_offer": "referral_bonus",
+    "detected_cta": "invite friends via link",
+    "detected_mechanic": "pre_roll",
+    "campaign_tags": [
+      "personal_finance",
+      "referral_bonus"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Personal Finance Creator 0058 x comp_growthlabs: vlog_mention c офером referral_bonus (pre_roll).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0180",
+    "competitor_id": "comp_growthlabs",
+    "creator_id": "cr_0060",
+    "platform": "telegram",
+    "content_url": "https://telegram.example/cr_0060/int_0180",
+    "published_at": "2026-06-25T01:00:00+00:00",
+    "content_type": "unboxing",
+    "detected_offer": "discount_code",
+    "detected_cta": "use code at checkout",
+    "detected_mechanic": "pinned_post",
+    "campaign_tags": [
+      "personal_finance",
+      "discount_code"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Personal Finance Creator 0060 x comp_growthlabs: unboxing c офером discount_code (pinned_post).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0181",
+    "competitor_id": "comp_peakpromo",
+    "creator_id": "cr_0060",
+    "platform": "telegram",
+    "content_url": "https://telegram.example/cr_0060/int_0181",
+    "published_at": "2026-06-26T15:00:00+00:00",
+    "content_type": "review",
+    "detected_offer": "giveaway",
+    "detected_cta": "join giveaway",
+    "detected_mechanic": "pinned_post",
+    "campaign_tags": [
+      "personal_finance",
+      "giveaway"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Personal Finance Creator 0060 x comp_peakpromo: review c офером giveaway (pinned_post).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0182",
+    "competitor_id": "comp_novafit",
+    "creator_id": "cr_0067",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0067/int_0182",
+    "published_at": "2026-06-09T06:00:00+00:00",
+    "content_type": "unboxing",
+    "detected_offer": "discount_code",
+    "detected_cta": "use code at checkout",
+    "detected_mechanic": "pre_roll",
+    "campaign_tags": [
+      "coding",
+      "discount_code"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Coding Creator 0067 x comp_novafit: unboxing c офером discount_code (pre_roll).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0183",
+    "competitor_id": "comp_novafit",
+    "creator_id": "cr_0065",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0065/int_0183",
+    "published_at": "2026-07-05T14:00:00+00:00",
+    "content_type": "live_stream",
+    "detected_offer": "bundle_offer",
+    "detected_cta": "link in bio",
+    "detected_mechanic": "pre_roll",
+    "campaign_tags": [
+      "coding",
+      "bundle_offer"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Coding Creator 0065 x comp_novafit: live_stream c офером bundle_offer (pre_roll).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0184",
+    "competitor_id": "comp_novafit",
+    "creator_id": "cr_0065",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0065/int_0184",
+    "published_at": "2026-05-05T05:00:00+00:00",
+    "content_type": "live_stream",
+    "detected_offer": "free_trial",
+    "detected_cta": "sign up via link",
+    "detected_mechanic": "pinned_post",
+    "campaign_tags": [
+      "coding",
+      "free_trial"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Coding Creator 0065 x comp_novafit: live_stream c офером free_trial (pinned_post).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0185",
+    "competitor_id": "comp_peakpromo",
+    "creator_id": "cr_0066",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0066/int_0185",
+    "published_at": "2026-06-05T20:00:00+00:00",
+    "content_type": "unboxing",
+    "detected_offer": "giveaway",
+    "detected_cta": "join giveaway",
+    "detected_mechanic": "story_mention",
+    "campaign_tags": [
+      "coding",
+      "giveaway"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Coding Creator 0066 x comp_peakpromo: unboxing c офером giveaway (story_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0186",
+    "competitor_id": "comp_peakpromo",
+    "creator_id": "cr_0067",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0067/int_0186",
+    "published_at": "2026-05-23T06:00:00+00:00",
+    "content_type": "review",
+    "detected_offer": "bundle_offer",
+    "detected_cta": "link in bio",
+    "detected_mechanic": "story_mention",
+    "campaign_tags": [
+      "coding",
+      "bundle_offer"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Coding Creator 0067 x comp_peakpromo: review c офером bundle_offer (story_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0187",
+    "competitor_id": "comp_peakpromo",
+    "creator_id": "cr_0067",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0067/int_0187",
+    "published_at": "2026-06-03T18:00:00+00:00",
+    "content_type": "unboxing",
+    "detected_offer": "bundle_offer",
+    "detected_cta": "link in bio",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "coding",
+      "bundle_offer"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Coding Creator 0067 x comp_peakpromo: unboxing c офером bundle_offer (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0188",
+    "competitor_id": "comp_peakpromo",
+    "creator_id": "cr_0065",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0065/int_0188",
+    "published_at": "2026-07-02T18:00:00+00:00",
+    "content_type": "review",
+    "detected_offer": "giveaway",
+    "detected_cta": "join giveaway",
+    "detected_mechanic": "live_mention",
+    "campaign_tags": [
+      "coding",
+      "giveaway"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Coding Creator 0065 x comp_peakpromo: review c офером giveaway (live_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0189",
+    "competitor_id": "comp_peakpromo",
+    "creator_id": "cr_0065",
+    "platform": "youtube",
+    "content_url": "https://youtube.example/cr_0065/int_0189",
+    "published_at": "2026-05-08T08:00:00+00:00",
+    "content_type": "live_stream",
+    "detected_offer": "bundle_offer",
+    "detected_cta": "link in bio",
+    "detected_mechanic": "story_mention",
+    "campaign_tags": [
+      "coding",
+      "bundle_offer"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Coding Creator 0065 x comp_peakpromo: live_stream c офером bundle_offer (story_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0190",
+    "competitor_id": "comp_pulsemedia",
+    "creator_id": "cr_0010",
+    "platform": "telegram",
+    "content_url": "https://telegram.example/cr_0010/int_0190",
+    "published_at": "2026-05-20T07:00:00+00:00",
+    "content_type": "live_stream",
+    "detected_offer": "bundle_offer",
+    "detected_cta": "link in bio",
+    "detected_mechanic": "pinned_post",
+    "campaign_tags": [
+      "fitness",
+      "bundle_offer"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0010 x comp_pulsemedia: live_stream c офером bundle_offer (pinned_post).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0191",
+    "competitor_id": "comp_pulsemedia",
+    "creator_id": "cr_0007",
+    "platform": "telegram",
+    "content_url": "https://telegram.example/cr_0007/int_0191",
+    "published_at": "2026-06-05T21:00:00+00:00",
+    "content_type": "integration_ad",
+    "detected_offer": "free_trial",
+    "detected_cta": "sign up via link",
+    "detected_mechanic": "live_mention",
+    "campaign_tags": [
+      "fitness",
+      "free_trial"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0007 x comp_pulsemedia: integration_ad c офером free_trial (live_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0192",
+    "competitor_id": "comp_pulsemedia",
+    "creator_id": "cr_0009",
+    "platform": "telegram",
+    "content_url": "https://telegram.example/cr_0009/int_0192",
+    "published_at": "2026-05-13T11:00:00+00:00",
+    "content_type": "live_stream",
+    "detected_offer": "discount_code",
+    "detected_cta": "use code at checkout",
+    "detected_mechanic": "live_mention",
+    "campaign_tags": [
+      "fitness",
+      "discount_code"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0009 x comp_pulsemedia: live_stream c офером discount_code (live_mention).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0193",
+    "competitor_id": "comp_pulsemedia",
+    "creator_id": "cr_0008",
+    "platform": "telegram",
+    "content_url": "https://telegram.example/cr_0008/int_0193",
+    "published_at": "2026-07-11T23:00:00+00:00",
+    "content_type": "live_stream",
+    "detected_offer": "discount_code",
+    "detected_cta": "use code at checkout",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "fitness",
+      "discount_code"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0008 x comp_pulsemedia: live_stream c офером discount_code (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0194",
+    "competitor_id": "comp_pulsemedia",
+    "creator_id": "cr_0008",
+    "platform": "telegram",
+    "content_url": "https://telegram.example/cr_0008/int_0194",
+    "published_at": "2026-07-03T14:00:00+00:00",
+    "content_type": "live_stream",
+    "detected_offer": "free_trial",
+    "detected_cta": "sign up via link",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "fitness",
+      "free_trial"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0008 x comp_pulsemedia: live_stream c офером free_trial (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0195",
+    "competitor_id": "comp_pulsemedia",
+    "creator_id": "cr_0013",
+    "platform": "instagram",
+    "content_url": "https://instagram.example/cr_0013/int_0195",
+    "published_at": "2026-05-14T12:00:00+00:00",
+    "content_type": "vlog_mention",
+    "detected_offer": "bundle_offer",
+    "detected_cta": "link in bio",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "fitness",
+      "bundle_offer"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0013 x comp_pulsemedia: vlog_mention c офером bundle_offer (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0196",
+    "competitor_id": "comp_pulsemedia",
+    "creator_id": "cr_0011",
+    "platform": "instagram",
+    "content_url": "https://instagram.example/cr_0011/int_0196",
+    "published_at": "2026-06-15T20:00:00+00:00",
+    "content_type": "vlog_mention",
+    "detected_offer": "giveaway",
+    "detected_cta": "join giveaway",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "fitness",
+      "giveaway"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0011 x comp_pulsemedia: vlog_mention c офером giveaway (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0197",
+    "competitor_id": "comp_pulsemedia",
+    "creator_id": "cr_0012",
+    "platform": "instagram",
+    "content_url": "https://instagram.example/cr_0012/int_0197",
+    "published_at": "2026-04-26T09:00:00+00:00",
+    "content_type": "tutorial",
+    "detected_offer": "free_trial",
+    "detected_cta": "sign up via link",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "fitness",
+      "free_trial"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0012 x comp_pulsemedia: tutorial c офером free_trial (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0198",
+    "competitor_id": "comp_pulsemedia",
+    "creator_id": "cr_0012",
+    "platform": "instagram",
+    "content_url": "https://instagram.example/cr_0012/int_0198",
+    "published_at": "2026-05-14T17:00:00+00:00",
+    "content_type": "integration_ad",
+    "detected_offer": "free_trial",
+    "detected_cta": "sign up via link",
+    "detected_mechanic": "pre_roll",
+    "campaign_tags": [
+      "fitness",
+      "free_trial"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0012 x comp_pulsemedia: integration_ad c офером free_trial (pre_roll).",
+    "evidence": [],
+    "is_synthetic": true
+  },
+  {
+    "integration_id": "int_0199",
+    "competitor_id": "comp_pulsemedia",
+    "creator_id": "cr_0014",
+    "platform": "instagram",
+    "content_url": "https://instagram.example/cr_0014/int_0199",
+    "published_at": "2026-06-06T01:00:00+00:00",
+    "content_type": "unboxing",
+    "detected_offer": "bundle_offer",
+    "detected_cta": "link in bio",
+    "detected_mechanic": "dedicated_video",
+    "campaign_tags": [
+      "fitness",
+      "bundle_offer"
+    ],
+    "raw_text": "[SYNTHETIC DEMO DATA] Fitness Creator 0014 x comp_pulsemedia: unboxing c офером bundle_offer (dedicated_video).",
+    "evidence": [],
+    "is_synthetic": true
+  }
+]

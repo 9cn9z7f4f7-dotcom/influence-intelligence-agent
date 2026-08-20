@@ -1,0 +1,43 @@
+[
+  {
+    "competitor_id": "comp_novafit",
+    "name": "NovaFit Media",
+    "aliases": [
+      "NovaFit",
+      "Nova Fit Media"
+    ],
+    "sources": [
+      "https://novafit.example/press"
+    ]
+  },
+  {
+    "competitor_id": "comp_pulsemedia",
+    "name": "PulseMedia Agency",
+    "aliases": [
+      "PulseMedia"
+    ],
+    "sources": [
+      "https://pulsemedia.example"
+    ]
+  },
+  {
+    "competitor_id": "comp_growthlabs",
+    "name": "GrowthLabs Partners",
+    "aliases": [
+      "GrowthLabs"
+    ],
+    "sources": [
+      "https://growthlabs.example"
+    ]
+  },
+  {
+    "competitor_id": "comp_peakpromo",
+    "name": "PeakPromo Network",
+    "aliases": [
+      "PeakPromo"
+    ],
+    "sources": [
+      "https://peakpromo.example"
+    ]
+  }
+]

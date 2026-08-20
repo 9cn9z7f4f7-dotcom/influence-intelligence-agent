@@ -1,0 +1,23 @@
+{
+  "preferred_topics": [
+    "medical_students",
+    "coding",
+    "personal_finance"
+  ],
+  "platforms": [
+    "telegram",
+    "youtube"
+  ],
+  "creator_size": [
+    "nano",
+    "micro"
+  ],
+  "geo": [
+    "RU",
+    "EU"
+  ],
+  "minimum_views": 300,
+  "excluded_topics": [
+    "gaming"
+  ]
+}
