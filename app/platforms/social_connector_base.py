@@ -19,12 +19,17 @@ from datetime import datetime
 from typing import Optional
 
 from app.analysis.models import AnalysisConfig, ResolvedBrand
+from app.brand_domain import BrandDomainProfile, build_brand_domain_profile_from_terms
 from app.connectors.registry import ConnectorRegistry, registry as default_connector_registry
+from app.detection import escalate_with_affinity, escalate_with_hard_signals
 from app.evidence import EvidenceStore, computed, fact
+from app.hard_signals import detect_hard_commercial_signals
 from app.ingestion.identifiers import stable_id
 from app.ingestion.live_youtube import DetectorResult
+from app.links_extractor import classify_links, extract_links
 from app.models import Creator, Integration, SourceMode
 from app.platforms.base import PlatformAdapter, PlatformDiscoveryResult
+from app.potential_creator import detect_brand_affinity_signals
 from config.settings import settings as default_settings
 
 
@@ -93,6 +98,13 @@ class SocialConnectorPlatformAdapter(PlatformAdapter):
         self.registry = connector_registry or default_connector_registry
         self.wait_seconds = wait_seconds
         self.settings = settings or default_settings
+        self._domain_profile_cache: dict[tuple, BrandDomainProfile] = {}
+
+    def _domain_profile(self, brand_terms: list[str]) -> BrandDomainProfile:
+        key = tuple(brand_terms)
+        if key not in self._domain_profile_cache:
+            self._domain_profile_cache[key] = build_brand_domain_profile_from_terms(brand_terms)
+        return self._domain_profile_cache[key]
 
     def discover_brand_content(self, brand: ResolvedBrand, config: AnalysisConfig) -> PlatformDiscoveryResult:
         status, detail = self.registry.platform_status(self.platform_name)
@@ -171,6 +183,40 @@ class SocialConnectorPlatformAdapter(PlatformAdapter):
 
         confidence = 0.9 if has_commercial_evidence else (0.4 if has_brand_evidence else 0.0)
         reasons = [k for k, v in signals.items() if v["matched"]]
+
+        # Раздел 1/2 доработки: те же ДОПОЛНИТЕЛЬНЫЕ слои, что и для YouTube/Articles
+        # (app/platforms/youtube.py, app/platforms/articles.py) - hard commercial
+        # signal (промокод/affiliate-ссылка/CTA+brand URL/bio-ссылка на бренд и
+        # т.п., включая ссылки в caption и bio/profile_url) поднимает до
+        # "confirmed" независимо от confidence; без hard signal, но с organic
+        # affinity ("ношу", "рекомендую" и т.п.) - до "potential_creator".
+        profile = self._domain_profile(brand_terms)
+        content_links = classify_links(extract_links(caption), profile)
+        bio_url = raw_item.get("profile_url")
+        bio_links = classify_links([bio_url], profile) if bio_url else []
+        hard = detect_hard_commercial_signals(
+            caption, brand_name=brand_terms[0] if brand_terms else "",
+            brand_aliases=brand_terms[1:] if len(brand_terms) > 1 else [],
+            links=content_links, bio_links=bio_links,
+        )
+        new_category = escalate_with_hard_signals(category, has_brand_evidence, hard.matched)
+
+        affinity_signals: list[str] = []
+        if new_category == category:
+            affinity_signals = detect_brand_affinity_signals(caption, brand_terms)
+            new_category = escalate_with_affinity(new_category, has_brand_evidence, affinity_signals)
+
+        if new_category != category:
+            for name, sig in hard.signals.items():
+                if sig.get("matched"):
+                    signals[f"hard:{name}"] = sig
+            for phrase in affinity_signals:
+                signals[f"affinity:{phrase}"] = {"matched": True, "raw_fragment": phrase}
+            reasons = list(dict.fromkeys(reasons + hard.reasons + [f"affinity:{p}" for p in affinity_signals]))
+            category = new_category
+            has_commercial_evidence = has_commercial_evidence or hard.matched
+            confidence = max(confidence, 0.9) if category == "confirmed" else confidence
+
         return DetectorResult(
             is_integration=category == "confirmed", confidence=confidence, reasons=reasons, signals=signals,
             category=category, has_brand_evidence=has_brand_evidence, has_commercial_evidence=has_commercial_evidence,

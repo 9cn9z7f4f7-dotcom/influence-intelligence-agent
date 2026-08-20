@@ -174,6 +174,23 @@ class SourceHealth(BaseModel):
     last_checked_at: Optional[datetime] = None
 
 
+class PotentialCreatorSignal(BaseModel):
+    """Раздел 2 доработки ("не выбрасывать creator, если бренд явно присутствует,
+    но hard commercial signal отсутствует") - НЕ является Integration и никогда
+    не увеличивает confirmed_integrations/integrations_found. Хранит только то,
+    что реально наблюдалось: тип affinity-сигнала, конкретные найденные фразы,
+    и ссылку на creator/источник, чтобы UI мог честно показать "Почему?"."""
+
+    creator_id: Optional[str] = None
+    creator_name: Optional[str] = None
+    platform: str
+    source_url: Optional[str] = None
+    observed_at: Optional[datetime] = None
+    potential_reason: str
+    brand_affinity_signals: list[str] = Field(default_factory=list)
+    evidence: list[Evidence] = Field(default_factory=list)
+
+
 class Publisher(BaseModel):
     """Издание/сайт, опубликовавший статью про бренд (раздел 8 требований).
 

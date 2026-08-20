@@ -34,7 +34,7 @@ def _bucket_distance_score(a: str | None, b: str | None, order: list[str]) -> fl
 class NextMoveBuilder:
     def __init__(self, creators: list[Creator], integrations: list[Integration],
                  settings: Settings, evidence_store: EvidenceStore | None = None,
-                 top_n: int = 10) -> None:
+                 top_n: int = 10, potential_creator_ids: set[str] | None = None) -> None:
         self.creators = creators
         self.creators_by_id = {c.creator_id: c for c in creators}
         self.integrations = integrations
@@ -42,6 +42,11 @@ class NextMoveBuilder:
         self.evidence = evidence_store or EvidenceStore()
         self.top_n = top_n
         self.content_type_profile = creator_content_type_profile(integrations)
+        # Раздел 9/10 доработки: креаторы с organic brand affinity (см.
+        # app/potential_creator.py), но без confirmed интеграции - Next Move
+        # должен уметь отдельно пометить их как сильный candidate pool
+        # ("Уже органически упоминает бренд, но подтверждённых интеграций не найдено.").
+        self.potential_creator_ids = potential_creator_ids or set()
 
     def build_for_competitor(self, competitor: Competitor) -> dict:
         comp_integrations = [i for i in self.integrations if i.competitor_id == competitor.competitor_id]
@@ -111,15 +116,27 @@ class NextMoveBuilder:
                 for factor_name, factor_value in factors.items()
             ]
 
+            has_organic_affinity = creator.creator_id in self.potential_creator_ids
             candidates.append({
                 "candidate": creator.name,
                 "creator_id": creator.creator_id,
                 "platform": creator.platform,
                 "topic": candidate_topic,
+                "topics": list(creator.topic_tags or []),
                 "followers_bucket": candidate_bucket,
+                "followers": creator.followers,
+                "avg_views": creator.avg_views,
+                "median_views": creator.median_views,
+                "engagement_rate": creator.engagement_rate,
+                "canonical_url": creator.canonical_url,
                 "similarity_score": similarity_score,
                 "why": why,
                 "evidence_ids": [profile_ev_id],
+                "has_organic_brand_affinity": has_organic_affinity,
+                "note": (
+                    "Уже органически упоминает бренд, но подтверждённых интеграций не найдено."
+                    if has_organic_affinity else None
+                ),
             })
 
         candidates.sort(key=lambda c: c["similarity_score"], reverse=True)

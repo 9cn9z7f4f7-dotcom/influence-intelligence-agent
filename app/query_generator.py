@@ -60,9 +60,11 @@ _CYRILLIC_RE = re.compile(r"[а-яА-ЯёЁ]")
 
 ARTICLE_QUERY_TEMPLATES_RU = [
     "{name}", "{name} обзор", "{name} промокод", "{name} партнер", "{name} реклама", "{name} скидка",
+    "где купить {name}",
 ]
 ARTICLE_QUERY_TEMPLATES_EN = [
     "{name}", "{name} review", "{name} promo code", "{name} partner", "{name} discount",
+    "where to buy {name}",
 ]
 # Всегда добавляем "sponsored" отдельно (раздел 5 - явный пример запроса) -
 # независимо от определённого языка бренда, т.к. рекламные disclosure на

@@ -101,3 +101,57 @@ def combine_dom_and_visual(
     new_confidence = round(min(1.0, confidence + bonus), 3)
     new_category = "confirmed" if new_confidence >= threshold else "manual_review"
     return new_category, new_confidence, True
+
+
+# ---------------------------------------------------------------------------
+# Раздел 1+2 доработки: hard commercial signals + potential creators.
+#
+# "Убрать confidence как порог confirmed" - если найден хотя бы ОДИН
+# однозначный hard commercial signal (app/hard_signals.py), категория
+# становится "confirmed" НЕЗАВИСИМО от aggregate confidence. confidence
+# остаётся значимым порогом только для VISUAL_AI/AI_INFERENCE/ambiguous
+# случаев (см. should_escalate_to_visual_evidence/combine_dom_and_visual выше -
+# они не меняются этой доработкой).
+#
+# ЖЁСТКОЕ ПРАВИЛО (тот же принцип, что и для visual evidence): hard signal
+# НИКОГДА не создаёт confirmed из "rejected" - has_brand_evidence должен уже
+# быть True из обычного текстового/URL детектора. Иначе один promo-код в
+# видео вообще не про наш бренд мог бы "создать" интеграцию - недопустимо.
+# ---------------------------------------------------------------------------
+
+# Категории, для которых hard signal может поднять до "confirmed" - "rejected"
+# сюда осознанно не входит (см. правило выше).
+HARD_SIGNAL_ESCALATABLE_CATEGORIES = {"manual_review", "organic_mention", "potential_creator"}
+
+# Категории, для которых, если hard signal НЕ найден, но есть organic brand
+# affinity (app/potential_creator.py), можно поднять до "potential_creator" -
+# manual_review осознанно НЕ входит (там уже есть свой ambiguous-commercial
+# сигнал, который заслуживает отдельного review, а не "potential creator").
+AFFINITY_ESCALATABLE_CATEGORIES = {"organic_mention"}
+
+
+def escalate_with_hard_signals(category: str, has_brand_evidence: bool, hard_signal_matched: bool) -> str:
+    """category уже посчитана обычным (текстовым/URL) детектором. Если
+    has_brand_evidence=False (category=="rejected") - hard signal ничего не
+    меняет. Иначе - hard_signal_matched поднимает "manual_review"/
+    "organic_mention"/"potential_creator" до "confirmed"; "confirmed" остаётся
+    "confirmed" (не понижается)."""
+    if not has_brand_evidence:
+        return category
+    if category == "confirmed":
+        return category
+    if hard_signal_matched and category in HARD_SIGNAL_ESCALATABLE_CATEGORIES:
+        return "confirmed"
+    return category
+
+
+def escalate_with_affinity(category: str, has_brand_evidence: bool, affinity_signals: list[str]) -> str:
+    """Если ни hard signal, ни higher category не сработали, но найдена
+    органическая brand affinity (раздел 2) - "organic_mention" повышается до
+    "potential_creator" (НЕ confirmed - это принципиально другая, некоммерческая
+    категория, см. app/potential_creator.py)."""
+    if not has_brand_evidence:
+        return category
+    if affinity_signals and category in AFFINITY_ESCALATABLE_CATEGORIES:
+        return "potential_creator"
+    return category

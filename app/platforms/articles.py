@@ -16,11 +16,16 @@ from typing import Optional
 from app.analysis.models import AnalysisConfig, ResolvedBrand
 from app.article_classifier import ArticleClassifier
 from app.article_parser import ArticleParseResult, ArticleParser
+from app.brand_domain import BrandDomainProfile, build_brand_domain_profile_from_terms
+from app.detection import escalate_with_affinity, escalate_with_hard_signals
 from app.evidence import EvidenceStore, computed, fact
+from app.hard_signals import detect_hard_commercial_signals
 from app.ingestion.identifiers import stable_id
 from app.ingestion.live_youtube import DetectorResult
+from app.links_extractor import classify_links
 from app.models import Creator, Integration, Publisher, SourceMode
 from app.platforms.base import PlatformAdapter, PlatformDiscoveryResult
+from app.potential_creator import detect_brand_affinity_signals
 from app.query_generator import generate_article_queries
 from app.search_client import SearchClient, get_default_search_client
 from config.settings import settings as default_settings
@@ -52,6 +57,13 @@ class ArticlesPlatformAdapter(PlatformAdapter):
         self.search_client = search_client or get_default_search_client(self.settings)
         self.parser = parser or ArticleParser()
         self.classifier = classifier or ArticleClassifier()
+        self._domain_profile_cache: dict[tuple, BrandDomainProfile] = {}
+
+    def _domain_profile(self, brand_terms: list[str]) -> BrandDomainProfile:
+        key = tuple(brand_terms)
+        if key not in self._domain_profile_cache:
+            self._domain_profile_cache[key] = build_brand_domain_profile_from_terms(brand_terms)
+        return self._domain_profile_cache[key]
 
     def discover_brand_content(self, brand: ResolvedBrand, config: AnalysisConfig) -> PlatformDiscoveryResult:
         if not self.search_client.is_available():
@@ -124,16 +136,77 @@ class ArticlesPlatformAdapter(PlatformAdapter):
         )
 
     def detect_integration(self, raw_item: dict, brand_terms: list[str]) -> DetectorResult:
+        """Раздел 1/2/3/7/9 доработки, поверх НЕ ИЗМЕНЁННОГО ArticleClassifier:
+
+          1. Links-first discovery (раздел 3/9): если текст статьи вообще не
+             упоминает бренд (classification.category=="rejected"), но среди
+             ArticleParser.outbound_links есть ссылка на brand/product domain -
+             страница всё равно "обнаружена" (has_brand_evidence=True), а НЕ
+             отбрасывается - раздел 9: "product link without explicit brand
+             name still discovered".
+          2. Hard commercial signal (раздел 1/7): promo-код/affiliate-ссылка/
+             "в партнёрстве с BRAND"/явный commercial CTA + brand-ссылка и т.п.
+             (включая ссылки со страницы, не только текст) поднимают категорию
+             до "confirmed" НЕЗАВИСИМО от classification.confidence.
+          3. Organic brand affinity без hard signal (раздел 2) поднимает
+             "organic_mention" до "potential_creator" - см. app/analysis/pipeline.py,
+             который для этой категории строит PotentialCreatorSignal, а НЕ Integration
+             (раздел 2/11: "не увеличивать число confirmed integrations").
+        """
         classification = raw_item["classification"]
+        parsed: Optional[ArticleParseResult] = raw_item.get("parsed")
         pipeline_category = ARTICLE_CATEGORY_TO_PIPELINE_CATEGORY.get(classification.category, "rejected")
+        has_brand_evidence = classification.has_brand_evidence
+        has_commercial_evidence = classification.has_commercial_evidence
+
+        profile = self._domain_profile(brand_terms)
+        outbound_links = list(getattr(parsed, "outbound_links", None) or [])
+        links = classify_links(outbound_links, profile)
+        text_all = f"{getattr(parsed, 'title', '') or ''} {getattr(parsed, 'main_text', '') or ''}"
+
+        discovered_via_link_url: Optional[str] = None
+        if not has_brand_evidence:
+            link_hit = next((l for l in links if l.is_brand_or_product), None)
+            if link_hit is not None:
+                has_brand_evidence = True
+                discovered_via_link_url = link_hit.url
+                # Раздел 9: честный минимум - "обнаружено", не "подтверждённая реклама",
+                # пока hard signal (ниже) не докажет обратное.
+                pipeline_category = "organic_mention"
+
+        hard = detect_hard_commercial_signals(
+            text_all, brand_name=brand_terms[0] if brand_terms else "",
+            brand_aliases=brand_terms[1:] if len(brand_terms) > 1 else [], links=links,
+        )
+        new_category = escalate_with_hard_signals(pipeline_category, has_brand_evidence, hard.matched)
+
+        affinity_signals: list[str] = []
+        if new_category == pipeline_category:
+            affinity_signals = detect_brand_affinity_signals(text_all, brand_terms)
+            new_category = escalate_with_affinity(new_category, has_brand_evidence, affinity_signals)
+
+        merged_signals = dict(classification.signals)
+        for name, sig in hard.signals.items():
+            if sig.get("matched"):
+                merged_signals[f"hard:{name}"] = sig
+        for phrase in affinity_signals:
+            merged_signals[f"affinity:{phrase}"] = {"matched": True, "raw_fragment": phrase}
+        if discovered_via_link_url:
+            merged_signals["discovered_via_link"] = {"matched": True, "raw_fragment": discovered_via_link_url}
+
+        reasons = list(dict.fromkeys(
+            classification.reasons + hard.reasons + [f"affinity:{p}" for p in affinity_signals]
+            + (["discovered_via_link"] if discovered_via_link_url else [])
+        ))
+
         return DetectorResult(
-            is_integration=pipeline_category == "confirmed",
+            is_integration=new_category == "confirmed",
             confidence=classification.confidence,
-            reasons=classification.reasons,
-            signals=classification.signals,
-            category=pipeline_category,
-            has_brand_evidence=classification.has_brand_evidence,
-            has_commercial_evidence=classification.has_commercial_evidence,
+            reasons=reasons,
+            signals=merged_signals,
+            category=new_category,
+            has_brand_evidence=has_brand_evidence,
+            has_commercial_evidence=has_commercial_evidence or hard.matched,
         )
 
     def extract_creator(self, raw_item: dict) -> Optional[Creator]:
@@ -220,7 +293,8 @@ class ArticlesPlatformAdapter(PlatformAdapter):
             platform="articles", content_url=parsed.canonical_url or parsed.source_url,
             published_at=parsed.published_at, content_type="article",
             detected_offer=None, detected_cta=None, detected_mechanic=classification.category,
-            campaign_tags=[classification.category], raw_text=(parsed.main_text or "")[:2000],
+            campaign_tags=[classification.category],
+            raw_text=f"{parsed.title or ''} || {parsed.main_text or ''}"[:2000],
             evidence=[evidence_store.resolve(eid) for eid in evidence_ids if evidence_store.resolve(eid)],
             is_synthetic=False, source_mode=SourceMode.LIVE, confidence=classification.confidence,
             ingestion_source="articles_web_search", category=pipeline_category,

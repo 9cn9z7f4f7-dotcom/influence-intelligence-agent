@@ -36,11 +36,14 @@ from __future__ import annotations
 
 from dataclasses import replace
 from datetime import datetime, timedelta, timezone
+from typing import Optional
+from urllib.parse import urlparse
 
 from app.analysis.brand_resolver import resolve_brand
 from app.analysis.models import (
     AnalysisConfig,
     AnalysisCoverage,
+    AnalysisFinding,
     AnalysisResult,
     AnalysisSummary,
     AnalyzeRequest,
@@ -56,14 +59,25 @@ from app.creator_universe import build_creator_universe, next_move_candidate_poo
 from app.detection import combine_dom_and_visual, should_escalate_to_visual_evidence
 from app.enrichment.screenshot import ScreenshotCache
 from app.enrichment.visual_evidence import VisualEvidenceEnricher
-from app.evidence import EvidenceStore, make_evidence_id
+from app.evidence import EvidenceStore, fact, make_evidence_id
 from app.ingestion.demo_loader import DemoLoader
 from app.ingestion.identifiers import stable_id
 from app.ingestion.live_youtube import build_integration
 from app.ingestion.youtube_adapter import YouTubeAdapter
-from app.models import Competitor, Creator, Evidence, EvidenceType, Integration, OurProfile, Publisher, SourceMode
+from app.models import (
+    Competitor,
+    Creator,
+    Evidence,
+    EvidenceType,
+    Integration,
+    OurProfile,
+    PotentialCreatorSignal,
+    Publisher,
+    SourceMode,
+)
 from app.platforms import get_platform_adapter
 from app.platforms.social_connector_base import build_social_integration
+from app.potential_creator import build_potential_creator_signal
 from config.settings import settings as default_settings
 
 # Next Move / White Space нужен буфер кандидатов ДО применения min_strategy_match /
@@ -197,6 +211,62 @@ def _maybe_escalate_with_visual_evidence(
     return replace(detector_result, category=new_category, confidence=new_confidence)
 
 
+def _build_potential_creator_entry(
+    platform: str, raw_item: dict, detector_result, adapter, evidence_store: EvidenceStore,
+) -> Optional[dict]:
+    """Раздел 2 доработки: brand evidence есть, hard commercial signal - нет,
+    но видна organic brand affinity ("ношу", "рекомендую" и т.п.) - строит
+    PotentialCreatorSignal + (когда есть) реальный Creator, чтобы платформа
+    могла попасть в Creator Universe (раздел 9), НЕ становясь Integration
+    (раздел 2/11: никогда не увеличивает confirmed/organic integrations)."""
+    affinity_signals = [r.split("affinity:", 1)[1] for r in detector_result.reasons if r.startswith("affinity:")]
+    potential_reason = affinity_signals[0] if affinity_signals else "organic_brand_affinity"
+
+    creator: Optional[Creator] = None
+    source_url: Optional[str] = None
+    observed_at = None
+
+    if platform == "articles":
+        parsed = raw_item.get("parsed")
+        if parsed is not None:
+            source_url = getattr(parsed, "canonical_url", None) or getattr(parsed, "source_url", None)
+            observed_at = getattr(parsed, "observed_at", None)
+    else:
+        try:
+            creator = adapter.extract_creator(raw_item)
+        except Exception:  # noqa: BLE001 - potential-creator extraction - best effort, никогда не роняет discovery
+            creator = None
+        if creator is not None:
+            creator = adapter.normalize_creator(creator)
+            source_url = creator.canonical_url
+        if platform == "youtube":
+            video_id = (raw_item.get("id") or {}).get("videoId")
+            if video_id:
+                source_url = f"https://www.youtube.com/watch?v={video_id}"
+        else:
+            source_url = raw_item.get("post_url") or raw_item.get("profile_url") or source_url
+
+    potential_evidence: list[Evidence] = []
+    if source_url:
+        affinity_ev = fact(
+            field="potential_creator_affinity",
+            value=affinity_signals or [potential_reason],
+            source_url=source_url,
+            observed_at=observed_at,
+            raw_fragment=potential_reason,
+        )
+        evidence_store.add(affinity_ev)
+        potential_evidence.append(affinity_ev)
+
+    signal = build_potential_creator_signal(
+        platform=platform, potential_reason=potential_reason, brand_affinity_signals=affinity_signals,
+        creator_id=creator.creator_id if creator else None, creator_name=creator.name if creator else None,
+        source_url=source_url, observed_at=observed_at, evidence=potential_evidence,
+    )
+    return {"status": "potential_creator", "category": "potential_creator", "platform": platform,
+            "creator": creator, "signal": signal}
+
+
 def stage_discover_and_extract(
     platform: str, brand: ResolvedBrand, competitor_id: str, config: AnalysisConfig,
     evidence_store: EvidenceStore, visual_enricher: VisualEvidenceEnricher | None = None,
@@ -248,6 +318,17 @@ def stage_discover_and_extract(
             })
             continue
 
+        # --- Potential creator (раздел 2 доработки): brand evidence + organic
+        # affinity, БЕЗ hard commercial signal - НЕ Integration, но не выбрасывается
+        # (см. _build_potential_creator_entry выше; собирается в тот же список
+        # manual_review, чтобы не менять сигнатуру этой функции - app/analysis/pipeline.py
+        # ниже различает записи по "status") --------------------------------------
+        if detector_result.category == "potential_creator":
+            entry = _build_potential_creator_entry(platform, raw_item, detector_result, adapter, evidence_store)
+            if entry is not None:
+                manual_review.append(entry)
+            continue
+
         # --- Articles: отдельный путь, БЕЗ Creator (раздел 8) -----------------
         if platform == "articles":
             integration, publisher = adapter.build_article_integration(raw_item, competitor_id, evidence_store)
@@ -290,6 +371,12 @@ def stage_discover_and_extract(
             confirmed.append(integration)
         else:
             organic.append(integration)
+
+    coverage.items_checked = len(discovery.raw_items)
+    coverage.confirmed_integrations = len(confirmed)
+    coverage.organic_mentions = len(organic)
+    coverage.potential_creators = sum(1 for item in manual_review if item.get("status") == "potential_creator")
+    coverage.manual_review_items = sum(1 for item in manual_review if item.get("status") == "candidate_manual_review")
 
     return coverage, list(creators_by_id.values()), confirmed, organic, manual_review, publishers
 
@@ -357,13 +444,144 @@ def stage_apply_config_filters(
     filtered_creator_ids = {c.creator_id for c in filtered_creators}
     # Интеграции держим только у прошедших фильтр креаторов, чтобы не показывать
     # "интеграцию" с креатором, которого сами же отфильтровали настройками.
-    filtered_integrations = [i for i in filtered_integrations if i.creator_id in filtered_creator_ids or not kept_creator_ids]
+    filtered_integrations = [
+        i for i in filtered_integrations
+        if i.platform == "articles" or i.creator_id in filtered_creator_ids or not kept_creator_ids
+    ]
 
     return filtered_creators, filtered_integrations
 
 
 def _bucket_for_creator(creator: Creator, config: AnalysisConfig) -> str | None:
     return default_settings.bucket_for_value(creator.followers, default_settings.follower_buckets)
+
+
+def _source_mode_value(value) -> str | None:
+    return getattr(value, "value", value) if value is not None else None
+
+
+def _content_title(integration: Integration) -> str | None:
+    raw = " ".join((integration.raw_text or "").split()).strip()
+    if not raw:
+        return None
+    if "||" in raw:
+        raw = raw.split("||", 1)[0].strip()
+    return raw[:220] or None
+
+
+def _integration_signals(integration: Integration) -> list[str]:
+    signals: list[str] = []
+    for ev in integration.evidence or []:
+        field = ev.field or ""
+        if field.startswith("live_signal:") or field.startswith("article_signal:"):
+            signals.append(field.split(":", 1)[1])
+    for value in [integration.detected_offer, integration.detected_cta, integration.detected_mechanic]:
+        if value:
+            signals.append(str(value))
+    signals.extend(integration.campaign_tags or [])
+    return list(dict.fromkeys(signals))
+
+
+def _build_findings(
+    integrations: list[Integration], creators: list[Creator], publishers: list[Publisher],
+    potential_creator_entries: list[dict],
+) -> list[AnalysisFinding]:
+    """Builds a presentation projection from already classified real records.
+
+    No new inference is introduced here: classifications, metrics, source URLs
+    and evidence IDs all come from the canonical pipeline objects.
+    """
+    creators_by_id = {c.creator_id: c for c in creators}
+    publishers_by_id = {p.publisher_id: p for p in publishers}
+    findings: list[AnalysisFinding] = []
+
+    for integration in integrations:
+        if not integration.content_url:
+            continue
+
+        creator = creators_by_id.get(integration.creator_id)
+        publisher = publishers_by_id.get(integration.publisher_id or "")
+        if integration.platform == "articles":
+            entity_type = "publisher"
+            entity_id = publisher.publisher_id if publisher else integration.publisher_id
+            entity_name = publisher.name if publisher else (urlparse(integration.content_url).netloc or "Источник")
+            canonical_url = publisher.source_url if publisher else integration.content_url
+            topic_tags: list[str] = []
+            followers = avg_views = median_views = engagement_rate = None
+        else:
+            entity_type = "creator"
+            entity_id = creator.creator_id if creator else integration.creator_id
+            entity_name = creator.name if creator else integration.creator_id
+            canonical_url = creator.canonical_url if creator else None
+            topic_tags = list(creator.topic_tags) if creator else []
+            followers = creator.followers if creator else None
+            avg_views = creator.avg_views if creator else None
+            median_views = creator.median_views if creator else None
+            engagement_rate = creator.engagement_rate if creator else None
+
+        findings.append(AnalysisFinding(
+            finding_id=integration.integration_id,
+            entity_type=entity_type,
+            entity_id=entity_id,
+            entity_name=entity_name,
+            platform=integration.platform,
+            source_url=integration.content_url,
+            canonical_url=canonical_url,
+            content_title=_content_title(integration),
+            content_type=integration.content_type or integration.detected_mechanic,
+            topic_tags=topic_tags,
+            published_at=integration.published_at,
+            detected_signals=_integration_signals(integration),
+            classification=integration.article_category or integration.category,
+            classification_group=integration.category,
+            confidence=integration.confidence,
+            followers=followers,
+            avg_views=avg_views,
+            median_views=median_views,
+            engagement_rate=engagement_rate,
+            evidence_ids=[ev.evidence_id for ev in integration.evidence or []],
+            source_mode=_source_mode_value(integration.source_mode),
+        ))
+
+    for entry in potential_creator_entries:
+        signal: PotentialCreatorSignal | None = entry.get("signal")
+        creator: Creator | None = entry.get("creator")
+        if signal is None or not signal.source_url:
+            continue
+        host = urlparse(signal.source_url).netloc
+        entity_name = signal.creator_name or (creator.name if creator else None) or host or "Страница"
+        findings.append(AnalysisFinding(
+            finding_id=stable_id("finding", signal.source_url, signal.creator_id or entity_name),
+            entity_type="creator" if creator or signal.creator_id else "page",
+            entity_id=signal.creator_id or (creator.creator_id if creator else None),
+            entity_name=entity_name,
+            platform=signal.platform,
+            source_url=signal.source_url,
+            canonical_url=creator.canonical_url if creator else signal.source_url,
+            content_title=signal.potential_reason,
+            content_type="brand_affinity",
+            topic_tags=list(creator.topic_tags) if creator else [],
+            published_at=signal.observed_at,
+            detected_signals=list(signal.brand_affinity_signals) or [signal.potential_reason],
+            classification="potential_creator",
+            classification_group="potential_creator",
+            confidence=None,
+            followers=creator.followers if creator else None,
+            avg_views=creator.avg_views if creator else None,
+            median_views=creator.median_views if creator else None,
+            engagement_rate=creator.engagement_rate if creator else None,
+            evidence_ids=[ev.evidence_id for ev in signal.evidence or []],
+            source_mode=_source_mode_value(creator.source_mode) if creator else "live",
+        ))
+
+    def _sort_key(item: AnalysisFinding) -> datetime:
+        dt = item.published_at
+        if dt is None:
+            return datetime.min.replace(tzinfo=timezone.utc)
+        return dt if dt.tzinfo else dt.replace(tzinfo=timezone.utc)
+
+    findings.sort(key=_sort_key, reverse=True)
+    return findings
 
 
 # ---------------------------------------------------------------------------
@@ -404,7 +622,7 @@ def stage_run_analytical_layers(
     creators_for_next_move: list[Creator], creators_for_white_space: list[Creator],
     creators_for_market_map: list[Creator], competitors: list[Competitor],
     integrations: list[Integration], config: AnalysisConfig, evidence_store: EvidenceStore,
-    publishers: list[Publisher] | None = None,
+    publishers: list[Publisher] | None = None, potential_creator_ids: set[str] | None = None,
 ) -> tuple[dict, list[dict], list[dict], dict, dict]:
     our_profile = _load_our_profile()
 
@@ -420,6 +638,7 @@ def stage_run_analytical_layers(
     candidate_buffer = max(_CANDIDATE_BUFFER_MIN, config.max_next_move_candidates * _CANDIDATE_BUFFER_MULTIPLIER)
     next_move_builder = NextMoveBuilder(
         creators_for_next_move, integrations, default_settings, evidence_store, top_n=candidate_buffer,
+        potential_creator_ids=potential_creator_ids,
     )
     next_move_raw = next_move_builder.build_all(competitors)
     next_move = []
@@ -537,6 +756,21 @@ def _run_analysis_internal(request: AnalyzeRequest, analysis_id: str) -> tuple[A
         if coverage.status == "degraded" and coverage.platform not in degraded_sources:
             degraded_sources.append(coverage.platform)
 
+    # Раздел 2 доработки: manual_review_total реально содержит ДВА разных вида
+    # записей (см. _build_potential_creator_entry/status выше) - настоящие
+    # "требует ручной проверки" (status=candidate_manual_review) и "potential
+    # creator" (status=potential_creator, раздел 2/9/10/11: НЕ должны считаться
+    # ручной проверкой и НЕ должны увеличивать integrations_found).
+    pure_manual_review = [e for e in manual_review_total if e.get("status") != "potential_creator"]
+    potential_creator_entries = [e for e in manual_review_total if e.get("status") == "potential_creator"]
+    potential_creators: list[Creator] = [
+        e["creator"] for e in potential_creator_entries if e.get("creator") is not None
+    ]
+    potential_creator_signals: list[PotentialCreatorSignal] = [
+        e["signal"] for e in potential_creator_entries if e.get("signal") is not None
+    ]
+    potential_creator_ids = {c.creator_id for c in potential_creators}
+
     # Stage 7 (+ date filter)
     filtered_creators, filtered_integrations = stage_apply_config_filters(all_creators, all_integrations, config)
 
@@ -560,11 +794,22 @@ def _run_analysis_internal(request: AnalyzeRequest, analysis_id: str) -> tuple[A
     seen_ids = {c.creator_id for c in filtered_creators}
     creators_for_white_space = list(filtered_creators) + [c for c in universe_creators if c.creator_id not in seen_ids]
 
+    # Раздел 9 доработки: Creator Universe = A) confirmed creators (filtered_creators
+    # уже внутри) + B) potential creators с organic affinity + C) независимо
+    # найденные (universe_minus_used, уже внутри) - добавляем B туда, где его
+    # раньше не хватало, без дублей.
+    nm_ids = {c.creator_id for c in creators_for_next_move}
+    creators_for_next_move = creators_for_next_move + [c for c in potential_creators if c.creator_id not in nm_ids]
+    ws_ids = {c.creator_id for c in creators_for_white_space}
+    creators_for_white_space = creators_for_white_space + [c for c in potential_creators if c.creator_id not in ws_ids]
+
     # Stage 10 - существующие 5 слоёв, без изменений (+ publishers - новая,
-    # опциональная секция Market Map, раздел 9).
+    # опциональная секция Market Map, раздел 9; potential_creator_ids - раздел 9/10,
+    # чтобы Next Move мог отдельно пометить кандидатов с organic affinity).
     market_map, competitor_dna, next_move, white_space, our_move = stage_run_analytical_layers(
         creators_for_next_move, creators_for_white_space, filtered_creators, competitors,
         filtered_integrations, config, evidence_store, publishers=all_publishers,
+        potential_creator_ids=potential_creator_ids,
     )
 
     # Stage 11 - честная coverage/summary/limitations (раздел 19: "не скрывать
@@ -591,10 +836,16 @@ def _run_analysis_internal(request: AnalyzeRequest, analysis_id: str) -> tuple[A
             limitations.append(f"{coverage.platform}: данные собраны частично ({coverage.reason})")
     if universe_status != "ok":
         limitations.extend(universe_notes)
-    if manual_review_total:
+    if pure_manual_review:
         limitations.append(
-            f"{len(manual_review_total)} найденных материалов требуют ручной проверки "
+            f"{len(pure_manual_review)} найденных материалов требуют ручной проверки "
             f"(brand+commercial evidence есть, но confidence ниже порога) - не включены в результат."
+        )
+    if potential_creator_signals:
+        limitations.append(
+            f"{len(potential_creator_signals)} авторов/страниц показывают органическую brand affinity "
+            f"без подтверждённого коммерческого сигнала - учтены как potential creators, "
+            f"НЕ как подтверждённые интеграции."
         )
     if not request.competitor_brands:
         limitations.append("Competitive saturation is based only on the analyzed brand.")
@@ -606,10 +857,19 @@ def _run_analysis_internal(request: AnalyzeRequest, analysis_id: str) -> tuple[A
         degraded_sources=degraded_sources,
         platforms=platform_coverages,
     )
+    # Раздел 10 доработки: "Подтверждённые интеграции" и "Авторы с органическим
+    # brand affinity" - два отдельных, НИКОГДА не смешиваемых числа.
+    # confirmed_integrations/potential_creators_count - НОВЫЕ, additive поля
+    # (integrations_found не меняет смысл - обратная совместимость с текущим UI).
     summary = AnalysisSummary(
         integrations_found=len(filtered_integrations),
         creators_used=len(used_creator_ids),
         creator_universe_size=len(universe_creators),
+        confirmed_integrations=sum(1 for i in filtered_integrations if i.category == "confirmed"),
+        potential_creators_count=len(potential_creator_signals),
+    )
+    findings = _build_findings(
+        filtered_integrations, filtered_creators, all_publishers, potential_creator_entries,
     )
 
     result = AnalysisResult(
@@ -626,6 +886,9 @@ def _run_analysis_internal(request: AnalyzeRequest, analysis_id: str) -> tuple[A
         white_space=white_space,
         our_move=our_move,
         limitations=limitations,
+        potential_creators=potential_creator_signals,
+        findings=findings,
+        evidence=evidence_store.as_dict(),
     )
     return result, universe_queries
 

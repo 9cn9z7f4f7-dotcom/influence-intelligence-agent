@@ -6,9 +6,13 @@ app/ingestion/youtube_adapter.py, которые этот адаптер обо�
 """
 from __future__ import annotations
 
+from dataclasses import replace
 from typing import Optional
 
 from app.analysis.models import AnalysisConfig, ResolvedBrand
+from app.brand_domain import BrandDomainProfile, build_brand_domain_profile_from_terms
+from app.detection import escalate_with_affinity, escalate_with_hard_signals
+from app.hard_signals import detect_hard_commercial_signals
 from app.ingestion.live_youtube import (
     CompetitorQueryBuilder,
     IntegrationDetector,
@@ -16,9 +20,11 @@ from app.ingestion.live_youtube import (
     discover_videos,
 )
 from app.ingestion.youtube_adapter import YouTubeAdapter, _parse_dt
+from app.links_extractor import classify_links, extract_links
 from app.metrics_builder import compute_creator_metrics
 from app.models import Creator, Integration
 from app.platforms.base import PlatformAdapter, PlatformDiscoveryResult
+from app.potential_creator import detect_brand_affinity_signals
 from app.topic_classifier import classify_topic
 from config.settings import Settings, settings as default_settings
 
@@ -32,6 +38,13 @@ class YouTubePlatformAdapter(PlatformAdapter):
         self.adapter = adapter or YouTubeAdapter()
         self.settings = settings or default_settings
         self.detector = IntegrationDetector(self.settings)
+        self._domain_profile_cache: dict[tuple, BrandDomainProfile] = {}
+
+    def _domain_profile(self, brand_terms: list[str]) -> BrandDomainProfile:
+        key = tuple(brand_terms)
+        if key not in self._domain_profile_cache:
+            self._domain_profile_cache[key] = build_brand_domain_profile_from_terms(brand_terms)
+        return self._domain_profile_cache[key]
 
     def discover_brand_content(self, brand: ResolvedBrand, config: AnalysisConfig) -> PlatformDiscoveryResult:
         if not self.adapter.is_available():
@@ -70,8 +83,56 @@ class YouTubePlatformAdapter(PlatformAdapter):
         )
 
     def detect_integration(self, raw_item: dict, brand_terms: list[str]):
+        """Раздел 1/2/8/9 доработки: сначала обычный текстовый/URL детектор
+        (app.ingestion.live_youtube.IntegrationDetector - НЕ изменён), затем два
+        дополнительных, чисто АДДИТИВНЫХ слоя:
+
+          1. hard commercial signal (paid partnership/#ad/промокод/affiliate
+             ссылка/CTA+brand URL/"амбассадор BRAND" и т.п., включая ссылки
+             ИЗ description - раздел 8) - если найден хотя бы один, category
+             поднимается до "confirmed" независимо от confidence (раздел 1).
+          2. если hard signal не найден, но есть organic brand affinity
+             ("ношу", "рекомендую" и т.п.) - category поднимается с
+             "organic_mention" до "potential_creator" (раздел 2) - НЕ считается
+             confirmed интеграцией.
+
+        Оба слоя работают строго по правилу app.detection: не создают
+        has_brand_evidence из ничего - применяются только когда базовый
+        детектор его уже нашёл."""
         snippet = raw_item.get("snippet", {}) or {}
-        return self.detector.detect(snippet.get("title", ""), snippet.get("description", ""), brand_terms)
+        title = snippet.get("title", "")
+        description = snippet.get("description", "")
+        base_result = self.detector.detect(title, description, brand_terms)
+
+        text_all = f"{title} {description}"
+        profile = self._domain_profile(brand_terms)
+        links = classify_links(extract_links(description), profile)
+        hard = detect_hard_commercial_signals(
+            text_all, brand_name=brand_terms[0] if brand_terms else "",
+            brand_aliases=brand_terms[1:] if len(brand_terms) > 1 else [], links=links,
+        )
+
+        new_category = escalate_with_hard_signals(base_result.category, base_result.has_brand_evidence, hard.matched)
+        affinity_signals: list[str] = []
+        if new_category == base_result.category:
+            affinity_signals = detect_brand_affinity_signals(text_all, brand_terms)
+            new_category = escalate_with_affinity(new_category, base_result.has_brand_evidence, affinity_signals)
+
+        if new_category == base_result.category:
+            return base_result
+
+        merged_signals = dict(base_result.signals)
+        for name, sig in hard.signals.items():
+            if sig.get("matched"):
+                merged_signals[f"hard:{name}"] = sig
+        for phrase in affinity_signals:
+            merged_signals[f"affinity:{phrase}"] = {"matched": True, "raw_fragment": phrase}
+
+        return replace(
+            base_result, category=new_category, signals=merged_signals,
+            is_integration=(new_category == "confirmed"),
+            reasons=list(dict.fromkeys(base_result.reasons + hard.reasons + [f"affinity:{p}" for p in affinity_signals])),
+        )
 
     def extract_creator(self, raw_item: dict) -> Optional[Creator]:
         channel_id = (raw_item.get("snippet") or {}).get("channelId")

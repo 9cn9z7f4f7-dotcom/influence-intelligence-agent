@@ -33,6 +33,7 @@ class WhiteSpaceBuilder:
         self.settings = settings
         self.evidence = evidence_store or EvidenceStore()
         self.creators_by_id = {c.creator_id: c for c in creators}
+        self.competitors_by_id = {c.competitor_id: c for c in competitors}
 
     def build(self) -> dict:
         segments: dict[str, list[Creator]] = defaultdict(list)
@@ -108,6 +109,10 @@ class WhiteSpaceBuilder:
             ), 1)
 
             used_creator_ids = {i.creator_id for i in seg_integrations}
+            active_competitors = sorted({
+                self.competitors_by_id[i.competitor_id].name
+                for i in seg_integrations if i.competitor_id in self.competitors_by_id
+            })
             top_creators = sorted(
                 seg_creators,
                 key=lambda c: (c.creator_id not in used_creator_ids, c.engagement_rate or 0, c.avg_views or 0),
@@ -139,6 +144,7 @@ class WhiteSpaceBuilder:
                 "available_creators": available_creators,
                 "competitor_integrations": competitor_integrations,
                 "unique_competitors": unique_competitors,
+                "active_competitors": active_competitors,
                 "recent_competitor_growth": recent_competitor_growth,
                 "creator_supply_score": creator_supply_score,
                 "our_relevance": our_relevance,
@@ -153,10 +159,33 @@ class WhiteSpaceBuilder:
                 "top_creators": [
                     {
                         "creator_id": c.creator_id, "name": c.name, "followers": c.followers,
-                        "engagement_rate": c.engagement_rate, "already_used_by_competitor": c.creator_id in used_creator_ids,
+                        "platform": c.platform, "topic_tags": list(c.topic_tags or []),
+                        "avg_views": c.avg_views, "median_views": c.median_views,
+                        "engagement_rate": c.engagement_rate, "canonical_url": c.canonical_url,
+                        "segment_match": 100.0,
+                        "already_used_by_competitor": c.creator_id in used_creator_ids,
                     }
                     for c in top_creators
                 ],
+                "observed_integrations": [
+                    {
+                        "integration_id": i.integration_id,
+                        "source_url": i.content_url,
+                        "platform": i.platform,
+                        "published_at": i.published_at,
+                        "classification": i.article_category or i.category,
+                        "competitor": (
+                            self.competitors_by_id[i.competitor_id].name
+                            if i.competitor_id in self.competitors_by_id else i.competitor_id
+                        ),
+                        "creator": (
+                            self.creators_by_id[i.creator_id].name
+                            if i.creator_id in self.creators_by_id else i.creator_id
+                        ),
+                        "evidence_ids": [ev.evidence_id for ev in i.evidence or []],
+                    }
+                    for i in seg_integrations if i.content_url
+                ][:10],
                 "evidence_ids": [ev_id],
             })
 

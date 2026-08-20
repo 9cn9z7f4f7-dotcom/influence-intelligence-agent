@@ -66,6 +66,9 @@ manage.py                 - CLI: demo-reset / demo-run / serve
 
 ## Evidence / Why
 
-Каждый computed или ai_inference вывод несёт `evidence_ids`. Разрешить в
-человекочитаемый вид: `GET /api/evidence/{evidence_id}`, либо кнопка
-"why / evidence" в UI.
+Каждый computed или ai_inference вывод несёт `evidence_ids`. Для результатов,
+созданных через `POST /api/analyze`, evidence сохраняется вместе с конкретным
+анализом и открывается через
+`GET /api/analysis/{analysis_id}/evidence/{evidence_id}`. Новый UI использует
+только этот analysis-scoped endpoint. Legacy endpoint
+`GET /api/evidence/{evidence_id}` сохранён для demo/backward compatibility.

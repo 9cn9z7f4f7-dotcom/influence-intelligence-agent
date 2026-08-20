@@ -26,7 +26,7 @@
       </div>
       <div class="hero-error" id="landing-error"></div>
 
-      <button class="hero-advanced-toggle" id="advanced-toggle">
+      <button type="button" class="hero-advanced-toggle" id="advanced-toggle">
         <span class="chev">⌄</span> Настроить поиск
       </button>
 
@@ -87,8 +87,6 @@
           </div>
         </div>
       </div>
-
-      <a href="/demo.html" class="hero-demo-link">Посмотреть демо на тестовых данных →</a>
     </div>
 
     <div class="hero-status-line" id="hero-status-line" style="display:none;"></div>
@@ -130,7 +128,21 @@
     </section>
 
     <section class="section" id="section-market-map">
-      <div class="card-grid" id="mm-competitors"></div>
+      <div id="articles-funnel"></div>
+      <div class="section-block">
+        <div class="section-heading-row">
+          <div>
+            <h3 class="section-heading">Наблюдаемые находки</h3>
+            <p class="section-caption">Каждая строка ведёт на исходный публичный материал.</p>
+          </div>
+          <div class="section-count" id="findings-count"></div>
+        </div>
+        <div id="findings-table"></div>
+      </div>
+      <div class="section-block">
+        <h3 class="section-heading">Сводка по наблюдаемой выборке</h3>
+        <div class="card-grid" id="mm-competitors"></div>
+      </div>
     </section>
 
     <section class="section" id="section-competitor-dna">
@@ -138,11 +150,11 @@
     </section>
 
     <section class="section" id="section-next-move">
-      <div id="nm-tables"></div>
+      <div id="nm-ranking"></div>
     </section>
 
     <section class="section" id="section-white-space">
-      <div class="card" id="ws-body"></div>
+      <div id="ws-body"></div>
     </section>
 
     <section class="section" id="section-our-move">
@@ -151,12 +163,18 @@
   </main>
 </div>
 
-<div class="modal-overlay" id="evidence-modal">
-  <div class="modal">
-    <button class="modal-close" id="evidence-close">Закрыть ✕</button>
-    <h3>Источники</h3>
-    <div id="evidence-body"></div>
-  </div>
+<div class="drawer-overlay" id="detail-drawer" aria-hidden="true">
+  <aside class="detail-drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title">
+    <div class="drawer-header">
+      <div>
+        <div class="drawer-kicker" id="drawer-kicker"></div>
+        <h3 id="drawer-title">Подробнее</h3>
+        <p id="drawer-subtitle"></p>
+      </div>
+      <button type="button" class="drawer-close" id="drawer-close" aria-label="Закрыть">✕</button>
+    </div>
+    <div class="drawer-body" id="drawer-body"></div>
+  </aside>
 </div>
 
 <script src="/analyze.js"></script>

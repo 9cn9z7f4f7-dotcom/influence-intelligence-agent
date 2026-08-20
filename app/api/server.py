@@ -145,7 +145,20 @@ def api_get_analysis(analysis_id: str) -> Any:
     result = get_analysis(analysis_id)
     if result is None:
         raise HTTPException(status_code=404, detail="analysis_id не найден")
-    return result.model_dump()
+    # Evidence is persisted inside AnalysisResult but resolved lazily through
+    # the analysis-scoped endpoint below, so the main payload stays compact.
+    return result.model_dump(exclude={"evidence"})
+
+
+@app.get("/api/analysis/{analysis_id}/evidence/{evidence_id}")
+def api_get_analysis_evidence(analysis_id: str, evidence_id: str) -> Any:
+    result = get_analysis(analysis_id)
+    if result is None:
+        raise HTTPException(status_code=404, detail="analysis_id не найден")
+    evidence = result.evidence.get(evidence_id)
+    if evidence is None:
+        raise HTTPException(status_code=404, detail="evidence_id не найден в analysis")
+    return evidence.model_dump(mode="json")
 
 
 # ---------------------------------------------------------------------------
