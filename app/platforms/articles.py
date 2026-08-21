@@ -32,8 +32,7 @@ from app.search_client import SearchClient, get_default_search_client
 from app.runtime_budget import budget_exhausted
 from config.settings import settings as default_settings
 
-MAX_CANDIDATE_URLS = 18
-MAX_URLS_PER_QUERY = 5
+MAX_URLS_PER_QUERY = 12
 MIN_ARTICLE_TEXT_LEN = 80
 
 _POSITIVE_PATH_MARKERS = ("article", "blog", "news", "review", "journal", "story", "case")
@@ -42,29 +41,63 @@ _NON_ARTICLE_TEXT_MARKERS = ("add to cart", "buy now", "shopping bag", "select s
 
 
 def _is_article_like(parsed: ArticleParseResult, search_evidence=None) -> bool:
-    """Small deterministic content gate: keep editorial/article pages, reject storefront pages."""
+    """Deterministic content-type gate for the user-facing Articles source.
+
+    Search engines are allowed to return shops/product pages, but those pages
+    must not survive into the Articles result set.  We favour actual editorial
+    structure (article/schema metadata, prose paragraphs, author/date,
+    article-like paths) and aggressively reject product/storefront structure.
+    """
     title = (parsed.title or getattr(search_evidence, "title", None) or "").strip()
     text = (parsed.main_text or "").strip()
     if not title:
-        return False
-    if len(text) < MIN_ARTICLE_TEXT_LEN and not (parsed.author or parsed.published_at):
         return False
 
     path = urlparse(parsed.canonical_url or parsed.source_url).path.lower()
     positive_path = any(marker in path for marker in _POSITIVE_PATH_MARKERS)
     negative_path = any(marker in path for marker in _NEGATIVE_PATH_MARKERS)
-    lowered = f"{title} {text[:2500]}".lower()
+    lowered = f"{title} {text[:3000]}".lower()
     commerce_hits = sum(marker in lowered for marker in _NON_ARTICLE_TEXT_MARKERS)
 
-    # A clearly editorial URL can still discuss products; otherwise reject
-    # strong storefront structure before classification.
-    if negative_path and not positive_path:
-        return False
-    if commerce_hits >= 2 and not positive_path:
+    metadata = parsed.metadata or {}
+    og_type = str(metadata.get("og_type") or "").lower()
+    schema_types = {str(x).lower() for x in (metadata.get("schema_types") or [])}
+    paragraph_count = int(metadata.get("paragraph_count") or 0)
+    has_article_tag = bool(metadata.get("has_article_tag"))
+
+    article_schema = bool(schema_types & {
+        "article", "newsarticle", "blogposting", "review", "report", "analysisnewsarticle"
+    })
+    product_schema = bool(schema_types & {"product", "offer", "aggregateoffer"})
+    article_metadata = has_article_tag or article_schema or og_type in {"article", "news", "blog"}
+    product_metadata = product_schema or og_type in {"product", "website:product"}
+
+    if len(text) < MIN_ARTICLE_TEXT_LEN and not (
+        article_metadata or positive_path or bool(parsed.author) or bool(parsed.published_at)
+    ):
         return False
 
-    # Long prose is sufficient even when the URL has no semantic marker.
-    return positive_path or len(text) >= 100 or bool(parsed.author) or bool(parsed.published_at)
+    # Strong storefront evidence always wins over generic long text.
+    if product_metadata:
+        return False
+    if negative_path and not positive_path:
+        return False
+    if commerce_hits >= 2 and not article_metadata and not positive_path:
+        return False
+
+    # Require actual editorial structure, not merely a page with many <p> tags.
+    editorial_structure = (
+        article_metadata
+        or positive_path
+        or bool(parsed.author)
+        or bool(parsed.published_at)
+        or paragraph_count >= 3
+        or (len(text) >= MIN_ARTICLE_TEXT_LEN and commerce_hits == 0)
+    )
+    if not editorial_structure:
+        return False
+
+    return True
 
 # Раздел 5/23: "просто упоминание бренда - НЕ реклама" - маппинг детальной
 # article_category (см. app/article_classifier.py) в "грубую" общепроектную
@@ -102,13 +135,17 @@ class ArticlesPlatformAdapter(PlatformAdapter):
         if not self.search_client.is_available():
             return PlatformDiscoveryResult(
                 platform="articles", status="unavailable", source_mode="none",
-                reason="Search API не настроен (SERPAPI_KEY отсутствует) - live web discovery "
+                reason="Web search API не настроен (нет TAVILY_API_KEY/SERPAPI_KEY) - live web discovery "
                        "для статей недоступен",
                 import_hint="manage.py import-integrations --file <csv|json> (platform=articles)",
             )
 
         brand_terms = [brand.canonical_name] + brand.aliases
-        queries = generate_article_queries(brand.canonical_name, brand.aliases)
+        queries = generate_article_queries(
+            brand.canonical_name, brand.aliases,
+            include_topics=config.include_topics, exclude_topics=config.exclude_topics,
+            date_range=config.date_range, custom_start=config.custom_start, custom_end=config.custom_end,
+        )
 
         candidate_urls: list[str] = []
         # url -> исходный SearchResultItem - раздел 4 доработки: Tavily
@@ -125,7 +162,7 @@ class ArticlesPlatformAdapter(PlatformAdapter):
             if budget_exhausted(75):
                 queries_failed.append("time_budget")
                 break
-            if len(candidate_urls) >= MAX_CANDIDATE_URLS:
+            if len(candidate_urls) >= config.discovery_pool_target():
                 break
             try:
                 results = self.search_client.search(query, max_results=MAX_URLS_PER_QUERY)
@@ -153,7 +190,9 @@ class ArticlesPlatformAdapter(PlatformAdapter):
             )
 
         raw_items: list[dict] = []
-        for url in candidate_urls[:MAX_CANDIDATE_URLS]:
+        for url in candidate_urls[:config.discovery_pool_target()]:
+            if len(raw_items) >= config.sample_target():
+                break
             if budget_exhausted(45):
                 queries_failed.append("time_budget")
                 break

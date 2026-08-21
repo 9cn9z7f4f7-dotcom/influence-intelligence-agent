@@ -29,6 +29,7 @@ from app.platforms.base import PlatformAdapter, PlatformDiscoveryResult
 from app.potential_creator import detect_brand_affinity_signals
 from app.search_client import get_default_search_client
 from app.runtime_budget import budget_exhausted
+from app.query_generator import apply_search_constraints
 from app.topic_classifier import classify_topic
 from config.settings import Settings, settings as default_settings
 
@@ -59,13 +60,36 @@ class YouTubePlatformAdapter(PlatformAdapter):
         web_provider = None
         web_items: list[dict] = []
         seen_video_ids: set[str] = set()
+        topics = [t.replace("_", " ").strip() for t in config.include_topics if t.strip()]
+        if topics:
+            # Explicit user intent goes first; keep two broad fallbacks so one
+            # narrow topic cannot zero the whole YouTube sample.
+            web_queries = []
+            for topic in topics[:3]:
+                web_queries.extend([
+                    f"site:youtube.com {brand.canonical_name} {topic} review",
+                    f"site:youtube.com {brand.canonical_name} {topic} sponsored",
+                ])
+            web_queries.extend([
+                f"site:youtube.com {brand.canonical_name} review",
+                f"site:youtube.com {brand.canonical_name} recommendation",
+            ])
+            web_queries = web_queries[:6]
+        else:
+            web_queries = [
+                f"site:youtube.com {brand.canonical_name}",
+                f"site:youtube.com {brand.canonical_name} review",
+                f"site:youtube.com {brand.canonical_name} sponsored",
+                f"site:youtube.com {brand.canonical_name} promo",
+                f"site:youtube.com {brand.canonical_name} product",
+                f"site:youtube.com {brand.canonical_name} recommendation",
+            ]
         web_queries = [
-            f"site:youtube.com {brand.canonical_name}",
-            f"site:youtube.com {brand.canonical_name} review",
-            f"site:youtube.com {brand.canonical_name} sponsored",
-            f"site:youtube.com {brand.canonical_name} promo",
-            f"site:youtube.com {brand.canonical_name} product",
-            f"site:youtube.com {brand.canonical_name} recommendation",
+            apply_search_constraints(
+                q, exclude_topics=config.exclude_topics, date_range=config.date_range,
+                custom_start=config.custom_start, custom_end=config.custom_end,
+            )
+            for q in web_queries
         ]
 
         if client.is_available():
@@ -118,7 +142,19 @@ class YouTubePlatformAdapter(PlatformAdapter):
         discovery = None
         if self.adapter.is_available() and not budget_exhausted(35):
             query_builder = CompetitorQueryBuilder(brand.canonical_name, aliases=brand.aliases)
-            queries = query_builder.build_queries()[:MAX_YOUTUBE_SEARCH_CALLS_BRAND]
+            queries = query_builder.build_queries()
+            if topics:
+                # search.list is scarce: spend those few calls on the user's
+                # explicit topics rather than generic variants.
+                topic_queries = [f"{brand.canonical_name} {t} review" for t in topics[:MAX_YOUTUBE_SEARCH_CALLS_BRAND]]
+                queries = topic_queries + queries
+            queries = [
+                apply_search_constraints(
+                    q, exclude_topics=config.exclude_topics, date_range=config.date_range,
+                    custom_start=config.custom_start, custom_end=config.custom_end,
+                )
+                for q in queries
+            ][:MAX_YOUTUBE_SEARCH_CALLS_BRAND]
             discovery = discover_videos(self.adapter, queries, self.settings.live_max_results_per_query)
         else:
             from app.ingestion.live_youtube import DiscoveryResult

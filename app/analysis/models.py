@@ -17,6 +17,7 @@ from app.models import PotentialCreatorSignal
 Platform = Literal["youtube", "instagram", "tiktok", "articles"]
 CreatorSizeBucket = Literal["nano", "micro", "mid", "macro"]
 DateRangePreset = Literal["7d", "30d", "90d", "custom"]
+SearchLevel = Literal["light", "standard", "deep"]
 IntegrationCategory = Literal["confirmed", "manual_review", "organic_mention", "potential_creator", "rejected"]
 
 
@@ -25,6 +26,9 @@ def _normalize_topic(topic: str) -> str:
 
 
 class AnalysisConfig(BaseModel):
+    # --- Search depth --------------------------------------------------
+    search_level: SearchLevel = "light"
+
     # --- Date range -----------------------------------------------------
     date_range: DateRangePreset = "90d"
     custom_start: Optional[date] = None
@@ -87,6 +91,18 @@ class AnalysisConfig(BaseModel):
         if self.min_followers is not None and self.max_followers is not None and self.min_followers > self.max_followers:
             raise ValueError("min_followers не может быть больше max_followers")
         return self
+
+
+    def sample_target(self) -> int:
+        return {"light": 30, "standard": 60, "deep": 100}[self.search_level]
+
+    def hunting_target(self) -> int:
+        return {"light": 15, "standard": 25, "deep": 40}[self.search_level]
+
+    def discovery_pool_target(self) -> int:
+        # Candidate pool is intentionally larger than the visible sample so
+        # filtering/dedup still leaves enough real findings.
+        return {"light": 60, "standard": 120, "deep": 180}[self.search_level]
 
     def date_range_days(self) -> int:
         return {"7d": 7, "30d": 30, "90d": 90}.get(self.date_range, 90)

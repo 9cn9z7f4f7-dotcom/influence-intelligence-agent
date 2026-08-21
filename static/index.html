@@ -32,6 +32,18 @@
 
       <div class="hero-advanced" id="advanced-panel">
         <div class="settings-group">
+          <div class="settings-label">Глубина поиска</div>
+          <div class="field-row">
+            <select id="cfg-search-level" class="az-select">
+              <option value="light" selected>Лёгкий · от 30 материалов</option>
+              <option value="standard">Обычный · от 60 материалов</option>
+              <option value="deep">Глубокий · от 100 материалов</option>
+            </select>
+          </div>
+          <div class="settings-hint">Это цель выборки, а не жёсткий лимит: если найдено больше качественных материалов, они сохраняются.</div>
+        </div>
+
+        <div class="settings-group">
           <div class="settings-label">Период</div>
           <div class="field-row">
             <select id="cfg-date-range" class="az-select">

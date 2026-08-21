@@ -97,10 +97,7 @@ document.getElementById("platform-chips").addEventListener("click", (e) => {
 });
 
 // ---------------------------------------------------------------------------
-// Клиентская оценка времени - честно приблизительная, зависит только от
-// того, что реально влияет на объём работы: число выбранных площадок и
-// выбранный период. Никакого отдельного backend-поля "depth" не существует
-// (AnalysisConfig его не поддерживает) - оценка считается целиком на фронте.
+// Клиентская оценка времени - зависит от площадок, периода и уровня поиска.
 // ---------------------------------------------------------------------------
 const DATE_RANGE_TIME_BASE = {
   "7d": [1, 2],
@@ -112,8 +109,10 @@ function computeEstimate() {
   const dateRange = document.getElementById("cfg-date-range").value || "90d";
   let [lo, hi] = DATE_RANGE_TIME_BASE[dateRange] || DATE_RANGE_TIME_BASE["90d"];
   const extra = Math.max(0, selectedPlatforms.size - 1);
-  lo = Math.min(4, lo + extra);
-  hi = Math.min(5, hi + extra);
+  const level = document.getElementById("cfg-search-level")?.value || "light";
+  const levelExtra = level === "deep" ? 2 : (level === "standard" ? 1 : 0);
+  lo = Math.min(4, lo + extra + levelExtra);
+  hi = Math.min(5, hi + extra + levelExtra);
   return { lo, hi };
 }
 
@@ -124,6 +123,7 @@ function updateEstimateHint() {
 }
 
 document.getElementById("cfg-date-range").addEventListener("change", updateEstimateHint);
+document.getElementById("cfg-search-level").addEventListener("change", updateEstimateHint);
 
 // ---------------------------------------------------------------------------
 // Advanced toggle ("Настроить поиск")
@@ -147,6 +147,7 @@ function collectConfig() {
   const sizes = Array.from(document.querySelectorAll(".cfg-size:checked")).map((el) => el.value);
   const minViewsRaw = document.getElementById("cfg-min-views").value;
   return {
+    search_level: document.getElementById("cfg-search-level").value,
     date_range: document.getElementById("cfg-date-range").value,
     creator_size: sizes,
     min_avg_views: minViewsRaw ? parseFloat(minViewsRaw) : null,
@@ -470,6 +471,7 @@ const CLASSIFICATION_LABEL = {
   organic_mention: "Органическое упоминание",
   potential_creator: "Потенциальный автор",
   manual_review: "Требует проверки",
+  probable: "Вероятно релевантно",
 };
 
 const ENTITY_TYPE_LABEL = {
@@ -779,7 +781,7 @@ function renderNextMove() {
 
   container.innerHTML = `
     <div class="ranking-note">Соответствие показывает близость к наблюдаемому профилю выбора бренда, а не вероятность сделки.</div>
-    <div class="ranked-list">${candidates.slice(0, 20).map((candidate, index) => {
+    <div class="ranked-list">${candidates.map((candidate, index) => {
       const key = `candidate_${index}`;
       state.nextMoveCandidates.set(key, candidate);
       return `<button type="button" class="rank-card" data-candidate-key="${key}">

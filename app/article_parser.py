@@ -20,8 +20,9 @@ from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from typing import Optional
 from urllib.parse import urlparse
+import json
 
-from app.runtime_budget import budget_exhausted, clamp_timeout
+from app.runtime_budget import budget_exhausted, clamp_timeout, remaining_seconds
 
 import httpx
 from bs4 import BeautifulSoup
@@ -87,8 +88,38 @@ def _parse_html(html: str, url: str, fetch_mode: str) -> ArticleParseResult:
         if time_tag and time_tag.get("datetime"):
             published_at = _parse_iso(time_tag["datetime"])
 
-    paragraphs = [p.get_text(" ", strip=True) for p in soup.find_all("p")]
-    main_text = " ".join(t for t in paragraphs if t)[:8000]
+    paragraph_nodes = soup.find_all("p")
+    paragraphs = [p.get_text(" ", strip=True) for p in paragraph_nodes]
+    nonempty_paragraphs = [t for t in paragraphs if t]
+    main_text = " ".join(nonempty_paragraphs)[:8000]
+
+    # Lightweight page-type signals for the Articles content gate.  These are
+    # deterministic DOM/metadata facts, not AI guesses.
+    og_type = (_meta(soup, "og:type") or "").strip().lower()
+    has_article_tag = soup.find("article") is not None
+    schema_types: set[str] = set()
+    for node in soup.find_all("script", attrs={"type": "application/ld+json"}):
+        raw = node.string or node.get_text() or ""
+        if not raw.strip():
+            continue
+        try:
+            payload = json.loads(raw)
+        except Exception:
+            continue
+        stack = payload if isinstance(payload, list) else [payload]
+        while stack:
+            item = stack.pop()
+            if isinstance(item, dict):
+                typ = item.get("@type")
+                if isinstance(typ, str):
+                    schema_types.add(typ.lower())
+                elif isinstance(typ, list):
+                    schema_types.update(str(x).lower() for x in typ)
+                graph = item.get("@graph")
+                if isinstance(graph, list):
+                    stack.extend(graph)
+            elif isinstance(item, list):
+                stack.extend(item)
 
     outbound_links: list[str] = []
     for a in soup.find_all("a", href=True):
@@ -110,7 +141,13 @@ def _parse_html(html: str, url: str, fetch_mode: str) -> ArticleParseResult:
         published_at=published_at, main_text=main_text,
         outbound_links=list(dict.fromkeys(outbound_links))[:50],
         image_urls=list(dict.fromkeys(image_urls))[:20],
-        metadata={"description": _meta(soup, "og:description", "description")},
+        metadata={
+            "description": _meta(soup, "og:description", "description"),
+            "og_type": og_type,
+            "has_article_tag": has_article_tag,
+            "paragraph_count": len(nonempty_paragraphs),
+            "schema_types": sorted(schema_types),
+        },
         fetch_mode=fetch_mode, status="ok",
     )
 
@@ -149,7 +186,11 @@ class ArticleParser:
                 browser = pw.chromium.launch(headless=True)
                 try:
                     page = browser.new_page()
-                    page.goto(url, timeout=PLAYWRIGHT_TIMEOUT_MS, wait_until="load")
+                    remaining = remaining_seconds()
+                    timeout_ms = PLAYWRIGHT_TIMEOUT_MS
+                    if remaining is not None:
+                        timeout_ms = max(1000, min(PLAYWRIGHT_TIMEOUT_MS, int(max(1.0, remaining - 1.0) * 1000)))
+                    page.goto(url, timeout=timeout_ms, wait_until="load")
                     return page.content()
                 finally:
                     browser.close()

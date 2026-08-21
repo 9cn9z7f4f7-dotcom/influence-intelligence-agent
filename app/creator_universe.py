@@ -18,16 +18,23 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from typing import Optional
+from urllib.parse import parse_qs, urlparse
 
 from app.analysis.models import AnalysisConfig
 from app.ingestion.live_youtube import discover_videos
 from app.models import Creator
 from app.platforms.youtube import YouTubePlatformAdapter
-from app.query_generator import generate_discovery_queries
+from app.query_generator import generate_discovery_queries, apply_search_constraints
 from app.runtime_budget import budget_exhausted
+from app.search_client import get_default_search_client
+from app.ingestion.youtube_adapter import YouTubeAdapter
+from config.settings import settings as default_settings
 
 MAX_QUERIES_PER_UNIVERSE = 2
 MAX_RESULTS_PER_QUERY = 10
+TARGET_HUNTING_CREATORS = 15
+MAX_WEB_UNIVERSE_QUERIES = 3
+MAX_WEB_RESULTS_PER_QUERY = 8
 
 
 @dataclass
@@ -99,3 +106,97 @@ def build_creator_universe(config: AnalysisConfig, observed_topics: Optional[lis
 def next_move_candidate_pool(universe: CreatorUniverse, used_creator_ids: set[str]) -> list[Creator]:
     """next_move_candidates = creator_universe MINUS уже использованные брендом креаторы."""
     return [c for c in universe.creators if c.creator_id not in used_creator_ids]
+
+
+def _youtube_video_id(url: str) -> str | None:
+    parsed = urlparse(url)
+    host = parsed.netloc.lower().removeprefix("www.")
+    if host == "youtu.be":
+        return parsed.path.strip("/").split("/")[0] or None
+    if host in {"youtube.com", "m.youtube.com"}:
+        return (parse_qs(parsed.query).get("v") or [None])[0]
+    return None
+
+
+def expand_creator_universe_web(
+    creators: list[Creator], observed_topics: Optional[list[str]] = None,
+    target: int = TARGET_HUNTING_CREATORS, adapter: YouTubeAdapter | None = None,
+    config: AnalysisConfig | None = None,
+) -> tuple[list[Creator], list[str], list[str]]:
+    """Bounded Tavily/SerpAPI fallback for hunting supply.
+
+    Uses web search for discovery and only non-search YouTube endpoints for
+    identity/metrics enrichment. It never invents a creator from a video title.
+    """
+    if len(creators) >= target or budget_exhausted(35):
+        return creators, [], []
+    yt = adapter or YouTubeAdapter()
+    client = get_default_search_client(default_settings)
+    if not client.is_available() or not yt.is_available():
+        return creators, [], []
+
+    requested_topics = list((config.include_topics if config else []) or [])
+    topics = [t for t in (requested_topics or observed_topics or []) if t and t != "other"][:3]
+    if not topics:
+        topics = ["lifestyle", "entertainment"]
+    queries = [f"site:youtube.com {str(topic).replace('_', ' ')} creator review" for topic in topics]
+    if config:
+        queries = [
+            apply_search_constraints(
+                q, exclude_topics=config.exclude_topics, date_range=config.date_range,
+                custom_start=config.custom_start, custom_end=config.custom_end,
+            )
+            for q in queries
+        ]
+    queries = queries[:MAX_WEB_UNIVERSE_QUERIES]
+    seen_ids = {c.creator_id for c in creators}
+    added = list(creators)
+    used: list[str] = []
+    notes: list[str] = []
+
+    for query in queries:
+        if len(added) >= target or budget_exhausted(25):
+            break
+        try:
+            results = client.search(query, max_results=MAX_WEB_RESULTS_PER_QUERY)
+            used.append(query)
+        except Exception as exc:  # best effort; never fail analysis
+            notes.append(f"web creator discovery: {type(exc).__name__}")
+            continue
+        for result in results:
+            if len(added) >= target or budget_exhausted(18):
+                break
+            video_id = _youtube_video_id(result.url)
+            if not video_id:
+                continue
+            try:
+                video = yt._run_with_retries(yt.get_video_stats, video_id)
+            except Exception:
+                video = None
+            snippet = (video or {}).get("snippet", {}) or {}
+            channel_id = snippet.get("channelId")
+            if not channel_id:
+                continue
+            creator_id = f"yt_{channel_id}"
+            if creator_id in seen_ids:
+                continue
+            try:
+                channel = yt._run_with_retries(yt.get_channel_stats, channel_id)
+            except Exception:
+                channel = None
+            if channel:
+                creator = YouTubeAdapter.channel_to_creator(channel)
+            else:
+                title = (snippet.get("channelTitle") or "").strip()
+                if not title:
+                    continue
+                creator = Creator(
+                    creator_id=creator_id, name=title, platform="youtube",
+                    canonical_url=f"https://www.youtube.com/channel/{channel_id}",
+                    source_refs=[f"https://www.youtube.com/channel/{channel_id}", result.url],
+                    is_synthetic=False, source_mode="live",
+                )
+            creator.source_refs = list(dict.fromkeys([*creator.source_refs, result.url]))
+            seen_ids.add(creator.creator_id)
+            added.append(creator)
+    return added, used, notes

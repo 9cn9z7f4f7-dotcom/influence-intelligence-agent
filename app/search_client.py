@@ -31,6 +31,8 @@ from typing import Optional, Protocol
 
 import httpx
 
+from app.runtime_budget import clamp_timeout
+
 SERPAPI_URL = "https://serpapi.com/search.json"
 TAVILY_API_URL = "https://api.tavily.com/search"
 DEFAULT_TIMEOUT = 10.0
@@ -89,7 +91,7 @@ class SerpApiSearchClient:
         if not self.is_available():
             return []
         params = {"q": query, "api_key": self.api_key, "engine": "google", "num": max_results}
-        resp = httpx.get(SERPAPI_URL, params=params, timeout=self.timeout)
+        resp = httpx.get(SERPAPI_URL, params=params, timeout=clamp_timeout(self.timeout))
         resp.raise_for_status()
         data = resp.json()
         results: list[SearchResultItem] = []
@@ -135,7 +137,7 @@ class TavilySearchProvider:
             "include_raw_content": False,
         }
         try:
-            resp = httpx.post(TAVILY_API_URL, json=payload, timeout=self.timeout)
+            resp = httpx.post(TAVILY_API_URL, json=payload, timeout=clamp_timeout(self.timeout))
         except httpx.HTTPError as exc:  # таймаут/сетевая ошибка
             raise SearchProviderError(f"tavily network error: {exc}") from exc
 

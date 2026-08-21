@@ -130,7 +130,19 @@ class SocialConnectorPlatformAdapter(PlatformAdapter):
         job_context_id = stable_id("job_ctx", brand.canonical_name, self.platform_name)
         job = self.registry.enqueue_job(
             analysis_id=job_context_id, platform=self.platform_name, brand=brand.canonical_name,
-            aliases=brand.aliases, settings={"date_range": config.date_range, "min_followers": config.min_followers, "brand_source_url": brand.source_url, "brand_handle": brand.normalized_handle},
+            aliases=brand.aliases, settings={
+                "search_level": config.search_level,
+                "date_range": config.date_range,
+                "custom_start": config.custom_start.isoformat() if config.custom_start else None,
+                "custom_end": config.custom_end.isoformat() if config.custom_end else None,
+                "min_followers": config.min_followers,
+                "max_followers": config.max_followers,
+                "min_avg_views": config.min_avg_views,
+                "include_topics": list(config.include_topics),
+                "exclude_topics": list(config.exclude_topics),
+                "brand_source_url": brand.source_url,
+                "brand_handle": brand.normalized_handle,
+            },
         )
         remaining = remaining_seconds()
         wait_seconds = self.wait_seconds if remaining is None else max(0.5, min(self.wait_seconds, max(0.5, remaining - 20)))
@@ -194,13 +206,15 @@ class SocialConnectorPlatformAdapter(PlatformAdapter):
         # "confirmed" независимо от confidence; без hard signal, но с organic
         # affinity ("ношу", "рекомендую" и т.п.) - до "potential_creator".
         profile = self._domain_profile(brand_terms)
-        content_links = classify_links(extract_links(caption), profile)
-        bio_url = raw_item.get("profile_url")
-        bio_links = classify_links([bio_url], profile) if bio_url else []
+        # ``profile_url`` is the creator's Instagram/TikTok profile, not a link
+        # in bio.  Treat only links actually observed in the content/connector
+        # payload as commercial link evidence.
+        observed_links = list(extract_links(caption)) + list(raw_item.get("links") or [])
+        content_links = classify_links(observed_links, profile)
         hard = detect_hard_commercial_signals(
             caption, brand_name=brand_terms[0] if brand_terms else "",
             brand_aliases=brand_terms[1:] if len(brand_terms) > 1 else [],
-            links=content_links, bio_links=bio_links,
+            links=content_links, bio_links=[],
         )
         new_category = escalate_with_hard_signals(category, has_brand_evidence, hard.matched)
 

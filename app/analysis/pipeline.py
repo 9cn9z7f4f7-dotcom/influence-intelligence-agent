@@ -54,7 +54,7 @@ from app.analytics.market_map import MarketMapBuilder
 from app.analytics.next_move import NextMoveBuilder
 from app.analytics.our_move import OurMoveBuilder
 from app.analytics.white_space import WhiteSpaceBuilder
-from app.creator_universe import build_creator_universe, next_move_candidate_pool
+from app.creator_universe import build_creator_universe, next_move_candidate_pool, expand_creator_universe_web
 from app.detection import combine_dom_and_visual, should_escalate_to_visual_evidence
 from app.enrichment.screenshot import ScreenshotCache
 from app.enrichment.visual_evidence import VisualEvidenceEnricher
@@ -314,11 +314,29 @@ def stage_discover_and_extract(
             )
 
         if detector_result.category == "manual_review":
+            # Keep real, brand-relevant ambiguous content in the user-facing sample.
+            # It is NOT promoted to Integration/confirmed; it is retained as a
+            # probable finding with its real source URL so the sample does not
+            # collapse to only hard-confirmed ads.
+            content_url, extracted_text = _visual_evidence_inputs(platform, raw_item)
+            title = None
+            if platform == "youtube":
+                title = (raw_item.get("snippet") or {}).get("title")
+            elif platform == "articles":
+                parsed = raw_item.get("parsed")
+                title = getattr(parsed, "title", None) if parsed is not None else None
+            else:
+                title = raw_item.get("caption")
             manual_review.append({
                 "platform": platform,
                 "confidence": detector_result.confidence,
                 "reasons": detector_result.reasons,
                 "status": "candidate_manual_review",
+                "source_url": content_url,
+                "title": (title or f"{platform} материал")[:180],
+                "preview": (extracted_text or "")[:320] or None,
+                "classification": "probable",
+                "signals": [name for name, sig in (detector_result.signals or {}).items() if sig.get("matched")],
             })
             continue
 
@@ -440,8 +458,24 @@ def stage_apply_config_filters(
 
     integrations = stage_apply_date_filter(integrations, config)
 
+    def _article_matches_topic_settings(integration: Integration) -> bool:
+        if integration.platform != "articles":
+            return True
+        haystack = " ".join([
+            integration.raw_text or "", integration.content_url or "",
+            " ".join(integration.campaign_tags or []),
+        ]).lower().replace("_", " ").replace("-", " ")
+        excluded = [t.replace("_", " ").replace("-", " ") for t in config.exclude_topics]
+        included = [t.replace("_", " ").replace("-", " ") for t in config.include_topics]
+        if excluded and any(term and term in haystack for term in excluded):
+            return False
+        if included and not any(term and term in haystack for term in included):
+            return False
+        return True
+
     filtered_integrations = [
-        i for i in integrations if i.category in allowed_categories and _passes_confidence(i)
+        i for i in integrations
+        if i.category in allowed_categories and _passes_confidence(i) and _article_matches_topic_settings(i)
     ][: config.max_integrations]
 
     kept_creator_ids = {i.creator_id for i in filtered_integrations}
@@ -457,7 +491,13 @@ def stage_apply_config_filters(
     filtered_creator_ids = {c.creator_id for c in filtered_creators}
     # Интеграции держим только у прошедших фильтр креаторов, чтобы не показывать
     # "интеграцию" с креатором, которого сами же отфильтровали настройками.
-    filtered_integrations = [i for i in filtered_integrations if i.creator_id in filtered_creator_ids or not kept_creator_ids]
+    # Article placements belong to Publisher, not Creator. They must survive
+    # creator-profile filtering; otherwise a mixed YouTube+Articles analysis
+    # silently drops every article as soon as at least one creator exists.
+    filtered_integrations = [
+        i for i in filtered_integrations
+        if i.platform == "articles" or i.creator_id in filtered_creator_ids or not kept_creator_ids
+    ]
 
     return filtered_creators, filtered_integrations
 
@@ -492,7 +532,24 @@ def stage_build_universe_pool(
     if "youtube" not in platforms:
         return [], "unavailable", ["Creator Universe пока реализован только для YouTube"], []
     universe = build_creator_universe(config, observed_topics=observed_topics)
-    return universe.creators, universe.status, universe.notes, universe.queries_used
+    creators = list(universe.creators)
+    queries = list(universe.queries_used)
+    notes = list(universe.notes)
+
+    # If the narrow YouTube search quota yields too little hunting supply, keep
+    # the current architecture and only add a bounded web-discovery fallback.
+    # videos.list/channels.list resolve real channel identity; no fake creators.
+    hunting_target = config.hunting_target()
+    if len(creators) < hunting_target and not budget_exhausted(35):
+        creators, web_queries, web_notes = expand_creator_universe_web(
+            creators, observed_topics=observed_topics, target=hunting_target, config=config,
+        )
+        queries.extend(web_queries)
+        notes.extend(web_notes)
+    status = universe.status
+    if creators and status == "unavailable":
+        status = "degraded"
+    return creators, status, notes, queries
 
 
 # ---------------------------------------------------------------------------
@@ -529,7 +586,8 @@ def stage_run_analytical_layers(
             c for c in entry.get("candidates", [])
             if c.get("similarity_score") is None or c["similarity_score"] >= config.min_strategy_match
         ]
-        entry = {**entry, "candidates": candidates[: config.max_next_move_candidates]}
+        display_limit = max(config.max_next_move_candidates, config.hunting_target())
+        entry = {**entry, "candidates": candidates[:display_limit]}
         next_move.append(entry)
 
     # Hotfix #3: White Space SUPPLY = независимый creator universe (+ brand creators,
@@ -842,18 +900,31 @@ def _run_analysis_internal(
         potential_creator_signals,
         brand_name=brand.canonical_name,
     )
-    for item in content_findings:
+    # Real content candidates with a source URL remain visible even when they
+    # are not hard-confirmed. This is retention, not fabrication: confirmed,
+    # probable and organic findings are separate statuses in one broad sample.
+    retained_content = content_findings + [
+        e for e in pure_manual_review if e.get("source_url")
+    ]
+    for item in retained_content:
+        item_platform = item.get("platform") or "web"
+        default_name = {
+            "youtube": "YouTube видео", "articles": "Статья",
+            "instagram": "Instagram материал", "tiktok": "TikTok материал",
+        }.get(item_platform, "Материал")
         findings.append({
             "finding_id": stable_id("content_finding", item.get("source_url") or item.get("title")),
-            "entity_id": None, "entity_name": "YouTube видео", "entity_type": "content",
-            "platform": "youtube", "source_url": item.get("source_url"),
+            "entity_id": None, "entity_name": default_name, "entity_type": "content",
+            "platform": item_platform, "source_url": item.get("source_url"),
             "content_title": item.get("title"), "content_preview": item.get("preview"),
-            "topic": None, "format": "video", "detected_signals": item.get("signals") or [],
-            "classification": item.get("classification") or "organic_mention",
-            "classification_group": item.get("classification") or "organic_mention",
+            "topic": None, "format": ("video" if item_platform in {"youtube", "tiktok"} else ("post" if item_platform == "instagram" else "article")),
+            "detected_signals": item.get("signals") or item.get("reasons") or [],
+            "classification": item.get("classification") or "probable",
+            "classification_group": item.get("classification") or "probable",
             "published_at": None,
             "metrics": {"followers": None, "median_views": None, "avg_views": None, "engagement_rate": None},
-            "evidence_ids": [], "source_mode": "live", "source_platform": "youtube_web_search",
+            "evidence_ids": [], "source_mode": "live",
+            "source_platform": ("youtube_web_search" if item_platform == "youtube" else item_platform),
         })
     findings.sort(key=lambda item: (item.get("published_at") or "", item["finding_id"]), reverse=True)
 
@@ -883,8 +954,8 @@ def _run_analysis_internal(
         limitations.extend(universe_notes)
     if pure_manual_review:
         limitations.append(
-            f"{len(pure_manual_review)} найденных материалов требуют ручной проверки "
-            f"(brand+commercial evidence есть, но confidence ниже порога) - не включены в результат."
+            f"{len(pure_manual_review)} найденных материалов имеют вероятный сигнал и сохранены в выборке "
+            f"как неподтверждённые; они не увеличивают число подтверждённых интеграций."
         )
     if potential_creator_signals:
         limitations.append(
