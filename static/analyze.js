@@ -524,6 +524,7 @@ const SIGNAL_LABEL = {
   alias_match: "Название бренда найдено",
   repeated_mention: "Повторное упоминание бренда",
   brand_mention: "Упоминание бренда",
+    platform_search_match: "Найдено через поиск Instagram",
 };
 
 function classificationLabel(value) {

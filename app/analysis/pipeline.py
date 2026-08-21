@@ -990,8 +990,8 @@ def _run_analysis_internal(
             f"без подтверждённого коммерческого сигнала — они учтены как потенциальные авторы, "
             f"а не как подтверждённые интеграции."
         )
-    if not request.competitor_brands:
-        limitations.append("Конкурентная насыщенность пока рассчитана только по данным анализируемого бренда.")
+    # Не выводим это как большой warning на Overview. White Space уже
+    # формулирует saturation как наблюдаемую выборку и не заявляет весь рынок.
 
     coverage_obj = AnalysisCoverage(
         sources=list(dict.fromkeys(c.platform for c in platform_coverages)),

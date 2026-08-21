@@ -195,12 +195,18 @@ class SocialConnectorPlatformAdapter(PlatformAdapter):
         caption = raw_item.get("caption") or ""
         brand_hit = next((t for t in brand_terms if t and t.lower() in caption.lower()), None)
         explicit_brand_mention = bool(raw_item.get("brand_mention"))
+        discovery_context = (raw_item.get("discovery_context") or "").strip().lower()
+        # A result returned by the authenticated Instagram brand/search flow is
+        # a real relevant observation even when Instagram hides caption text from
+        # the current DOM selectors. Context NEVER confirms sponsorship by itself.
+        contextual_match = discovery_context in {"brand_post", "tagged_brand", "search"}
         signals = {
             "brand_mention": {"matched": bool(brand_hit) or explicit_brand_mention, "raw_fragment": brand_hit},
+            "platform_search_match": {"matched": contextual_match, "raw_fragment": discovery_context or None},
             "paid_partnership_label": {"matched": bool(raw_item.get("paid_partnership_label")), "raw_fragment": None},
             "collaboration_label": {"matched": bool(raw_item.get("collaboration_label")), "raw_fragment": None},
         }
-        has_brand_evidence = signals["brand_mention"]["matched"]
+        has_brand_evidence = signals["brand_mention"]["matched"] or contextual_match
         has_commercial_evidence = (
             signals["paid_partnership_label"]["matched"] or signals["collaboration_label"]["matched"]
         )
@@ -212,7 +218,7 @@ class SocialConnectorPlatformAdapter(PlatformAdapter):
         else:
             category = "organic_mention"
 
-        confidence = 0.9 if has_commercial_evidence else (0.4 if has_brand_evidence else 0.0)
+        confidence = 0.9 if has_commercial_evidence else (0.4 if signals["brand_mention"]["matched"] else (0.25 if contextual_match else 0.0))
         reasons = [k for k, v in signals.items() if v["matched"]]
 
         # Раздел 1/2 доработки: те же ДОПОЛНИТЕЛЬНЫЕ слои, что и для YouTube/Articles

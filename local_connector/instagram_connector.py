@@ -30,7 +30,7 @@ def handle_job(job: ConnectorJob, connector_id: str, connector_token: str, playw
                 state_path: Path) -> ConnectorResultsSubmission:
     browser = None
     try:
-        browser, context, page = ensure_authenticated_context("instagram", state_path, playwright)
+        browser, context, page = ensure_authenticated_context("instagram", state_path, playwright, headless_if_authenticated=False)
     except Exception as exc:  # noqa: BLE001 - не роняем весь connector process из-за одного job
         return ConnectorResultsSubmission(
             connector_id=connector_id, connector_token=connector_token, job_id=job.job_id,
@@ -125,8 +125,26 @@ def _extract_post(page, url: str, brand: str, aliases: list[str], brand_handle: 
         post_page.goto(url, timeout=NAV_TIMEOUT_MS)
         post_page.wait_for_timeout(1500)
 
-        caption = _text_or_none(post_page, "article h1, article span")
+        caption = _text_or_none(post_page, "article h1")
+        if not caption:
+            # Instagram DOM changes often; og:description is much more stable and
+            # still comes from the real rendered page metadata.
+            try:
+                caption = post_page.locator('meta[property="og:description"]').get_attribute("content")
+            except Exception:
+                caption = None
+
         username = _text_or_none(post_page, "header a")
+        if username:
+            username = username.strip().lstrip("@")
+        if not username:
+            try:
+                og_title = post_page.locator('meta[property="og:title"]').get_attribute("content") or ""
+                m_user = re.search(r"@?([A-Za-z0-9_.]+)\s+(?:on Instagram|• Instagram)", og_title)
+                if m_user:
+                    username = m_user.group(1)
+            except Exception:
+                pass
         profile_url = None
         header_link = post_page.query_selector("header a")
         if header_link:
@@ -204,6 +222,7 @@ def _extract_post(page, url: str, brand: str, aliases: list[str], brand_handle: 
             username=username, profile_url=profile_url, post_url=url, caption=caption, hashtags=hashtags,
             brand_mention=brand_mention, paid_partnership_label=paid_partnership,
             collaboration_label=collaboration, links=external_links, screenshot_base64=screenshot_b64,
+            discovery_context=relation_hint,
         )
         post_page.close()
         return result

@@ -80,6 +80,9 @@ class ConnectorResultItem(BaseModel):
     brand_mention: bool = False
     paid_partnership_label: bool = False
     collaboration_label: bool = False
+    # How this result was discovered by the local platform connector.
+    # Used only as contextual evidence; never upgrades to confirmed on its own.
+    discovery_context: Optional[str] = None
     # base64 PNG, опционально - используется VisualEvidenceEnricher, если
     # detector признал случай ambiguous (раздел 17 - social visual analysis).
     screenshot_base64: Optional[str] = None
