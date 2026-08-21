@@ -32,6 +32,7 @@ from app.platforms.base import PlatformAdapter, PlatformDiscoveryResult
 from app.potential_creator import detect_brand_affinity_signals
 from config.settings import settings as default_settings
 from app.runtime_budget import remaining_seconds
+from app.topic_classifier import classify_topic
 
 
 def _parse_dt(raw: Optional[str]) -> Optional[datetime]:
@@ -259,10 +260,14 @@ class SocialConnectorPlatformAdapter(PlatformAdapter):
         if not username:
             return None
         creator_id = stable_id(self.platform_name, username)
+        caption = raw_item.get("caption") or ""
+        topic = classify_topic(caption, use_llm_for_ambiguous=False) if caption else None
+        topic_tags = list(topic.topic_tags) if topic is not None else []
         return Creator(
             creator_id=creator_id, name=username, canonical_url=raw_item.get("profile_url"),
             platform=self.platform_name, followers=raw_item.get("followers"), source_mode=SourceMode.LIVE,
             source_refs=[u for u in [raw_item.get("profile_url")] if u],
+            topic_tags=topic_tags,
         )
 
     def normalize_creator(self, creator: Creator) -> Creator:

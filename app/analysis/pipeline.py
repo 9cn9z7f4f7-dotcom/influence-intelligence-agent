@@ -433,13 +433,20 @@ def _date_window(config: AnalysisConfig) -> tuple[datetime, datetime]:
 
 
 def stage_apply_date_filter(integrations: list[Integration], config: AnalysisConfig) -> list[Integration]:
-    """Hotfix #4: интеграции вне date range не должны участвовать в анализе.
-    Интеграция без published_at не может быть подтверждена как "внутри диапазона" -
-    честно исключается, а не додумывается."""
+    """Apply the requested date window without silently deleting social data.
+
+    Instagram/TikTok public DOM does not reliably expose a machine-readable
+    published_at for every post. Those observations are still real and useful;
+    keep them in the sample with an unknown date instead of turning a successful
+    connector job into an empty analysis. Sources with reliable dates keep the
+    strict date-window behaviour.
+    """
     start, end = _date_window(config)
     result = []
     for i in integrations:
         if i.published_at is None:
+            if i.platform in {"instagram", "tiktok"}:
+                result.append(i)
             continue
         pub = i.published_at if i.published_at.tzinfo else i.published_at.replace(tzinfo=timezone.utc)
         if start <= pub <= end:
@@ -543,9 +550,14 @@ def stage_build_universe_pool(
     platforms: list[str], config: AnalysisConfig, observed_topics: list[str],
 ) -> tuple[list[Creator], str, list[str], list[str]]:
     """Возвращает (universe_creators, status, notes, queries_used).
-    Сейчас live только для YouTube."""
+
+    Independent expansion currently uses YouTube when it is selected. Social
+    creators collected by the local connector are merged later into the same
+    analytics/hunting pools, so a social-only analysis must not be labelled
+    "unavailable" merely because YouTube was not selected.
+    """
     if "youtube" not in platforms:
-        return [], "unavailable", ["Creator Universe пока реализован только для YouTube"], []
+        return [], "ok", [], []
     universe = build_creator_universe(config, observed_topics=observed_topics)
     creators = list(universe.creators)
     queries = list(universe.queries_used)
@@ -995,7 +1007,7 @@ def _run_analysis_internal(
     summary = AnalysisSummary(
         integrations_found=len(filtered_integrations),
         creators_used=len(used_creator_ids),
-        creator_universe_size=len(universe_creators),
+        creator_universe_size=len({c.creator_id for c in creators_for_white_space}),
         confirmed_integrations=sum(1 for i in filtered_integrations if i.category == "confirmed"),
         potential_creators_count=len(potential_creator_signals),
     )
