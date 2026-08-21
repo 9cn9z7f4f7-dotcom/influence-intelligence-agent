@@ -251,13 +251,13 @@ function interestingSegmentsCount(result) {
 }
 
 function buildFinishedSummary(result) {
-  const integrations = result.summary.integrations_found || 0;
-  const creators = result.summary.creators_used || 0;
+  const materials = Array.isArray(result.findings) ? result.findings.length : 0;
+  const creators = new Set((result.findings || []).filter((x) => x.entity_type === "creator" && x.entity_id).map((x) => x.entity_id)).size || result.summary.creators_used || 0;
   const segments = interestingSegmentsCount(result);
-  const intWord = pluralRu(integrations, ["интеграцию", "интеграции", "интеграций"]);
+  const materialWord = pluralRu(materials, ["материал", "материала", "материалов"]);
   const creatorWord = pluralRu(creators, ["автора", "авторов", "авторов"]);
   const segWord = pluralRu(segments, ["интересный сегмент", "интересных сегмента", "интересных сегментов"]);
-  return `Нашёл ${integrations} ${intWord}, ${creators} ${creatorWord} и ${segments} ${segWord}.`;
+  return `Нашёл ${materials} ${materialWord}, ${creators} ${creatorWord} и ${segments} ${segWord}.`;
 }
 
 // ---------------------------------------------------------------------------
@@ -411,10 +411,15 @@ function renderOverview() {
   document.getElementById("overview-lead").textContent = buildLead(r);
 
   const grid = document.getElementById("overview-stats");
+  const findings = Array.isArray(r.findings) ? r.findings : [];
+  const creatorIds = new Set(findings.filter((x) => x.entity_type === "creator" && x.entity_id).map((x) => x.entity_id));
+  const huntingCount = Array.isArray(r.next_move)
+    ? r.next_move.reduce((sum, entry) => sum + ((entry && entry.candidates) || []).length, 0)
+    : ((r.next_move && r.next_move.candidates) || []).length;
   const tiles = [
-    [String(r.summary.integrations_found), "интеграций найдено"],
-    [String(r.summary.creators_used), "авторов учтено"],
-    [String(r.summary.creator_universe_size), "авторов в базе для сравнения"],
+    [String(findings.length), "материалов найдено"],
+    [String(creatorIds.size || r.summary.creators_used || 0), "авторов в выборке"],
+    [String(huntingCount || 0), "кандидатов для ханта"],
   ];
   grid.innerHTML = tiles.map(([value, label], i) => `
     <div class="stat-tile" style="animation-delay:${i * 0.06}s"><div class="value">${value}</div><div class="label">${label}</div></div>

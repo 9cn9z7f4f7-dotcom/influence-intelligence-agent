@@ -302,6 +302,7 @@ def stage_discover_and_extract(
     manual_review: list[dict] = []
     publishers: list[Publisher] = []
     seen_publisher_ids: set[str] = set()
+    represented_social_urls: set[str] = set()
 
     for raw_item in discovery.raw_items:
         detector_result = adapter.detect_integration(raw_item, brand_terms)
@@ -389,6 +390,21 @@ def stage_discover_and_extract(
                     content_entry = _youtube_content_finding_entry(raw_item, detector_result)
                     if content_entry is not None:
                         manual_review.append(content_entry)
+                elif platform in {"instagram", "tiktok"}:
+                    # Real social content must survive even when the platform DOM
+                    # does not expose a reliable creator handle. It is a content
+                    # finding, not a fabricated creator/integration.
+                    source_url = raw_item.get("post_url") or raw_item.get("profile_url")
+                    if source_url:
+                        manual_review.append({
+                            "platform": platform,
+                            "status": "content_finding",
+                            "source_url": source_url,
+                            "title": (raw_item.get("caption") or f"{platform.title()} материал")[:180],
+                            "preview": (raw_item.get("caption") or "")[:320] or None,
+                            "classification": "organic",
+                            "signals": [name for name, sig in (detector_result.signals or {}).items() if sig.get("matched")],
+                        })
                 continue
             creators_by_id[cache_key] = adapter.normalize_creator(creator)
 
@@ -400,12 +416,38 @@ def stage_discover_and_extract(
             integration = build_integration(competitor_id, creator, raw_item, None, detector_result, evidence_store)
         else:
             integration = build_social_integration(competitor_id, creator, raw_item, detector_result, evidence_store, platform)
+            if integration.content_url:
+                represented_social_urls.add(integration.content_url)
         integration = adapter.normalize_integration(integration)
 
         if detector_result.category == "confirmed":
             confirmed.append(integration)
         else:
             organic.append(integration)
+
+    # Emergency retention guard for authenticated social connectors. A real
+    # Instagram/TikTok URL returned by the connector must remain visible even
+    # if DOM changes prevent creator extraction/classification. This does NOT
+    # create a creator or confirmed integration; it is only an observed source.
+    if platform in {"instagram", "tiktok"}:
+        existing_urls = {
+            e.get("source_url") for e in manual_review
+            if isinstance(e, dict) and e.get("source_url")
+        } | represented_social_urls
+        for raw_item in discovery.raw_items:
+            source_url = raw_item.get("post_url") or raw_item.get("profile_url")
+            if not source_url or source_url in existing_urls:
+                continue
+            manual_review.append({
+                "platform": platform,
+                "status": "content_finding",
+                "source_url": source_url,
+                "title": (raw_item.get("caption") or f"{platform.title()} материал")[:180],
+                "preview": (raw_item.get("caption") or "")[:320] or None,
+                "classification": "organic",
+                "signals": ["Найдено через подключённый аккаунт"],
+            })
+            existing_urls.add(source_url)
 
     coverage.confirmed_integrations = len(confirmed)
     coverage.items_checked = len(discovery.raw_items)
@@ -953,6 +995,18 @@ def _run_analysis_internal(
             "evidence_ids": [], "source_mode": "live",
             "source_platform": ("youtube_web_search" if item_platform == "youtube" else item_platform),
         })
+    # Prefer richer normalized findings over fallback content rows with the
+    # same source URL. This keeps the emergency retention guard from creating
+    # duplicates while guaranteeing that every real connector URL can surface.
+    deduped_findings: list[dict] = []
+    seen_finding_keys: set[tuple[str, str]] = set()
+    for item in sorted(findings, key=lambda x: 0 if x.get("entity_id") else 1):
+        key = (str(item.get("platform") or ""), str(item.get("source_url") or item.get("finding_id") or ""))
+        if key in seen_finding_keys:
+            continue
+        seen_finding_keys.add(key)
+        deduped_findings.append(item)
+    findings = deduped_findings
     findings.sort(key=lambda item: (item.get("published_at") or "", item["finding_id"]), reverse=True)
 
     # Stage 11 - честная coverage/summary/limitations (раздел 19: "не скрывать
