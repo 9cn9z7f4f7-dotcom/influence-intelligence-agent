@@ -26,6 +26,7 @@ from app.models import Creator
 from app.platforms.youtube import YouTubePlatformAdapter
 from app.query_generator import generate_discovery_queries, apply_search_constraints
 from app.runtime_budget import budget_exhausted
+from app.topic_classifier import classify_topic
 from app.search_client import get_default_search_client
 from app.ingestion.youtube_adapter import YouTubeAdapter
 from config.settings import settings as default_settings
@@ -118,6 +119,18 @@ def _youtube_video_id(url: str) -> str | None:
     return None
 
 
+
+def _matches_hunting_topics(text: str, topics: list[str]) -> bool:
+    """Reject obvious off-topic web-search noise before it becomes a hunter."""
+    clean = [str(t).strip().lower().replace("_", " ") for t in topics if t and t != "other"]
+    if not clean:
+        return True
+    lowered = (text or "").lower()
+    if any(topic in lowered for topic in clean if len(topic) >= 4):
+        return True
+    classified = classify_topic(text or "", use_llm_for_ambiguous=False)
+    return bool(set(classified.topic_tags) & {t.replace(" ", "_") for t in clean})
+
 def expand_creator_universe_web(
     creators: list[Creator], observed_topics: Optional[list[str]] = None,
     target: int = TARGET_HUNTING_CREATORS, adapter: YouTubeAdapter | None = None,
@@ -169,11 +182,19 @@ def expand_creator_universe_web(
             video_id = _youtube_video_id(result.url)
             if not video_id:
                 continue
+            # Search providers occasionally return a globally popular but
+            # irrelevant video. Do not let that pollute the hunting universe.
+            search_text = " ".join(filter(None, [getattr(result, "title", None), getattr(result, "snippet", None), getattr(result, "content", None)]))
+            if search_text.strip() and not _matches_hunting_topics(search_text, topics):
+                continue
             try:
                 video = yt._run_with_retries(yt.get_video_stats, video_id)
             except Exception:
                 video = None
             snippet = (video or {}).get("snippet", {}) or {}
+            video_text = f"{snippet.get('title') or ''} {snippet.get('description') or ''}"
+            if video_text.strip() and not _matches_hunting_topics(video_text, topics):
+                continue
             channel_id = snippet.get("channelId")
             if not channel_id:
                 continue

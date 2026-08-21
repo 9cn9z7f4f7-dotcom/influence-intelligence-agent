@@ -78,6 +78,7 @@ from app.platforms import get_platform_adapter
 from app.platforms.social_connector_base import build_social_integration
 from app.potential_creator import build_potential_creator_signal
 from app.runtime_budget import budget_exhausted, clear_budget, start_budget
+from app.topic_classifier import classify_topic
 from config.settings import settings as default_settings
 
 # Next Move / White Space нужен буфер кандидатов ДО применения min_strategy_match /
@@ -313,11 +314,15 @@ def stage_discover_and_extract(
                 platform, raw_item, detector_result, brand, visual_enricher, screenshot_cache, evidence_store,
             )
 
+        if detector_result.category == "manual_review" and detector_result.has_brand_evidence:
+            # A real page/video with explicit brand evidence is a valid observed
+            # mention even when there is no commercial proof. Keep it OUT of
+            # confirmed ads, but include it as an organic observation so the
+            # descriptive "Как бренд выбирает" layer can analyse the sample.
+            detector_result = replace(detector_result, category="organic_mention", is_integration=False)
+
         if detector_result.category == "manual_review":
-            # Keep real, brand-relevant ambiguous content in the user-facing sample.
-            # It is NOT promoted to Integration/confirmed; it is retained as a
-            # probable finding with its real source URL so the sample does not
-            # collapse to only hard-confirmed ads.
+            # Ambiguous content without reliable brand evidence stays review-only.
             content_url, extracted_text = _visual_evidence_inputs(platform, raw_item)
             title = None
             if platform == "youtube":
@@ -511,16 +516,26 @@ def _bucket_for_creator(creator: Creator, config: AnalysisConfig) -> str | None:
 # ---------------------------------------------------------------------------
 
 
-def _observed_topics(creators: list[Creator], max_topics: int = 5) -> list[str]:
-    """Темы, реально наблюдаемые в найденном контенте бренда - используются как
-    discovery seeds для Creator Universe, если пользователь не задал include_topics
-    (hotfix #1 - НЕ захардкоженный education/student default)."""
+def _observed_topics(creators: list[Creator], integrations: list[Integration] | None = None, max_topics: int = 5) -> list[str]:
+    """Derive hunting seeds from what we actually found about the brand.
+
+    Creator channel metadata can be very broad (and was the reason Nike could
+    drift into tech channels).  Content text gets a slightly higher weight, so
+    shoes/running/sports signals from the observed Nike videos win over a generic
+    channel category.
+    """
     counts: dict[str, int] = {}
     for c in creators:
         for tag in (c.topic_tags or []):
             if tag and tag != "other":
                 counts[tag] = counts.get(tag, 0) + 1
-    ranked = sorted(counts.items(), key=lambda kv: kv[1], reverse=True)
+    for integration in (integrations or []):
+        text = integration.raw_text or ""
+        topic = classify_topic(text, use_llm_for_ambiguous=False)
+        for tag in topic.topic_tags:
+            if tag and tag != "other":
+                counts[tag] = counts.get(tag, 0) + 2
+    ranked = sorted(counts.items(), key=lambda kv: (-kv[1], kv[0]))
     return [topic for topic, _ in ranked[:max_topics]]
 
 
@@ -854,7 +869,7 @@ def _run_analysis_internal(
 
     # Stage 8: DYNAMIC universe - seeds из include_topics ИЛИ observed topics бренда
     # (hotfix #1) - НЕ захардкоженная тема.
-    observed_topics = _observed_topics(all_creators)
+    observed_topics = _observed_topics(all_creators, filtered_integrations)
     if budget_exhausted(35):
         universe_creators, universe_status, universe_notes, universe_queries = [], "degraded", ["Общий лимит анализа достигнут до расширенного поиска авторов."], []
     else:

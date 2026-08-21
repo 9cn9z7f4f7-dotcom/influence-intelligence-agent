@@ -50,6 +50,11 @@ class AnalysisConfig(BaseModel):
     include_topics: list[str] = Field(default_factory=list)
     exclude_topics: list[str] = Field(default_factory=list)
 
+    # --- Platform hints -----------------------------------------------------
+    # Optional official Instagram profile. Used only as a discovery hint for
+    # the local Instagram connector; it does not replace the main brand name.
+    instagram_brand_url: Optional[str] = None
+
     # --- Content filters ----------------------------------------------------
     sponsored_only: bool = False
     include_organic: bool = True

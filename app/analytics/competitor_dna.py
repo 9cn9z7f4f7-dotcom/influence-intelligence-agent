@@ -83,7 +83,10 @@ class CompetitorDnaBuilder:
         ]
         if len(creator_like_confirmed) < 3:
             recent_shifts = []
-            observed_patterns = []
+            # Do not pretend this is a stable buying strategy.  Still describe
+            # what is visible in the broader observed sample (confirmed + organic
+            # brand mentions) using absolute counts, not 100%-style conclusions.
+            observed_patterns = self._build_sample_observations(competitor.name, overall_agg, comp_integrations)
         else:
             recent_shifts = self._detect_shifts(recent_agg, historical_agg, len(recent), len(historical))
             candidate_patterns = self._build_candidate_patterns(competitor.name, overall_agg, creator_like_confirmed)
@@ -98,10 +101,41 @@ class CompetitorDnaBuilder:
             "windows": {"recent_days": recent_days, "historical_days": historical_days},
             "confirmed_creator_integrations": len(creator_like_confirmed),
             "strategy_message": (
-                "Пока недостаточно подтверждённых размещений, чтобы выделить устойчивый паттерн."
+                "Устойчивый рекламный паттерн пока не подтверждён. Ниже — описательные сигналы по найденной выборке."
                 if len(creator_like_confirmed) < 3 else None
             ),
         }
+
+
+    def _build_sample_observations(self, competitor_name: str, agg: dict[str, Counter], integrations: list[Integration]) -> list[dict]:
+        """Safe descriptive fallback for a small/non-confirmed sample.
+
+        It answers "what do we see" without claiming a proven brand strategy.
+        """
+        if not integrations:
+            return []
+        rows: list[dict] = []
+        labels = [("platform", "площадка"), ("topic", "тематика"), ("content_type", "формат") ]
+        for dimension, label in labels:
+            counter = agg.get(dimension) or Counter()
+            if not counter:
+                continue
+            key, count = counter.most_common(1)[0]
+            if not key or key in {"unknown", "other", "-"}:
+                continue
+            ev_id = self.evidence.add(computed(
+                field=f"sample:{dimension}:{key}",
+                value={"count": count, "sample_size": len(integrations)},
+                supporting_note=f"{competitor_name}: {count} из {len(integrations)} наблюдаемых материалов; {label}={key}",
+            ))
+            rows.append({
+                "statement": f"В наблюдаемой выборке чаще встречается {label} «{key}»: {count} из {len(integrations)} материалов.",
+                "type": "computed",
+                "confidence": min(0.75, 0.4 + 0.05 * count),
+                "supporting_metrics": [{"dimension": dimension, "key": key, "supporting_observations": count}],
+                "evidence_ids": [ev_id],
+            })
+        return rows[:3]
 
     # ------------------------------------------------------------------
     def _split_windows(self, integrations: list[Integration], now: datetime | None,

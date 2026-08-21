@@ -45,9 +45,11 @@ def test_dna_n1_has_no_percentage_strategy_pattern():
     )
     result = CompetitorDnaBuilder([creator], [integration], settings).build(competitor)
     assert result["confirmed_creator_integrations"] == 1
-    assert result["observed_patterns"] == []
+    assert result["observed_patterns"]
+    assert all("%" not in p["statement"] for p in result["observed_patterns"])
+    assert all("наблюдаемой выборке" in p["statement"] for p in result["observed_patterns"])
     assert result["recent_shifts"] == []
-    assert "недостаточно подтверждённых размещений" in result["strategy_message"].lower()
+    assert "устойчивый рекламный паттерн пока не подтверждён" in result["strategy_message"].lower()
 
 
 def test_potential_creator_surfaces_without_fabricated_match_score():

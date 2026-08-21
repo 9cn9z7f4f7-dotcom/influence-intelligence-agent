@@ -94,6 +94,7 @@ document.getElementById("platform-chips").addEventListener("click", (e) => {
   }
   renderPlatformChips();
   updateEstimateHint();
+  updateInstagramOfficialField();
 });
 
 // ---------------------------------------------------------------------------
@@ -133,7 +134,13 @@ document.getElementById("advanced-toggle").addEventListener("click", () => {
   document.getElementById("advanced-toggle").classList.toggle("open");
 });
 
+function updateInstagramOfficialField() {
+  const group = document.getElementById("instagram-official-group");
+  if (group) group.style.display = selectedPlatforms.has("instagram") ? "block" : "none";
+}
+
 renderPlatformChips();
+updateInstagramOfficialField();
 updateEstimateHint();
 
 // ---------------------------------------------------------------------------
@@ -153,6 +160,7 @@ function collectConfig() {
     min_avg_views: minViewsRaw ? parseFloat(minViewsRaw) : null,
     include_topics: splitCsv(document.getElementById("cfg-include-topics").value),
     exclude_topics: splitCsv(document.getElementById("cfg-exclude-topics").value),
+    instagram_brand_url: document.getElementById("cfg-instagram-url")?.value.trim() || null,
     confirmed_only: document.getElementById("cfg-confirmed-only").checked,
     include_manual_review: document.getElementById("cfg-include-manual-review").checked,
   };
@@ -510,6 +518,12 @@ const SIGNAL_LABEL = {
   first_person_use: "Личное использование",
   recommendation: "Рекомендация",
   organic_affinity: "Органический интерес",
+  brand_in_title: "Бренд в заголовке",
+  brand_in_description: "Бренд в описании",
+  dedicated_video: "Материал посвящён бренду",
+  alias_match: "Название бренда найдено",
+  repeated_mention: "Повторное упоминание бренда",
+  brand_mention: "Упоминание бренда",
 };
 
 function classificationLabel(value) {
@@ -1032,8 +1046,16 @@ const EVIDENCE_SECTION_ORDER = ["fact", "computed", "visual_ai", "ai_inference"]
 const EVIDENCE_TYPE_LABEL = { fact: "Факт", computed: "Расчёт", visual_ai: "Визуальный сигнал", ai_inference: "Вывод AI" };
 
 const EVIDENCE_FIELD_LABEL = {
-  live_integration_confidence: "Уверенность классификации",
+  live_integration_confidence: "Оценка классификации",
   visual_commercial_signal: "Визуальный коммерческий сигнал",
+  brand_in_title: "Бренд указан в заголовке",
+  brand_in_description: "Бренд указан в описании",
+  alias_match: "Найдено название бренда",
+  repeated_mention: "Бренд упоминается несколько раз",
+  dedicated_video: "Материал посвящён бренду или продукту",
+  promo_code: "Найден промокод",
+  affiliate_link: "Найдена партнёрская ссылка",
+  paid_partnership: "Есть маркировка партнёрства",
 };
 function humanizeKey(key) {
   const raw = String(key || "");
@@ -1049,6 +1071,11 @@ function formatEvidenceValue(ev) {
   if (typeof v === "string") return v;
   if (Array.isArray(v)) return v.length ? v.join(", ") : "—";
   if (v && typeof v === "object") {
+    if (Number.isFinite(Number(v.count)) && Number.isFinite(Number(v.sample_size))) {
+      return `${Number(v.count)} из ${Number(v.sample_size)} материалов`;
+    }
+    if (Number.isFinite(Number(v.count))) return `${Number(v.count)} наблюдений`;
+    if (Number.isFinite(Number(v.share))) return `${Math.round(Number(v.share) * 100)}% выборки`;
     const trueKeys = Object.entries(v).filter(([, val]) => val === true).map(([k]) => humanizeKey(k));
     return trueKeys.length ? trueKeys.join(", ") : "—";
   }
@@ -1057,11 +1084,21 @@ function formatEvidenceValue(ev) {
 
 function evidenceItemHtml(ev) {
   const source = externalLink(ev.source_url, "Открыть источник →");
+  const raw = String(ev.raw_fragment || "");
+  // supporting_note often contains internal debug syntax such as
+  // reasons=['brand_in_title']; never show that to the user.
+  const looksTechnical = /reasons=|\['|\{|\}|creator_id|integration_id|brand_in_/i.test(raw);
+  const fragment = raw && !looksTechnical ? `<div class="ev-meta">${escapeHtml(raw)}</div>` : "";
+  const field = humanizeKey(ev.field);
+  let value = formatEvidenceValue(ev);
+  if (ev.field === "live_integration_confidence" && typeof ev.value === "number") {
+    value = Number(ev.value) >= 0.7 ? "высокая" : (Number(ev.value) >= 0.45 ? "средняя" : "требует проверки");
+  }
   return `
     <div class="evidence-item">
       <span class="evidence-type-tag ${escapeHtml(ev.type)}">${escapeHtml(EVIDENCE_TYPE_LABEL[ev.type] || ev.type)}</span>
-      <div class="ev-text"><strong>${escapeHtml(humanizeKey(ev.field))}:</strong> ${escapeHtml(formatEvidenceValue(ev))}</div>
-      ${ev.raw_fragment ? `<div class="ev-meta">${escapeHtml(ev.raw_fragment)}</div>` : ""}
+      <div class="ev-text"><strong>${escapeHtml(field)}:</strong> ${escapeHtml(value)}</div>
+      ${fragment}
       ${source ? `<div class="ev-meta">${source}</div>` : ""}
     </div>
   `;

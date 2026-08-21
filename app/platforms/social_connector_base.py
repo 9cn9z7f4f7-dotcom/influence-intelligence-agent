@@ -128,6 +128,18 @@ class SocialConnectorPlatformAdapter(PlatformAdapter):
         # AnalysisResult.analysis_id верхнего уровня - интерфейс PlatformAdapter не
         # прокидывает его, а менять сигнатуру абстрактного метода ради этого не стоит).
         job_context_id = stable_id("job_ctx", brand.canonical_name, self.platform_name)
+        brand_source_url = brand.source_url
+        brand_handle = brand.normalized_handle
+        if self.platform_name == "instagram" and config.instagram_brand_url:
+            brand_source_url = config.instagram_brand_url.strip()
+            try:
+                from urllib.parse import urlparse
+                path = urlparse(brand_source_url).path.strip("/")
+                if path:
+                    brand_handle = path.split("/")[0].lstrip("@")
+            except Exception:
+                pass
+
         job = self.registry.enqueue_job(
             analysis_id=job_context_id, platform=self.platform_name, brand=brand.canonical_name,
             aliases=brand.aliases, settings={
@@ -140,8 +152,8 @@ class SocialConnectorPlatformAdapter(PlatformAdapter):
                 "min_avg_views": config.min_avg_views,
                 "include_topics": list(config.include_topics),
                 "exclude_topics": list(config.exclude_topics),
-                "brand_source_url": brand.source_url,
-                "brand_handle": brand.normalized_handle,
+                "brand_source_url": brand_source_url,
+                "brand_handle": brand_handle,
             },
         )
         remaining = remaining_seconds()

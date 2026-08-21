@@ -130,27 +130,32 @@ def generate_article_queries(
     names = [brand_name] + [a.strip() for a in (aliases or []) if a.strip() and a.strip().lower() != brand_name.lower()]
 
     is_cyrillic = bool(_CYRILLIC_RE.search(brand_name))
-    templates = ARTICLE_QUERY_TEMPLATES_RU if is_cyrillic else ARTICLE_QUERY_TEMPLATES_EN
+    primary_templates = ARTICLE_QUERY_TEMPLATES_RU if is_cyrillic else ARTICLE_QUERY_TEMPLATES_EN
+    secondary_templates = ARTICLE_QUERY_TEMPLATES_EN if is_cyrillic else ARTICLE_QUERY_TEMPLATES_RU
     topics = [_topic_text(t) for t in (include_topics or []) if _topic_text(t)]
 
     queries: list[str] = []
     for name in names:
         # Topic-aware queries go first because they are the user's explicit intent.
+        # For Latin brand names we still add Russian article/news formulations: this
+        # is important for brands like Nike, Adidas, Apple etc. in a RU search context.
         for topic in topics[:4]:
-            if is_cyrillic:
-                topic_templates = [
-                    f"{name} {topic} обзор", f"{name} {topic} статья",
-                    f"{name} {topic} блог", f"{name} {topic} реклама",
-                ]
-            else:
-                topic_templates = [
-                    f"{name} {topic} review", f"{name} {topic} article",
-                    f"{name} {topic} blog", f"{name} {topic} sponsored",
-                ]
-            queries.extend(topic_templates)
+            queries.extend([
+                f"{name} {topic} article", f"{name} {topic} review",
+                f"{name} {topic} статья", f"{name} {topic} новости",
+            ])
 
-        # Keep a broad fallback after the targeted requests.
-        for template in templates:
+        # Broad article/news queries in BOTH languages. Search provider may rank
+        # either language better depending on the current web index / geography.
+        preferred = [
+            f"{name} article", f"{name} news", f"{name} review",
+            f"{name} статьи", f"{name} новости", f"{name} обзор",
+            f"{name} sponsored article", f"{name} партнерский материал",
+        ]
+        queries.extend(preferred)
+        for template in primary_templates[:4]:
+            queries.append(template.format(name=name))
+        for template in secondary_templates[:2]:
             queries.append(template.format(name=name))
         queries.append(f"{name} {ARTICLE_QUERY_SPONSORED_SUFFIX}")
 

@@ -197,9 +197,27 @@ class ArticlesPlatformAdapter(PlatformAdapter):
                 queries_failed.append("time_budget")
                 break
             parsed = self.parser.parse(url)
-            if parsed.status != "ok" or not parsed.main_text:
-                continue
             search_evidence = search_results_by_url.get(url)
+            if parsed.status != "ok" or not parsed.main_text:
+                # Some publishers block direct HTTP/Playwright parsing while Tavily
+                # still returns a real indexed title/snippet. Keep such a result as
+                # a low-trust observed ARTICLE candidate instead of silently losing
+                # the whole Articles source. It can never become a confirmed ad
+                # until the source page itself is parsed.
+                search_text = (getattr(search_evidence, "content", None) or getattr(search_evidence, "snippet", None) or "").strip()
+                search_title = (getattr(search_evidence, "title", None) or "").strip()
+                lowered = f"{search_title} {search_text}".lower()
+                brand_hit = any(term.lower() in lowered for term in brand_terms if term)
+                path = urlparse(url).path.lower()
+                negative_path = any(marker in path for marker in _NEGATIVE_PATH_MARKERS)
+                if not (brand_hit and search_title and len(search_text) >= 60 and not negative_path):
+                    continue
+                parsed = ArticleParseResult(
+                    source_url=url, canonical_url=url, title=search_title,
+                    domain=urlparse(url).netloc.lower().removeprefix("www."),
+                    main_text=search_text, metadata={"search_provider_fallback": True},
+                    fetch_mode="search_provider", status="ok",
+                )
             if not _is_article_like(parsed, search_evidence):
                 continue
             classification = self.classifier.classify(parsed.title or getattr(search_evidence, "title", None), parsed.main_text, brand_terms)
@@ -257,6 +275,11 @@ class ArticlesPlatformAdapter(PlatformAdapter):
             brand_aliases=brand_terms[1:] if len(brand_terms) > 1 else [], links=links,
         )
         new_category = escalate_with_hard_signals(pipeline_category, has_brand_evidence, hard.matched)
+        if getattr(parsed, "fetch_mode", None) == "search_provider" and new_category == "confirmed":
+            # Search snippet is useful discovery evidence, but not enough to prove
+            # a paid placement. Keep the article visible as an observed mention.
+            new_category = "organic_mention"
+            has_commercial_evidence = False
 
         affinity_signals: list[str] = []
         if new_category == pipeline_category:
