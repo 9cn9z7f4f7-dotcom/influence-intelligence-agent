@@ -161,6 +161,29 @@ def handle_job(job: ConnectorJob, connector_id: str, connector_token: str, playw
             browser.close()
 
 
+def _instagram_username_from_meta(text: str | None, brand_handle: str = "") -> Optional[str]:
+    """Best-effort owner extraction from Instagram OG metadata.
+
+    Current Instagram og:description often looks like:
+    ``39 likes, 14 comments - username August 20, 2026: "caption"``.
+    The DOM/header selectors are unstable, so this is the most useful fallback.
+    """
+    if not text:
+        return None
+    patterns = [
+        r"(?:likes?,\s*\d+\s+comments?\s*-\s*|comments?\s*-\s*)([A-Za-z0-9_.]{2,30})\s+(?:[A-Z][a-z]{2,9}\s+\d{1,2},\s+\d{4}|on\s+Instagram)",
+        r"-\s*([A-Za-z0-9_.]{2,30})\s+(?:[A-Z][a-z]{2,9}\s+\d{1,2},\s+\d{4})\s*:",
+        r"@([A-Za-z0-9_.]{2,30})\b",
+    ]
+    for pattern in patterns:
+        match = re.search(pattern, text, re.IGNORECASE)
+        if match:
+            value = match.group(1).strip().lstrip("@").lower()
+            if value and value != (brand_handle or "").lower():
+                return value
+    return None
+
+
 def _extract_post(page, url: str, brand: str, aliases: list[str], brand_handle: str = "", relation_hint: str = "search") -> Optional[ConnectorResultItem]:
     try:
         post_page = page.context.new_page()
@@ -168,13 +191,15 @@ def _extract_post(page, url: str, brand: str, aliases: list[str], brand_handle: 
         post_page.wait_for_timeout(1500)
 
         caption = _text_or_none(post_page, "article h1")
+        og_description = None
+        try:
+            og_description = post_page.locator('meta[property="og:description"]').get_attribute("content")
+        except Exception:
+            pass
         if not caption:
             # Instagram DOM changes often; og:description is much more stable and
             # still comes from the real rendered page metadata.
-            try:
-                caption = post_page.locator('meta[property="og:description"]').get_attribute("content")
-            except Exception:
-                caption = None
+            caption = og_description
 
         username = _text_or_none(post_page, "header a")
         if username:
@@ -187,12 +212,16 @@ def _extract_post(page, url: str, brand: str, aliases: list[str], brand_handle: 
                     username = m_user.group(1)
             except Exception:
                 pass
+        if not username:
+            username = _instagram_username_from_meta(og_description or caption, brand_handle=brand_handle)
         profile_url = None
         header_link = post_page.query_selector("header a")
         if header_link:
             href = header_link.get_attribute("href")
             if href:
                 profile_url = f"https://www.instagram.com{href}" if href.startswith("/") else href
+        if username and not profile_url:
+            profile_url = f"https://www.instagram.com/{username}/"
 
         # Collect real profile anchors rendered inside the post.  This lets a
         # brand-owned collab/tagged post resolve the non-brand creator even when

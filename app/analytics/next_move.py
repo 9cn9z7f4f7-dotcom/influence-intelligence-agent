@@ -50,7 +50,7 @@ class NextMoveBuilder:
 
     def build_for_competitor(self, competitor: Competitor) -> dict:
         comp_integrations = [i for i in self.integrations if i.competitor_id == competitor.competitor_id]
-        used_creator_ids = {i.creator_id for i in comp_integrations}
+        used_creator_ids = {i.creator_id for i in comp_integrations if i.category == "confirmed"}
 
         if not comp_integrations:
             # Organic-affinity creator-like entities remain useful hunting

@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 from io import BytesIO
+from datetime import date, datetime
+import json
 from openpyxl import Workbook
 from openpyxl.styles import Font, PatternFill, Alignment
 from openpyxl.utils import get_column_letter
@@ -10,6 +12,22 @@ HEADER_FONT = Font(color='FFFFFF', bold=True)
 LINK_FONT = Font(color='008000', underline='single')
 
 
+def _cell_value(value):
+    """Convert arbitrary analysis values into values openpyxl can safely write."""
+    if value is None or isinstance(value, (str, int, float, bool)):
+        return value
+    if isinstance(value, (datetime, date)):
+        return value.isoformat()
+    if hasattr(value, "value") and isinstance(getattr(value, "value", None), (str, int, float, bool)):
+        return value.value
+    if isinstance(value, (dict, list, tuple, set)):
+        try:
+            return json.dumps(value, ensure_ascii=False, default=str)
+        except Exception:
+            return str(value)
+    return str(value)
+
+
 def _write_table(ws, headers, rows):
     ws.append(headers)
     for cell in ws[1]:
@@ -17,7 +35,7 @@ def _write_table(ws, headers, rows):
         cell.font = HEADER_FONT
         cell.alignment = Alignment(vertical='center')
     for row in rows:
-        ws.append(row)
+        ws.append([_cell_value(value) for value in row])
     ws.freeze_panes = 'A2'
     ws.auto_filter.ref = ws.dimensions
     for col_idx, header in enumerate(headers, 1):
@@ -49,7 +67,7 @@ def build_analysis_xlsx(result) -> bytes:
         ['Площадки', ', '.join(p.value if hasattr(p, 'value') else str(p) for p in result.platforms)],
     ]
     for row in rows:
-        ws.append(row)
+        ws.append([_cell_value(value) for value in row])
     ws.column_dimensions['A'].width = 34
     ws.column_dimensions['B'].width = 60
     for c in ws['A']:
