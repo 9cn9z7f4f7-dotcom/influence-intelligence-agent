@@ -8,7 +8,7 @@ from __future__ import annotations
 
 from datetime import datetime, timezone
 from enum import Enum
-from typing import Any, Optional
+from typing import Any, Literal, Optional
 
 from pydantic import BaseModel, Field, field_validator
 
@@ -174,6 +174,11 @@ class SourceHealth(BaseModel):
     last_checked_at: Optional[datetime] = None
 
 
+EntityType = Literal[
+    "creator", "publisher", "affiliate_publisher", "editorial_publisher", "retailer", "brand_owned"
+]
+
+
 class PotentialCreatorSignal(BaseModel):
     """Раздел 2 доработки ("не выбрасывать creator, если бренд явно присутствует,
     но hard commercial signal отсутствует") - НЕ является Integration и никогда
@@ -183,6 +188,7 @@ class PotentialCreatorSignal(BaseModel):
 
     creator_id: Optional[str] = None
     creator_name: Optional[str] = None
+    entity_type: EntityType = "creator"
     platform: str
     source_url: Optional[str] = None
     observed_at: Optional[datetime] = None

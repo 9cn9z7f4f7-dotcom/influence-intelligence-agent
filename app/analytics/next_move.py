@@ -53,11 +53,28 @@ class NextMoveBuilder:
         used_creator_ids = {i.creator_id for i in comp_integrations}
 
         if not comp_integrations:
+            # Organic-affinity creator-like entities remain useful hunting
+            # candidates even when no confirmed integration exists. No numeric
+            # Strategy Match is fabricated in this case.
+            candidates = []
+            for creator in self.creators:
+                if creator.creator_id not in self.potential_creator_ids:
+                    continue
+                candidates.append({
+                    "candidate": creator.name, "creator_id": creator.creator_id,
+                    "platform": creator.platform, "topic": creator.topic_tags[0] if creator.topic_tags else None,
+                    "topics": creator.topic_tags, "followers_bucket": self.settings.bucket_for_value(creator.followers, self.settings.follower_buckets),
+                    "followers": creator.followers, "median_views": creator.median_views, "avg_views": creator.avg_views,
+                    "engagement_rate": creator.engagement_rate, "canonical_url": creator.canonical_url,
+                    "source_mode": creator.source_mode.value, "similarity_score": None, "match_label": "Недостаточно метрик",
+                    "why": [], "evidence_ids": [], "has_organic_brand_affinity": True,
+                    "not_used_by_brand": True,
+                    "note": "Уже органически упоминает бренд, но подтверждённых интеграций не найдено.",
+                })
             return {
-                "competitor": competitor.name,
-                "competitor_id": competitor.competitor_id,
-                "candidates": [],
-                "insufficient_data": ["no_integrations_observed_for_this_competitor"],
+                "competitor": competitor.name, "competitor_id": competitor.competitor_id,
+                "candidates": candidates[: self.top_n],
+                "insufficient_data": ["insufficient_confirmed_integrations"],
             }
 
         agg = aggregate_integrations(comp_integrations, self.creators_by_id, self.settings)
@@ -122,17 +139,20 @@ class NextMoveBuilder:
                 "creator_id": creator.creator_id,
                 "platform": creator.platform,
                 "topic": candidate_topic,
-                "topics": list(creator.topic_tags or []),
+                "topics": creator.topic_tags,
                 "followers_bucket": candidate_bucket,
                 "followers": creator.followers,
-                "avg_views": creator.avg_views,
                 "median_views": creator.median_views,
+                "avg_views": creator.avg_views,
                 "engagement_rate": creator.engagement_rate,
                 "canonical_url": creator.canonical_url,
+                "source_mode": creator.source_mode.value,
                 "similarity_score": similarity_score,
+                "match_label": ("Высокое соответствие" if similarity_score >= 70 else "Среднее соответствие"),
                 "why": why,
                 "evidence_ids": [profile_ev_id],
                 "has_organic_brand_affinity": has_organic_affinity,
+                "not_used_by_brand": True,
                 "note": (
                     "Уже органически упоминает бренд, но подтверждённых интеграций не найдено."
                     if has_organic_affinity else None

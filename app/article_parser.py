@@ -21,6 +21,8 @@ from datetime import datetime, timezone
 from typing import Optional
 from urllib.parse import urlparse
 
+from app.runtime_budget import budget_exhausted, clamp_timeout
+
 import httpx
 from bs4 import BeautifulSoup
 
@@ -120,7 +122,7 @@ class ArticleParser:
 
     def parse(self, url: str) -> ArticleParseResult:
         try:
-            resp = httpx.get(url, headers=DEFAULT_HEADERS, timeout=self.timeout, follow_redirects=True)
+            resp = httpx.get(url, headers=DEFAULT_HEADERS, timeout=clamp_timeout(self.timeout), follow_redirects=True)
             resp.raise_for_status()
             result = _parse_html(resp.text, url, fetch_mode="http")
         except httpx.HTTPStatusError as exc:
@@ -128,7 +130,7 @@ class ArticleParser:
         except Exception as exc:  # noqa: BLE001 - парсер не должен ронять discovery
             return ArticleParseResult(source_url=url, status="degraded", error=str(exc))
 
-        if self.enable_playwright_fallback and len(result.main_text) < JS_FALLBACK_MIN_TEXT_LEN:
+        if self.enable_playwright_fallback and len(result.main_text) < JS_FALLBACK_MIN_TEXT_LEN and not budget_exhausted(30):
             rendered_html = self._fetch_via_playwright(url)
             if rendered_html is not None:
                 rendered_result = _parse_html(rendered_html, url, fetch_mode="playwright")

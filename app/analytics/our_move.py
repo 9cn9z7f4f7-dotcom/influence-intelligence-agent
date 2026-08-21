@@ -34,6 +34,22 @@ class OurMoveBuilder:
         candidates.extend(self._from_dna_shifts(competitor_dna))
         candidates.extend(self._from_saturation_warning(market_map))
 
+        if len(candidates) < self.settings.our_move_min_items:
+            publishers = (market_map.get("publishers") or {}).get("publishers") or []
+            for pub in publishers[: self.settings.our_move_min_items - len(candidates)]:
+                candidates.append({
+                    "title": f"Проверить размещения: {pub.get('name') or pub.get('domain') or 'издание'}",
+                    "priority": "medium",
+                    "why_now": (
+                        f"В наблюдаемой выборке найдено {pub.get('placements', 0)} размещение(я) у этого издания. "
+                        "Стоит проверить формат и коммерческий сигнал вручную перед выводами о стратегии."
+                    ),
+                    "evidence": [],
+                    "suggested_test": "Открыть исходные материалы и проверить тип размещения и релевантность аудитории.",
+                    "creators": [],
+                    "confidence": 0.4,
+                })
+
         # Сортируем по confidence, но гарантируем минимум/максимум количество гипотез из конфига
         candidates.sort(key=lambda c: c["confidence"], reverse=True)
         min_items = self.settings.our_move_min_items
@@ -68,7 +84,8 @@ class OurMoveBuilder:
                 confidence = min(confidence, self.settings.low_confidence_threshold - 0.01)
             action = (
                 f"Занять сегмент «{seg['segment']['label']}»: {seg['available_creators']} релевантных креаторов, "
-                f"насыщенность конкурентами всего {seg['saturation_score']}/100, а our_relevance {seg['our_relevance']}/100."
+                f"в наблюдаемой выборке конкурентная насыщенность {seg['saturation_score']}/100, "
+                f"а релевантность профилю {seg['our_relevance']}/100."
             )
             cautious = (
                 f"Сегмент «{seg['segment']['label']}» выглядит перспективным (opportunity {seg['opportunity_score']}/100), "
@@ -76,16 +93,19 @@ class OurMoveBuilder:
             )
             unused = [c for c in seg["top_creators"] if not c["already_used_by_competitor"]]
             out.append({
-                "title": f"White Space: {seg['segment']['label']}",
+                "title": f"Проверить сегмент: {seg['segment']['label']}",
                 "priority": "high" if seg["opportunity_score"] >= 70 and not seg.get("insufficient_data") else "medium",
                 "why_now": _confidence_wording(confidence, self.settings.low_confidence_threshold, action, cautious),
                 "evidence": seg["evidence_ids"],
                 "suggested_test": (
-                    f"Пилотное размещение с {min(2, len(unused)) or 1} креатором(ами) из top_creators, "
+                    f"Пилотное размещение с {min(2, len(unused)) or 1} автором(ами) из списка сегмента, "
                     f"замерить CTR/конверсию оффера за 2 недели перед масштабированием."
                 ),
                 "creators": [c["name"] for c in unused[:3]] or [c["name"] for c in seg["top_creators"][:3]],
                 "confidence": confidence,
+                "related_type": "segment",
+                "related_id": seg["segment"].get("key"),
+                "related_label": seg["segment"]["label"],
             })
         return out
 
@@ -102,26 +122,41 @@ class OurMoveBuilder:
                 if self.our_profile.preferred_topics and topic and topic not in self.our_profile.preferred_topics:
                     continue
                 all_candidates.append((nm["competitor"], cand))
-        all_candidates.sort(key=lambda pair: pair[1]["similarity_score"], reverse=True)
+        all_candidates.sort(
+            key=lambda pair: (pair[1].get("similarity_score") is not None, pair[1].get("similarity_score") or 0, pair[1].get("has_organic_brand_affinity", False)),
+            reverse=True,
+        )
 
         for competitor_name, cand in all_candidates[:2]:
-            confidence = round(min(0.95, cand["similarity_score"] / 100), 2)
-            action = (
-                f"Опередить {competitor_name}: {cand['candidate']} максимально соответствует их наблюдаемому "
-                f"профилю закупки (Strategy Match {cand['similarity_score']}/100), но ещё не использован(а) ими."
-            )
-            cautious = (
-                f"{cand['candidate']} умеренно соответствует профилю {competitor_name} "
-                f"(Strategy Match {cand['similarity_score']}/100) - стоит исследовать перед контактом."
-            )
+            score = cand.get("similarity_score")
+            if score is None:
+                confidence = 0.45
+                action = (
+                    f"Проверить автора {cand['candidate']}: есть наблюдаемый органический интерес к бренду, "
+                    "но метрик пока недостаточно для числового Strategy Match."
+                )
+                cautious = action
+            else:
+                confidence = round(min(0.95, score / 100), 2)
+                action = (
+                    f"Опередить {competitor_name}: {cand['candidate']} максимально соответствует их наблюдаемому "
+                    f"профилю закупки (Strategy Match {score}/100), но ещё не использован(а) ими."
+                )
+                cautious = (
+                    f"{cand['candidate']} умеренно соответствует профилю {competitor_name} "
+                    f"(Strategy Match {score}/100) - стоит исследовать перед контактом."
+                )
             out.append({
-                "title": f"Next Move: {cand['candidate']} (до {competitor_name})",
-                "priority": "high" if cand["similarity_score"] >= 75 else "medium",
+                "title": f"Проверить автора: {cand['candidate']}",
+                "priority": "high" if (score is not None and score >= 75) else "medium",
                 "why_now": _confidence_wording(confidence, self.settings.low_confidence_threshold, action, cautious),
                 "evidence": cand["evidence_ids"],
                 "suggested_test": "Тестовое размещение до появления конкурента в этом сегменте, отследить отклик аудитории.",
                 "creators": [cand["candidate"]],
                 "confidence": confidence,
+                "related_type": "creator",
+                "related_id": cand.get("creator_id"),
+                "related_label": cand["candidate"],
             })
         return out
 
@@ -172,5 +207,8 @@ class OurMoveBuilder:
             "suggested_test": "Если всё же тестировать, использовать нестандартный оффер/механику, отличную от доминирующих в сегменте.",
             "creators": [],
             "confidence": confidence,
+            "related_type": "segment",
+            "related_id": seg.get("segment_key"),
+            "related_label": seg["label"],
         })
         return out

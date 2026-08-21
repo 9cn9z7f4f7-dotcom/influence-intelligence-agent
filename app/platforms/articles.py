@@ -12,6 +12,7 @@ YOUTUBE_API_KEY, Instagram/TikTok без auth) - НЕ имитирует най�
 from __future__ import annotations
 
 from typing import Optional
+from urllib.parse import urlparse
 
 from app.analysis.models import AnalysisConfig, ResolvedBrand
 from app.article_classifier import ArticleClassifier
@@ -28,10 +29,42 @@ from app.platforms.base import PlatformAdapter, PlatformDiscoveryResult
 from app.potential_creator import detect_brand_affinity_signals
 from app.query_generator import generate_article_queries
 from app.search_client import SearchClient, get_default_search_client
+from app.runtime_budget import budget_exhausted
 from config.settings import settings as default_settings
 
-MAX_CANDIDATE_URLS = 25
-MAX_URLS_PER_QUERY = 6
+MAX_CANDIDATE_URLS = 18
+MAX_URLS_PER_QUERY = 5
+MIN_ARTICLE_TEXT_LEN = 80
+
+_POSITIVE_PATH_MARKERS = ("article", "blog", "news", "review", "journal", "story", "case")
+_NEGATIVE_PATH_MARKERS = ("/product/", "/products/", "/shop/", "/cart", "/catalog", "/category/", "/buy/")
+_NON_ARTICLE_TEXT_MARKERS = ("add to cart", "buy now", "shopping bag", "select size", "choose size", "добавить в корзину", "купить сейчас")
+
+
+def _is_article_like(parsed: ArticleParseResult, search_evidence=None) -> bool:
+    """Small deterministic content gate: keep editorial/article pages, reject storefront pages."""
+    title = (parsed.title or getattr(search_evidence, "title", None) or "").strip()
+    text = (parsed.main_text or "").strip()
+    if not title:
+        return False
+    if len(text) < MIN_ARTICLE_TEXT_LEN and not (parsed.author or parsed.published_at):
+        return False
+
+    path = urlparse(parsed.canonical_url or parsed.source_url).path.lower()
+    positive_path = any(marker in path for marker in _POSITIVE_PATH_MARKERS)
+    negative_path = any(marker in path for marker in _NEGATIVE_PATH_MARKERS)
+    lowered = f"{title} {text[:2500]}".lower()
+    commerce_hits = sum(marker in lowered for marker in _NON_ARTICLE_TEXT_MARKERS)
+
+    # A clearly editorial URL can still discuss products; otherwise reject
+    # strong storefront structure before classification.
+    if negative_path and not positive_path:
+        return False
+    if commerce_hits >= 2 and not positive_path:
+        return False
+
+    # Long prose is sufficient even when the URL has no semantic marker.
+    return positive_path or len(text) >= 100 or bool(parsed.author) or bool(parsed.published_at)
 
 # Раздел 5/23: "просто упоминание бренда - НЕ реклама" - маппинг детальной
 # article_category (см. app/article_classifier.py) в "грубую" общепроектную
@@ -89,6 +122,9 @@ class ArticlesPlatformAdapter(PlatformAdapter):
         # т.к. tavily - PRIMARY.
         providers_used: set[str] = set()
         for query in queries:
+            if budget_exhausted(75):
+                queries_failed.append("time_budget")
+                break
             if len(candidate_urls) >= MAX_CANDIDATE_URLS:
                 break
             try:
@@ -113,19 +149,21 @@ class ArticlesPlatformAdapter(PlatformAdapter):
                 reason=(f"часть запросов не выполнена: {queries_failed}" if queries_failed
                         else "Поиск не вернул кандидатов"),
                 queries_run=queries_run, search_provider=search_provider,
+                candidate_count=0, accepted_count=0,
             )
 
         raw_items: list[dict] = []
         for url in candidate_urls[:MAX_CANDIDATE_URLS]:
+            if budget_exhausted(45):
+                queries_failed.append("time_budget")
+                break
             parsed = self.parser.parse(url)
             if parsed.status != "ok" or not parsed.main_text:
-                # Страница недоступна/пустая - раздел 4: "не придумывать содержимое".
-                # ArticleParser остаётся единственным source of truth для текста -
-                # если он не смог получить страницу, кандидат просто отбрасывается
-                # (даже если search-провайдер вернул snippet/content для него).
                 continue
-            classification = self.classifier.classify(parsed.title, parsed.main_text, brand_terms)
             search_evidence = search_results_by_url.get(url)
+            if not _is_article_like(parsed, search_evidence):
+                continue
+            classification = self.classifier.classify(parsed.title or getattr(search_evidence, "title", None), parsed.main_text, brand_terms)
             raw_items.append({"parsed": parsed, "classification": classification, "search_evidence": search_evidence})
 
         status = "ok" if raw_items else ("degraded" if queries_failed else "ok")
@@ -133,6 +171,7 @@ class ArticlesPlatformAdapter(PlatformAdapter):
             platform="articles", status=status, source_mode="live",
             reason=f"часть запросов не выполнена: {queries_failed}" if queries_failed else None,
             raw_items=raw_items, queries_run=queries_run, search_provider=search_provider,
+            candidate_count=len(candidate_urls), accepted_count=len(raw_items),
         )
 
     def detect_integration(self, raw_item: dict, brand_terms: list[str]) -> DetectorResult:
@@ -293,8 +332,7 @@ class ArticlesPlatformAdapter(PlatformAdapter):
             platform="articles", content_url=parsed.canonical_url or parsed.source_url,
             published_at=parsed.published_at, content_type="article",
             detected_offer=None, detected_cta=None, detected_mechanic=classification.category,
-            campaign_tags=[classification.category],
-            raw_text=f"{parsed.title or ''} || {parsed.main_text or ''}"[:2000],
+            campaign_tags=[classification.category], raw_text=(parsed.main_text or "")[:2000],
             evidence=[evidence_store.resolve(eid) for eid in evidence_ids if evidence_store.resolve(eid)],
             is_synthetic=False, source_mode=SourceMode.LIVE, confidence=classification.confidence,
             ingestion_source="articles_web_search", category=pipeline_category,

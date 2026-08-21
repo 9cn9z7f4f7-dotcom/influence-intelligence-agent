@@ -18,8 +18,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
 from app.analysis.models import AnalyzeRequest
-from app.analysis.pipeline import run_analysis
-from app.analysis.store import get_analysis, save_analysis
+from app.analysis.pipeline import run_analysis_with_evidence
+from app.analysis.store import get_analysis, get_analysis_evidence, save_analysis
 from app.connectors.models import (
     ConnectorHeartbeatRequest,
     ConnectorHeartbeatResponse,
@@ -133,10 +133,10 @@ def api_analyze(request: AnalyzeRequest) -> Any:
     """
     analysis_id = f"an_{uuid.uuid4().hex[:12]}"
     try:
-        result = run_analysis(request, analysis_id=analysis_id)
+        result, evidence = run_analysis_with_evidence(request, analysis_id=analysis_id)
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
-    save_analysis(result)
+    save_analysis(result, evidence=evidence)
     return {"analysis_id": analysis_id}
 
 
@@ -145,20 +145,17 @@ def api_get_analysis(analysis_id: str) -> Any:
     result = get_analysis(analysis_id)
     if result is None:
         raise HTTPException(status_code=404, detail="analysis_id не найден")
-    # Evidence is persisted inside AnalysisResult but resolved lazily through
-    # the analysis-scoped endpoint below, so the main payload stays compact.
-    return result.model_dump(exclude={"evidence"})
+    return result.model_dump()
 
 
 @app.get("/api/analysis/{analysis_id}/evidence/{evidence_id}")
 def api_get_analysis_evidence(analysis_id: str, evidence_id: str) -> Any:
-    result = get_analysis(analysis_id)
-    if result is None:
+    if get_analysis(analysis_id) is None:
         raise HTTPException(status_code=404, detail="analysis_id не найден")
-    evidence = result.evidence.get(evidence_id)
+    evidence = get_analysis_evidence(analysis_id, evidence_id)
     if evidence is None:
-        raise HTTPException(status_code=404, detail="evidence_id не найден в analysis")
-    return evidence.model_dump(mode="json")
+        raise HTTPException(status_code=404, detail="evidence_id не найден")
+    return evidence
 
 
 # ---------------------------------------------------------------------------

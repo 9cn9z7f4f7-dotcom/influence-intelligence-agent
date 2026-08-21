@@ -45,6 +45,10 @@ class PlatformDiscoveryResult:
     # только ArticlesPlatformAdapter - для остальных платформ остаётся None и
     # ни на что не влияет.
     search_provider: Optional[str] = None
+    # Optional source-specific funnel metadata. For Articles this separates
+    # web candidates from pages that passed the article-like content gate.
+    candidate_count: Optional[int] = None
+    accepted_count: Optional[int] = None
 
 
 class PlatformAdapter(ABC):

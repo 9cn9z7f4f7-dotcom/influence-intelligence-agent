@@ -31,6 +31,7 @@ from app.models import Creator, Integration, SourceMode
 from app.platforms.base import PlatformAdapter, PlatformDiscoveryResult
 from app.potential_creator import detect_brand_affinity_signals
 from config.settings import settings as default_settings
+from app.runtime_budget import remaining_seconds
 
 
 def _parse_dt(raw: Optional[str]) -> Optional[datetime]:
@@ -129,15 +130,17 @@ class SocialConnectorPlatformAdapter(PlatformAdapter):
         job_context_id = stable_id("job_ctx", brand.canonical_name, self.platform_name)
         job = self.registry.enqueue_job(
             analysis_id=job_context_id, platform=self.platform_name, brand=brand.canonical_name,
-            aliases=brand.aliases, settings={"date_range": config.date_range, "min_followers": config.min_followers},
+            aliases=brand.aliases, settings={"date_range": config.date_range, "min_followers": config.min_followers, "brand_source_url": brand.source_url, "brand_handle": brand.normalized_handle},
         )
-        submission = self.registry.wait_for_result(job.job_id, timeout_seconds=self.wait_seconds)
+        remaining = remaining_seconds()
+        wait_seconds = self.wait_seconds if remaining is None else max(0.5, min(self.wait_seconds, max(0.5, remaining - 20)))
+        submission = self.registry.wait_for_result(job.job_id, timeout_seconds=wait_seconds)
 
         if submission is None:
             return PlatformDiscoveryResult(
                 platform=self.platform_name, status="degraded", source_mode="live",
                 reason=(f"Local connector online, job {job.job_id} создан, но не вернул результат "
-                        f"в течение {self.wait_seconds:.0f}s этого запроса - повторите анализ, "
+                        f"в течение {wait_seconds:.0f}s этого запроса - повторите анализ, "
                         f"когда connector завершит job."),
                 import_hint=import_hint,
             )

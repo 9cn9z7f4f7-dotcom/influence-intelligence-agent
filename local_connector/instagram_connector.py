@@ -15,6 +15,7 @@ CAPTCHA, никогда не трогает приватные настройк�
 from __future__ import annotations
 
 import base64
+import re
 from pathlib import Path
 from typing import Optional
 
@@ -37,6 +38,23 @@ def handle_job(job: ConnectorJob, connector_id: str, connector_token: str, playw
         )
 
     try:
+        source_url = (job.settings or {}).get("brand_source_url")
+        brand_handle = ((job.settings or {}).get("brand_handle") or "").lstrip("@").lower()
+        post_links: list[str] = []
+
+        # Direct brand-account relationships have priority when the user supplied
+        # an Instagram profile URL. We only read publicly rendered posts/reels.
+        if source_url and "instagram.com" in source_url:
+            page.goto(source_url, timeout=NAV_TIMEOUT_MS)
+            page.wait_for_timeout(1500)
+            if detect_challenge("instagram", page):
+                return ConnectorResultsSubmission(
+                    connector_id=connector_id, connector_token=connector_token, job_id=job.job_id,
+                    status="manual_intervention_required", detail="Instagram запросил challenge/CAPTCHA", items=[],
+                )
+            direct_links = page.eval_on_selector_all('a[href*="/p/"], a[href*="/reel/"]', "els => els.map(e => e.href)") if page.query_selector('a[href*="/p/"], a[href*="/reel/"]') else []
+            post_links.extend(direct_links[:4])
+
         page.goto(f"https://www.instagram.com/explore/search/keyword/?q={job.brand}", timeout=NAV_TIMEOUT_MS)
 
         if detect_challenge("instagram", page):
@@ -49,13 +67,12 @@ def handle_job(job: ConnectorJob, connector_id: str, connector_token: str, playw
             )
 
         page.wait_for_timeout(2000)
-        post_links: list[str] = []
-        if page.query_selector('a[href*="/p/"]'):
-            post_links = page.eval_on_selector_all('a[href*="/p/"]', "els => els.map(e => e.href)")
+        if page.query_selector('a[href*="/p/"], a[href*="/reel/"]'):
+            post_links.extend(page.eval_on_selector_all('a[href*="/p/"], a[href*="/reel/"]', "els => els.map(e => e.href)"))
 
         items: list[ConnectorResultItem] = []
         for url in list(dict.fromkeys(post_links))[:MAX_POSTS_PER_JOB]:
-            item = _extract_post(page, url, job.brand, job.aliases)
+            item = _extract_post(page, url, job.brand, job.aliases, brand_handle=brand_handle)
             if item:
                 items.append(item)
 
@@ -73,7 +90,7 @@ def handle_job(job: ConnectorJob, connector_id: str, connector_token: str, playw
             browser.close()
 
 
-def _extract_post(page, url: str, brand: str, aliases: list[str]) -> Optional[ConnectorResultItem]:
+def _extract_post(page, url: str, brand: str, aliases: list[str], brand_handle: str = "") -> Optional[ConnectorResultItem]:
     try:
         post_page = page.context.new_page()
         post_page.goto(url, timeout=NAV_TIMEOUT_MS)
@@ -95,6 +112,17 @@ def _extract_post(page, url: str, brand: str, aliases: list[str]) -> Optional[Co
         brand_terms = [brand] + list(aliases or [])
         brand_mention = any(t.lower() in (caption or "").lower() for t in brand_terms if t)
         hashtags = [w for w in (caption or "").split() if w.startswith("#")]
+
+        # When reading a brand-owned post, do not return the brand itself as a
+        # creator. Prefer a real @tagged profile visible in the caption.
+        if brand_handle and username and username.lstrip("@").lower() == brand_handle:
+            tagged = [m for m in re.findall(r"@([A-Za-z0-9_.]+)", caption or "") if m.lower() != brand_handle]
+            if not tagged:
+                post_page.close()
+                return None
+            username = tagged[0]
+            profile_url = f"https://www.instagram.com/{username}/"
+            brand_mention = True
 
         screenshot_b64 = None
         try:

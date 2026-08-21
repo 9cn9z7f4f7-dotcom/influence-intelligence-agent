@@ -24,8 +24,9 @@ from app.ingestion.live_youtube import discover_videos
 from app.models import Creator
 from app.platforms.youtube import YouTubePlatformAdapter
 from app.query_generator import generate_discovery_queries
+from app.runtime_budget import budget_exhausted
 
-MAX_QUERIES_PER_UNIVERSE = 12
+MAX_QUERIES_PER_UNIVERSE = 2
 MAX_RESULTS_PER_QUERY = 10
 
 
@@ -73,6 +74,10 @@ def build_creator_universe(config: AnalysisConfig, observed_topics: Optional[lis
     max_creators = config.max_creators or 200
 
     for video in discovery.videos:
+        if budget_exhausted(20):
+            universe.status = "degraded"
+            universe.notes.append("Общий лимит анализа достигнут во время enrichment авторов")
+            break
         if len(creators) >= max_creators:
             break
         channel_id = (video.get("snippet") or {}).get("channelId")

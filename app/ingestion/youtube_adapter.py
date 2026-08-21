@@ -52,21 +52,32 @@ class YouTubeAdapter(BaseAdapter):
         return resp.json().get("items", [])
 
     def list_channel_recent_videos(self, channel_id: str, max_results: int = 5) -> list[dict]:
-        """Последние видео канала (order=date) - используется для честного расчёта
-        avg_views/median_views по НЕСКОЛЬКИМ видео, а не по одному (раздел 8 требований)."""
+        """Последние uploads канала без search.list.
+
+        Использует channels.list(contentDetails) + playlistItems.list, поэтому
+        не расходует узкую Search Queries/day квоту.
+        """
         if not self.is_available():
             raise RuntimeError("YOUTUBE_API_KEY не задан")
+        channel = self.get_channel_stats(channel_id)
+        uploads = (((channel or {}).get("contentDetails") or {}).get("relatedPlaylists") or {}).get("uploads")
+        if not uploads:
+            return []
         params = {
-            "part": "snippet",
-            "channelId": channel_id,
-            "type": "video",
-            "order": "date",
+            "part": "snippet,contentDetails",
+            "playlistId": uploads,
             "maxResults": max_results,
             "key": self.api_key,
         }
-        resp = httpx.get(f"{API_BASE}/search", params=params, timeout=self.timeout)
+        resp = httpx.get(f"{API_BASE}/playlistItems", params=params, timeout=self.timeout)
         resp.raise_for_status()
-        return resp.json().get("items", [])
+        items = []
+        for item in resp.json().get("items", []):
+            snippet = item.get("snippet", {}) or {}
+            video_id = ((item.get("contentDetails") or {}).get("videoId")
+                        or ((snippet.get("resourceId") or {}).get("videoId")))
+            items.append({"id": {"videoId": video_id} if video_id else {}, "snippet": snippet})
+        return items
 
     def resolve_channel_by_handle(self, handle: str) -> dict | None:
         """Резолвит @handle в РЕАЛЬНЫЙ channel item (title, id, statistics) через
@@ -85,7 +96,7 @@ class YouTubeAdapter(BaseAdapter):
     def get_channel_stats(self, channel_id: str) -> dict | None:
         if not self.is_available():
             raise RuntimeError("YOUTUBE_API_KEY не задан")
-        params = {"part": "snippet,statistics", "id": channel_id, "key": self.api_key}
+        params = {"part": "snippet,statistics,contentDetails", "id": channel_id, "key": self.api_key}
         resp = httpx.get(f"{API_BASE}/channels", params=params, timeout=self.timeout)
         resp.raise_for_status()
         items = resp.json().get("items", [])

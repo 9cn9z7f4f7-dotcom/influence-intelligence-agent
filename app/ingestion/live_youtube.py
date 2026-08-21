@@ -14,6 +14,7 @@ LIVE YouTube ingestion: превращает публичные видео в р
 from __future__ import annotations
 
 import re
+from contextvars import ContextVar
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 
@@ -25,10 +26,28 @@ from app.health import health_registry
 from app.ingestion.youtube_adapter import YouTubeAdapter, _parse_dt
 from app.models import Creator, Integration, SourceMode
 from config.settings import Settings, settings as default_settings
+from app.runtime_budget import budget_exhausted
 
 # ---------------------------------------------------------------------------
 # A. Competitor query builder
 # ---------------------------------------------------------------------------
+
+_search_budget: ContextVar[int | None] = ContextVar("youtube_search_budget", default=None)
+
+
+def reset_search_budget(limit: int | None = 5) -> None:
+    _search_budget.set(None if limit is None else max(0, limit))
+
+
+def _take_search_slot() -> bool:
+    remaining = _search_budget.get()
+    if remaining is None:
+        return True
+    if remaining <= 0:
+        return False
+    _search_budget.set(remaining - 1)
+    return True
+
 
 DEFAULT_BRAND_KEYWORDS = [
     "интеграция", "реклама", "промокод", "спонсор", "обзор",
@@ -94,10 +113,16 @@ def discover_videos(adapter: YouTubeAdapter, queries: list[str], max_results_per
 
     seen_video_ids: set[str] = set()
     for query in queries:
+        if budget_exhausted(35):
+            result.queries_failed.append("time_budget")
+            break
         if result.quota_exceeded:
             break
+        if not _take_search_slot():
+            result.queries_failed.append(query)
+            break
         try:
-            items = adapter._run_with_retries(adapter.search_videos, query, max_results_per_query)
+            items = adapter.search_videos(query, max_results_per_query)
             result.queries_run.append(query)
             for item in items:
                 video_id = (item.get("id") or {}).get("videoId")
@@ -288,7 +313,7 @@ def build_integration(competitor_id: str, creator: Creator, video_item: dict, vi
     title = snippet.get("title", "")
     description = snippet.get("description", "")
     published_at = _parse_dt(snippet.get("publishedAt"))
-    content_url = f"https://www.youtube.com/watch?v={video_id}" if video_id else None
+    content_url = video_item.get("_web_source_url") or (f"https://www.youtube.com/watch?v={video_id}" if video_id else None)
 
     evidence_ids = []
     for signal_name, sig in detector_result.signals.items():
@@ -335,7 +360,7 @@ def build_integration(competitor_id: str, creator: Creator, video_item: dict, vi
         is_synthetic=False,
         source_mode=SourceMode.LIVE,
         confidence=detector_result.confidence,
-        ingestion_source="youtube_api_v3",
+        ingestion_source="youtube_web_search" if video_item.get("_web_source_url") else "youtube_api_v3",
         category=detector_result.category,
     )
 

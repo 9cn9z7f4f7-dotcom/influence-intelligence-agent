@@ -299,6 +299,12 @@ def test_7b_platform_coverage_propagates_search_provider_from_pipeline():
 
     assert coverage.status == "ok"
     assert coverage.search_provider == "tavily"
+    assert coverage.items_checked == coverage.items_collected
+    assert coverage.confirmed_integrations == len(confirmed)
+    assert coverage.organic_mentions == len(organic)
+    assert coverage.potential_creators == sum(
+        1 for item in manual_review if item.get("status") == "potential_creator"
+    )
     # Пример из раздела 6 задания: {"articles": {"status": "live"/"ok", "items_found": N, "search_provider": "tavily"}}
     assert coverage.items_collected == len(confirmed) + len(organic) + len(manual_review) or coverage.items_collected >= 1
 

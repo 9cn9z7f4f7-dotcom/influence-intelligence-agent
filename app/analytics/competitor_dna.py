@@ -76,10 +76,18 @@ class CompetitorDnaBuilder:
         if not recent:
             insufficient_data.append("no_recent_window_data")
 
-        recent_shifts = self._detect_shifts(recent_agg, historical_agg, len(recent), len(historical))
-
-        candidate_patterns = self._build_candidate_patterns(competitor.name, overall_agg, comp_integrations)
-        observed_patterns = self._resolve_patterns_via_llm_or_fallback(competitor.name, candidate_patterns)
+        # Percentage-based strategy statements are unsafe on tiny samples.
+        # Only creator-like confirmed integrations can support a creator strategy.
+        creator_like_confirmed = [
+            i for i in comp_integrations if i.category == "confirmed" and i.platform != "articles"
+        ]
+        if len(creator_like_confirmed) < 3:
+            recent_shifts = []
+            observed_patterns = []
+        else:
+            recent_shifts = self._detect_shifts(recent_agg, historical_agg, len(recent), len(historical))
+            candidate_patterns = self._build_candidate_patterns(competitor.name, overall_agg, creator_like_confirmed)
+            observed_patterns = self._resolve_patterns_via_llm_or_fallback(competitor.name, candidate_patterns)
 
         return {
             "competitor": competitor.name,
@@ -88,6 +96,11 @@ class CompetitorDnaBuilder:
             "recent_shifts": recent_shifts,
             "insufficient_data": insufficient_data,
             "windows": {"recent_days": recent_days, "historical_days": historical_days},
+            "confirmed_creator_integrations": len(creator_like_confirmed),
+            "strategy_message": (
+                "Пока недостаточно подтверждённых размещений, чтобы выделить устойчивый паттерн."
+                if len(creator_like_confirmed) < 3 else None
+            ),
         }
 
     # ------------------------------------------------------------------

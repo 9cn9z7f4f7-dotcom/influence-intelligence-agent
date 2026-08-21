@@ -9,6 +9,7 @@ TikTok local connector - раздел 13, 16 требований, симмет�
 from __future__ import annotations
 
 import base64
+import re
 from pathlib import Path
 from typing import Optional
 
@@ -31,6 +32,20 @@ def handle_job(job: ConnectorJob, connector_id: str, connector_token: str, playw
         )
 
     try:
+        source_url = (job.settings or {}).get("brand_source_url")
+        brand_handle = ((job.settings or {}).get("brand_handle") or "").lstrip("@").lower()
+        video_links: list[str] = []
+        if source_url and "tiktok.com" in source_url:
+            page.goto(source_url, timeout=NAV_TIMEOUT_MS)
+            page.wait_for_timeout(1800)
+            if detect_challenge("tiktok", page):
+                return ConnectorResultsSubmission(
+                    connector_id=connector_id, connector_token=connector_token, job_id=job.job_id,
+                    status="manual_intervention_required", detail="TikTok запросил challenge/CAPTCHA", items=[],
+                )
+            direct_links = page.eval_on_selector_all('a[href*="/video/"]', "els => els.map(e => e.href)") if page.query_selector('a[href*="/video/"]') else []
+            video_links.extend(direct_links[:4])
+
         page.goto(f"https://www.tiktok.com/search?q={job.brand}", timeout=NAV_TIMEOUT_MS)
 
         if detect_challenge("tiktok", page):
@@ -43,13 +58,12 @@ def handle_job(job: ConnectorJob, connector_id: str, connector_token: str, playw
             )
 
         page.wait_for_timeout(2500)
-        video_links: list[str] = []
         if page.query_selector('a[href*="/video/"]'):
-            video_links = page.eval_on_selector_all('a[href*="/video/"]', "els => els.map(e => e.href)")
+            video_links.extend(page.eval_on_selector_all('a[href*="/video/"]', "els => els.map(e => e.href)"))
 
         items: list[ConnectorResultItem] = []
         for url in list(dict.fromkeys(video_links))[:MAX_VIDEOS_PER_JOB]:
-            item = _extract_video(page, url, job.brand, job.aliases)
+            item = _extract_video(page, url, job.brand, job.aliases, brand_handle=brand_handle)
             if item:
                 items.append(item)
 
@@ -67,7 +81,7 @@ def handle_job(job: ConnectorJob, connector_id: str, connector_token: str, playw
             browser.close()
 
 
-def _extract_video(page, url: str, brand: str, aliases: list[str]) -> Optional[ConnectorResultItem]:
+def _extract_video(page, url: str, brand: str, aliases: list[str], brand_handle: str = "") -> Optional[ConnectorResultItem]:
     try:
         video_page = page.context.new_page()
         video_page.goto(url, timeout=NAV_TIMEOUT_MS)
@@ -84,6 +98,15 @@ def _extract_video(page, url: str, brand: str, aliases: list[str]) -> Optional[C
         brand_terms = [brand] + list(aliases or [])
         brand_mention = any(t.lower() in (caption or "").lower() for t in brand_terms if t)
         hashtags = [w for w in (caption or "").split() if w.startswith("#")]
+
+        if brand_handle and username and username.lstrip("@").lower() == brand_handle:
+            tagged = [m for m in re.findall(r"@([A-Za-z0-9_.]+)", caption or "") if m.lower() != brand_handle]
+            if not tagged:
+                video_page.close()
+                return None
+            username = tagged[0]
+            profile_url = f"https://www.tiktok.com/@{username}"
+            brand_mention = True
 
         screenshot_b64 = None
         try:
