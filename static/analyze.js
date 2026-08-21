@@ -13,6 +13,7 @@
 
 const state = {
   result: null,
+  analysisId: null,
   findingsById: new Map(),
   nextMoveCandidates: new Map(),
   whiteSpaceCells: [],
@@ -289,6 +290,7 @@ document.getElementById("analyze-btn").addEventListener("click", async () => {
       throw new Error(detail.detail || `HTTP ${analyzeResp.status}`);
     }
     const { analysis_id } = await analyzeResp.json();
+    state.analysisId = analysis_id;
 
     const resultResp = await fetch(`/api/analysis/${analysis_id}`);
     if (!resultResp.ok) throw new Error(`HTTP ${resultResp.status}`);
@@ -306,6 +308,11 @@ document.getElementById("analyze-btn").addEventListener("click", async () => {
     resetHero();
     errorEl.textContent = "Не удалось выполнить анализ: " + err.message;
   }
+});
+
+document.getElementById("export-xlsx-btn")?.addEventListener("click", () => {
+  if (!state.analysisId) return;
+  window.location.href = `/api/analysis/${encodeURIComponent(state.analysisId)}/export.xlsx`;
 });
 
 document.getElementById("new-analysis-btn").addEventListener("click", () => {

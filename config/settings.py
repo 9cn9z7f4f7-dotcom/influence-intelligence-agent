@@ -168,7 +168,7 @@ class Settings:
             os.environ.get("CONNECTOR_OFFLINE_AFTER_SECONDS", "90")
         )
         self.connector_job_wait_seconds = float(
-            os.environ.get("CONNECTOR_JOB_WAIT_SECONDS", "120")
+            os.environ.get("CONNECTOR_JOB_WAIT_SECONDS", "270")
         )
 
     def bucket_for_value(self, value: float | None, buckets: list[dict]) -> str | None:

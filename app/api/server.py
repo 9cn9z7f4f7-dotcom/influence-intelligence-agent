@@ -16,10 +16,12 @@ from typing import Any
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
+from fastapi.responses import Response
 
 from app.analysis.models import AnalyzeRequest
 from app.analysis.pipeline import run_analysis_with_evidence
 from app.analysis.store import get_analysis, get_analysis_evidence, save_analysis
+from app.export_xlsx import build_analysis_xlsx
 from app.connectors.models import (
     ConnectorHeartbeatRequest,
     ConnectorHeartbeatResponse,
@@ -146,6 +148,17 @@ def api_get_analysis(analysis_id: str) -> Any:
     if result is None:
         raise HTTPException(status_code=404, detail="analysis_id не найден")
     return result.model_dump()
+
+
+@app.get("/api/analysis/{analysis_id}/export.xlsx")
+def api_export_analysis_xlsx(analysis_id: str) -> Response:
+    result = get_analysis(analysis_id)
+    if result is None:
+        raise HTTPException(status_code=404, detail="analysis_id не найден")
+    content = build_analysis_xlsx(result)
+    safe_brand = "".join(ch for ch in result.brand.canonical_name if ch.isalnum() or ch in ("-", "_")) or "analysis"
+    headers = {"Content-Disposition": f'attachment; filename="{safe_brand}-influence-analysis.xlsx"'}
+    return Response(content=content, media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", headers=headers)
 
 
 @app.get("/api/analysis/{analysis_id}/evidence/{evidence_id}")

@@ -88,7 +88,7 @@ def build_social_integration(
         ingestion_source=f"{platform}_local_connector", category=detector_result.category,
     )
 
-DEFAULT_CONNECTOR_WAIT_SECONDS = 120.0
+DEFAULT_CONNECTOR_WAIT_SECONDS = 270.0
 IMPORT_HINT_TEMPLATE = "manage.py import-integrations --file <csv|json> (platform={platform})"
 
 
@@ -161,15 +161,14 @@ class SocialConnectorPlatformAdapter(PlatformAdapter):
             },
         )
         remaining = remaining_seconds()
-        wait_seconds = self.wait_seconds if remaining is None else max(1.0, min(self.wait_seconds, max(1.0, remaining - 30)))
+        wait_seconds = self.wait_seconds if remaining is None else max(1.0, min(self.wait_seconds, max(1.0, remaining - 8)))
         submission = self.registry.wait_for_result(job.job_id, timeout_seconds=wait_seconds)
 
         if submission is None:
             return PlatformDiscoveryResult(
                 platform=self.platform_name, status="degraded", source_mode="live",
                 reason=(f"Local connector online, job {job.job_id} создан, но не вернул результат "
-                        f"в течение {wait_seconds:.0f}s этого запроса - повторите анализ, "
-                        f"когда connector завершит job."),
+                        f"в течение {wait_seconds:.0f}s этого запроса. Данные Instagram не были включены в этот результат."),
                 import_hint=import_hint,
             )
         if submission.status == "manual_intervention_required":

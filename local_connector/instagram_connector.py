@@ -130,8 +130,14 @@ def handle_job(job: ConnectorJob, connector_id: str, connector_token: str, playw
             if url not in dedup or priority.get(relation, 0) > priority.get(dedup[url], 0):
                 dedup[url] = relation
 
+        # Direct relationships are the most valuable for influencer hunting:
+        # tagged posts first, then brand-feed/collab posts, generic search last.
+        ordered_links = sorted(
+            dedup.items(),
+            key=lambda pair: (-priority.get(pair[1], 0), list(dedup).index(pair[0])),
+        )
         items: list[ConnectorResultItem] = []
-        for url, relation_hint in list(dedup.items())[:target]:
+        for url, relation_hint in ordered_links[:target]:
             item = _extract_post(page, url, job.brand, job.aliases, brand_handle=brand_handle, relation_hint=relation_hint)
             if item:
                 items.append(item)
