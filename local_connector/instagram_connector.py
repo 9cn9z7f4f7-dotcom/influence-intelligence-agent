@@ -110,6 +110,11 @@ def handle_job(job: ConnectorJob, connector_id: str, connector_token: str, playw
             status="error", detail=str(exc), items=[],
         )
     finally:
+        try:
+            if 'context' in locals() and context is not None:
+                context.storage_state(path=str(state_path))
+        except Exception:
+            pass
         if browser:
             browser.close()
 

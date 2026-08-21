@@ -30,11 +30,7 @@ from local_connector import config  # noqa: E402
 from local_connector.api_client import RenderApiClient  # noqa: E402
 
 
-def _load_or_register(client: RenderApiClient) -> tuple[str, str]:
-    if config.CREDENTIALS_PATH.exists():
-        data = json.loads(config.CREDENTIALS_PATH.read_text(encoding="utf-8"))
-        return data["connector_id"], data["connector_token"]
-
+def _register_new(client: RenderApiClient) -> tuple[str, str]:
     response = client.register(config.SUPPORTED_PLATFORMS)
     config.CREDENTIALS_PATH.write_text(
         json.dumps({"connector_id": response.connector_id, "connector_token": response.connector_token}, indent=2),
@@ -43,6 +39,18 @@ def _load_or_register(client: RenderApiClient) -> tuple[str, str]:
     print(f"Зарегистрирован новый connector_id={response.connector_id} (сохранён в {config.CREDENTIALS_PATH})")
     return response.connector_id, response.connector_token
 
+
+def _load_or_register(client: RenderApiClient) -> tuple[str, str]:
+    if config.CREDENTIALS_PATH.exists():
+        try:
+            data = json.loads(config.CREDENTIALS_PATH.read_text(encoding="utf-8"))
+            connector_id, connector_token = data["connector_id"], data["connector_token"]
+            if client.heartbeat(connector_id, connector_token):
+                return connector_id, connector_token
+            print("Сохранённая регистрация устарела после перезапуска Render; регистрирую connector заново.")
+        except Exception as exc:
+            print(f"[warn] не удалось использовать сохранённую регистрацию: {exc}")
+    return _register_new(client)
 
 def _dispatch(job, connector_id: str, connector_token: str, playwright):
     """Фиксированный dispatch - ТОЛЬКО instagram/tiktok (раздел 14: "job schema
@@ -74,7 +82,9 @@ def main() -> None:
         while True:
             now = time.time()
             if now - last_heartbeat >= config.HEARTBEAT_INTERVAL_SECONDS:
-                client.heartbeat(connector_id, connector_token)
+                if not client.heartbeat(connector_id, connector_token):
+                    print("[warn] Render больше не знает этот connector_id; перерегистрируюсь.")
+                    connector_id, connector_token = _register_new(client)
                 last_heartbeat = now
 
             try:

@@ -87,7 +87,7 @@ def build_social_integration(
         ingestion_source=f"{platform}_local_connector", category=detector_result.category,
     )
 
-DEFAULT_CONNECTOR_WAIT_SECONDS = 6.0
+DEFAULT_CONNECTOR_WAIT_SECONDS = 120.0
 IMPORT_HINT_TEMPLATE = "manage.py import-integrations --file <csv|json> (platform={platform})"
 
 
@@ -97,8 +97,11 @@ class SocialConnectorPlatformAdapter(PlatformAdapter):
     def __init__(self, connector_registry: ConnectorRegistry | None = None,
                  wait_seconds: float = DEFAULT_CONNECTOR_WAIT_SECONDS, settings=None) -> None:
         self.registry = connector_registry or default_connector_registry
-        self.wait_seconds = wait_seconds
         self.settings = settings or default_settings
+        self.wait_seconds = (
+            wait_seconds if wait_seconds != DEFAULT_CONNECTOR_WAIT_SECONDS
+            else self.settings.connector_job_wait_seconds
+        )
         self._domain_profile_cache: dict[tuple, BrandDomainProfile] = {}
 
     def _domain_profile(self, brand_terms: list[str]) -> BrandDomainProfile:
@@ -157,7 +160,7 @@ class SocialConnectorPlatformAdapter(PlatformAdapter):
             },
         )
         remaining = remaining_seconds()
-        wait_seconds = self.wait_seconds if remaining is None else max(0.5, min(self.wait_seconds, max(0.5, remaining - 20)))
+        wait_seconds = self.wait_seconds if remaining is None else max(1.0, min(self.wait_seconds, max(1.0, remaining - 30)))
         submission = self.registry.wait_for_result(job.job_id, timeout_seconds=wait_seconds)
 
         if submission is None:
